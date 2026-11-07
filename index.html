@@ -6,7 +6,8 @@
 <title>Rota TEA · Saúde suplementar</title>
 <meta name="description" content="Guia para famílias organizarem pedidos, respostas e próximos passos com o plano de saúde no tratamento de TEA. Modelos para preencher, checklist e ficha de acompanhamento.">
 <meta name="theme-color" content="#17324d">
-<link rel="icon" type="image/webp" href="img/ic-mapa.webp">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Rota TEA">
 <meta property="og:title" content="Rota TEA · Cartilha para famílias">
@@ -310,6 +311,8 @@ table.adm td{vertical-align:middle}
 @media(max-width:700px){.banner-img{height:200px}}
 .empty-img{width:190px;max-width:60%;height:auto;display:block;margin:0 auto 10px;border-radius:50%}
 
+.brand img{height:40px;width:auto;display:block;transition:transform .25s var(--ease)}.brand:hover img{transform:scale(1.03)}
+@media(max-width:420px){.brand img{height:34px}}
 footer{background:var(--navy);color:#c9d6e2;padding:34px 0;margin-top:40px;font-size:.88rem}
 footer b{color:#fff;font-family:var(--serif)}
 footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;margin-bottom:10px}
@@ -321,7 +324,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
 <body>
 <header class="top">
   <div class="top-in">
-    <a class="brand" href="#inicio"><b>ROTA TEA</b><span>Cartilha para famílias</span></a>
+    <a class="brand" href="#inicio" aria-label="Rota TEA · início"><img src="img/logo-light.webp" alt="Rota TEA · Saúde suplementar" width="118" height="40"></a>
     <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
@@ -647,6 +650,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
 
 <footer>
   <div class="wrap">
+    <img src="img/logo-light.webp" alt="Rota TEA" width="142" height="48" loading="lazy" style="display:block;margin-bottom:14px">
     <div class="slogan">Comece pelo pedido. Guarde o protocolo. Avance um passo de cada vez.</div>
     <p style="margin:0"><b>Rota TEA</b> · Informação para famílias · Saúde suplementar. Material educativo; não substitui orientação jurídica individual, avaliação clínica ou contato com a operadora e a ANS.</p>
   </div>
@@ -926,7 +930,7 @@ function pdfBase(kindLabel){
   const {jsPDF}=window.jspdf;const pdf=new jsPDF({unit:'mm',format:'a4'});
   const W=210,M=20;
   const header=()=>{pdf.setFillColor(23,50,77);pdf.rect(0,0,W,18,'F');pdf.setFillColor(232,115,90);pdf.rect(0,18,W,1.6,'F');
-    pdf.setTextColor(255,255,255);pdf.setFont('helvetica','bold');pdf.setFontSize(13);pdf.setCharSpace(0.6);pdf.text('ROTA TEA',M,11.5);pdf.setCharSpace(0);
+    if(window.__LOGO){try{pdf.addImage(window.__LOGO,'PNG',M,3.2,34.5,11.7)}catch(e){pdf.setTextColor(255,255,255);pdf.setFont('helvetica','bold');pdf.setFontSize(13);pdf.text('ROTA TEA',M,11.5)}}else{pdf.setTextColor(255,255,255);pdf.setFont('helvetica','bold');pdf.setFontSize(13);pdf.setCharSpace(0.6);pdf.text('ROTA TEA',M,11.5);pdf.setCharSpace(0);}
     pdf.setFont('helvetica','bold');pdf.setFontSize(7);pdf.setTextColor(233,185,73);pdf.text('CARTILHA PARA FAMÍLIAS  •  SAÚDE SUPLEMENTAR',W-M,11.5,{align:'right'})};
   header();
   pdf.setTextColor(19,120,107);pdf.setFont('helvetica','bold');pdf.setFontSize(8);pdf.text(kindLabel.toUpperCase(),M,30);
@@ -1427,6 +1431,7 @@ async function saveEdit(auto){
 
 /* ---------- início ---------- */
 renderModelos();renderAcct();route();
+fetch('img/logo-light.png').then(r=>r.blob()).then(b=>new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.readAsDataURL(b)})).then(d=>{window.__LOGO=d}).catch(()=>{});
 (async()=>{
   await Store.init();
   if(Store.logged())await loadUserData();
