@@ -749,6 +749,7 @@ function errMsg(e){const m=(e&&(e.message||e.error_description))||'';
 const PROFILE_FIELDS=[
   {k:'responsavel_nome',label:'Nome do responsável',ph:'Nome completo'},
   {k:'responsavel_contato',label:'Contato do responsável',ph:'E-mail e/ou telefone'},
+  {k:'whatsapp',label:'WhatsApp',ph:'(00) 00000-0000'},
   {k:'cidade',label:'Cidade',ph:'Ex.: Campinas'},
   {k:'beneficiario',label:'Nome do beneficiário',ph:'Nome de quem usa o plano'},
   {k:'carteirinha',label:'Número da carteirinha',ph:'Número do beneficiário'},
@@ -1112,6 +1113,8 @@ async function onAuthChanged(ev){
 }
 
 /* ---------- autenticação ---------- */
+function fmtPhone(d){d=(d||'').replace(/\D/g,'').slice(0,11);if(d.length<=2)return d?'('+d:'';if(d.length<=6)return '('+d.slice(0,2)+') '+d.slice(2);if(d.length<=10)return '('+d.slice(0,2)+') '+d.slice(2,6)+'-'+d.slice(6);return '('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7)}
+document.addEventListener('input',e=>{const el=e.target;if(el.matches&&(el.matches('[data-phone]')||el.name==='whatsapp')){const pos=el.value.length;el.value=fmtPhone(el.value)}});
 function renderAuth(){
   const body=$('#auth-body');
   if(!Store.ready){body.innerHTML='<div class="loading">Carregando…</div>';return}
@@ -1130,7 +1133,7 @@ function renderAuth(){
   const tab=AUTH_TAB;
   const intentMsg=Store.intent?'<div class="callout tip" style="margin-top:0"><b class="tag">ÁREA DA FAMÍLIA</b>Checklist, modelos e ficha de acompanhamento ficam disponíveis depois do cadastro gratuito. Assim seus documentos ficam guardados para continuar e revisar.</div>':'';
   let form='';
-  if(tab==='novo')form='<form id="auth-f" novalidate><label class="f"><span>Seu nome</span><input class="inp" name="nome" autocomplete="name"></label><label class="f"><span>E-mail</span><input class="inp" name="email" type="email" autocomplete="email"></label><label class="f"><span>Senha</span><input class="inp" name="senha" type="password" autocomplete="new-password"><small>Pelo menos 8 caracteres.</small></label><label class="toggle"><input type="checkbox" name="ok"><span>Concordo com o uso dos meus dados para guardar meus documentos nesta plataforma. Sei que a equipe responsável pelo projeto pode consultá-los para suporte e acompanhamento, com registro de cada acesso. Li as ressalvas: o material é educativo e não substitui orientação jurídica individual.</span></label><div class="err" id="auth-err"></div><button class="btn btn-coral" style="width:100%">Criar cadastro</button></form>';
+  if(tab==='novo')form='<form id="auth-f" novalidate><label class="f"><span>Seu nome</span><input class="inp" name="nome" autocomplete="name"></label><label class="f"><span>E-mail</span><input class="inp" name="email" type="email" autocomplete="email"></label><label class="f"><span>WhatsApp</span><input class="inp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(00) 00000-0000" data-phone><small>Com DDD. Usado apenas para contato sobre a plataforma.</small></label><label class="f"><span>Senha</span><input class="inp" name="senha" type="password" autocomplete="new-password"><small>Pelo menos 8 caracteres.</small></label><label class="toggle"><input type="checkbox" name="ok"><span>Concordo com o uso dos meus dados para guardar meus documentos nesta plataforma. Sei que a equipe responsável pelo projeto pode consultá-los para suporte e acompanhamento, com registro de cada acesso. Li as ressalvas: o material é educativo e não substitui orientação jurídica individual.</span></label><div class="err" id="auth-err"></div><button class="btn btn-coral" style="width:100%">Criar cadastro</button></form>';
   else if(tab==='entrar')form='<form id="auth-f" novalidate><label class="f"><span>E-mail</span><input class="inp" name="email" type="email" autocomplete="email"></label><label class="f"><span>Senha</span><input class="inp" name="senha" type="password" autocomplete="current-password"></label><div class="err" id="auth-err"></div><button class="btn btn-coral" style="width:100%">Entrar</button><p style="margin:14px 0 0;text-align:center"><a href="#entrar" data-tab="senha">Esqueci minha senha</a></p></form>';
   else form='<form id="auth-f" novalidate><p class="src" style="margin-top:0">Informe seu e-mail. Enviaremos um link para você criar uma nova senha.</p><label class="f"><span>E-mail</span><input class="inp" name="email" type="email" autocomplete="email"></label><div class="err" id="auth-err"></div><button class="btn btn-coral" style="width:100%">Enviar link</button><p style="margin:14px 0 0;text-align:center"><a href="#entrar" data-tab="entrar">Voltar para entrar</a></p></form>';
   body.innerHTML='<div class="auth"><div class="tabs"><button data-tab="novo" class="'+(tab==='novo'?'on':'')+'">Criar cadastro</button><button data-tab="entrar" class="'+(tab!=='novo'?'on':'')+'">Entrar</button></div><div class="bd">'+intentMsg+form+'</div></div>';
@@ -1142,9 +1145,11 @@ function renderAuth(){
     try{
       if(tab==='novo'){
         if(!(fd.nome||'').trim()){err.textContent='Informe seu nome.';return}
+        const wa=(fd.whatsapp||'').replace(/\D/g,'');
+        if(wa.length<10||wa.length>11){err.textContent='Informe o WhatsApp com DDD.';return}
         if((fd.senha||'').length<8){err.textContent='A senha precisa ter pelo menos 8 caracteres.';return}
         if(!fd.ok){err.textContent='Para criar o cadastro, marque a concordância.';return}
-        const {data,error}=await Store.sb.auth.signUp({email,password:fd.senha,options:{data:{nome:fd.nome.trim()},emailRedirectTo:location.origin+location.pathname}});
+        const {data,error}=await Store.sb.auth.signUp({email,password:fd.senha,options:{data:{nome:fd.nome.trim(),whatsapp:fmtPhone(wa)},emailRedirectTo:location.origin+location.pathname}});
         if(error){err.textContent=errMsg(error);return}
         if(data&&data.user&&Array.isArray(data.user.identities)&&data.user.identities.length===0){err.textContent='Já existe um cadastro com este e-mail. Use “Entrar”.';return}
         if(!data.session){body.innerHTML='<div class="auth"><div class="bd ok-box"><h2>Confirme seu e-mail</h2><p>Enviamos um link de confirmação para <b>'+esc(email)+'</b>. Abra o e-mail e clique no link para ativar sua Área da família.</p><p class="src">Não chegou? Confira a caixa de spam ou lixo eletrônico.</p><button class="btn btn-ghost" data-tab="entrar" id="go-login">Já confirmei, quero entrar</button></div></div>';$('#go-login').onclick=()=>{AUTH_TAB='entrar';renderAuth()}}
@@ -1285,15 +1290,15 @@ function admGeral(b){
 }
 function userTable(list){
   if(!list.length)return '<p class="src">Nenhum usuário encontrado.</p>';
-  return '<div style="overflow-x:auto"><table class="t adm"><thead><tr><th>Nome</th><th>E-mail</th><th>Cadastro</th><th>Último acesso</th><th>Situação</th><th>Docs</th><th style="width:1%">Ações</th></tr></thead><tbody>'+
-    list.map(u=>'<tr><td>'+esc(u.nome||'—')+(u.is_admin?' <span class="st st-enviado">Admin</span>':'')+'</td><td>'+esc(u.email)+'</td><td>'+fmtD(u.created_at)+'</td><td>'+fmtD(u.last_sign_in_at)+'</td><td>'+
+  return '<div style="overflow-x:auto"><table class="t adm"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Cadastro</th><th>Último acesso</th><th>Situação</th><th>Docs</th><th style="width:1%">Ações</th></tr></thead><tbody>'+
+    list.map(u=>'<tr><td>'+esc(u.nome||'—')+(u.is_admin?' <span class="st st-enviado">Admin</span>':'')+'</td><td>'+esc(u.email)+'</td><td>'+(u.whatsapp?'<a href="https://wa.me/55'+String(u.whatsapp).replace(/\D/g,'')+'" target="_blank" rel="noopener">'+esc(u.whatsapp)+'</a>':'—')+'</td><td>'+fmtD(u.created_at)+'</td><td>'+fmtD(u.last_sign_in_at)+'</td><td>'+
       (u.blocked?'<span class="st st-ficha">Bloqueado</span>':u.email_confirmed_at?'<span class="st st-respondido">Ativo</span>':'<span class="st st-pronto">Aguardando confirmação</span>')+'</td><td>'+u.docs+'</td><td><div style="display:flex;gap:6px">'+
       '<button class="btn btn-ghost btn-sm" data-udocs="'+u.id+'">Documentos</button>'+
       (u.id===Store.user.id?'':'<button class="btn btn-ghost btn-sm" data-ublock="'+u.id+'" data-v="'+(u.blocked?0:1)+'">'+(u.blocked?'Desbloquear':'Bloquear')+'</button><button class="btn btn-danger btn-sm" data-udel="'+u.id+'">Excluir</button>')+'</div></td></tr>').join('')+'</tbody></table></div>';
 }
 function admUsers(b){
   b.innerHTML='<div class="toolbar"><input class="inp" id="uq" placeholder="Buscar por nome ou e-mail" value="'+esc(ADM.q)+'"><button class="btn btn-coral btn-sm" id="uadd" style="margin-left:auto">+ Adicionar usuário</button></div><div id="ul"></div>';
-  const draw=()=>{const q=ADM.q.trim().toLowerCase();$('#ul').innerHTML=userTable(ADM.users.filter(u=>!q||(u.email||'').toLowerCase().includes(q)||(u.nome||'').toLowerCase().includes(q)))};
+  const draw=()=>{const q=ADM.q.trim().toLowerCase();$('#ul').innerHTML=userTable(ADM.users.filter(u=>!q||(u.email||'').toLowerCase().includes(q)||(u.nome||'').toLowerCase().includes(q)||(u.whatsapp||'').replace(/\D/g,'').includes(q.replace(/\D/g,'')||'§')))};
   draw();$('#uq').addEventListener('input',e=>{ADM.q=e.target.value;draw()});
   $('#uadd').onclick=()=>modal('<h3>Adicionar usuário</h3><p class="src">A pessoa recebe um e-mail de convite para criar a própria senha e acessar a Área da família.</p><label class="f"><span>Nome</span><input class="inp" id="inv-n"></label><label class="f"><span>E-mail</span><input class="inp" id="inv-e" type="email"></label><div class="err" id="inv-err"></div><div class="row"><button class="btn btn-ghost" data-x>Cancelar</button><button class="btn btn-coral" data-y>Enviar convite</button></div>',
     bx=>{bx.querySelector('[data-x]').onclick=closeModal;bx.querySelector('[data-y]').onclick=async e=>{const em=$('#inv-e').value.trim(),nm=$('#inv-n').value.trim();if(!/^\S+@\S+\.\S+$/.test(em)){$('#inv-err').textContent='Informe um e-mail válido.';return}
