@@ -316,6 +316,14 @@ table.adm td{vertical-align:middle}
 .atabs .atab-out{margin-left:auto;color:#f4b4a5}
 .atabs .atab-out:hover{color:#fff;background:rgba(232,115,90,.18)}
 .acct .btn{white-space:nowrap}
+.sender{display:flex;gap:12px;align-items:center;background:var(--teal-l);border:1px solid #bfdcd4;border-radius:12px;padding:14px 16px;margin-bottom:18px;font-size:.92rem}
+.sender b{color:var(--navy)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.msg{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:12px}
+.msg.nova{border-left:5px solid var(--coral)}
+.msg .msg-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.msg .body{white-space:pre-wrap;background:#fbfaf6;border-radius:10px;padding:12px 14px;margin:10px 0;font-size:.94rem}
+.badge{display:inline-block;min-width:20px;padding:1px 7px;border-radius:99px;background:var(--coral);color:#fff;font-size:.72rem;font-weight:700;margin-left:6px;text-align:center}
 footer{background:var(--navy);color:#c9d6e2;padding:34px 0;margin-top:40px;font-size:.88rem}
 footer b{color:#fff;font-family:var(--serif)}
 footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;margin-bottom:10px}
@@ -336,6 +344,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
       <a href="#mapa" data-v="mapa">Mapa da Rota</a>
       <a href="#base" data-v="base">Base jurídica</a>
       <a href="#fontes" data-v="fontes">Fontes</a>
+      <a href="#contato" data-v="contato">Fale conosco</a>
       <div class="acct" id="acct"></div>
     </nav>
   </div>
@@ -639,6 +648,11 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
 </section>
 
 <!-- ENTRAR -->
+<section class="view" id="v-contato">
+  <div class="page-head"><div class="wrap"><div class="kicker">Fale com a equipe</div><h1>Fale conosco</h1><p>Envie sua dúvida, sugestão ou problema pelo formulário. A equipe do Rota TEA responde pelo e-mail ou WhatsApp informado.</p></div></div>
+  <div class="wrap narrow section" id="contato-body"></div>
+</section>
+
 <section class="view priv" id="v-admin">
   <div class="area-top"></div>
   <div class="wrap section" id="admin-body"></div>
@@ -655,6 +669,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
   <div class="wrap">
     <img src="img/logo-light.webp" alt="Rota TEA" width="142" height="48" loading="lazy" style="display:block;margin-bottom:14px">
     <div class="slogan">Comece pelo pedido. Guarde o protocolo. Avance um passo de cada vez.</div>
+    <p style="margin:0 0 10px"><a href="#contato" style="color:#fff;font-weight:600">Fale conosco</a> · <a href="#fontes" style="color:#c9d6e2">Fontes e ressalvas</a></p>
     <p style="margin:0"><b>Rota TEA</b> · Informação para famílias · Saúde suplementar. Material educativo; não substitui orientação jurídica individual, avaliação clínica ou contato com a operadora e a ANS.</p>
   </div>
 </footer>
@@ -1036,7 +1051,7 @@ function renderModelos(){
 
 /* ---------- conta / navegação ---------- */
 const PRIVATE=['painel','documentos','modelos','checklist','cadastro','editor','admin'];
-const VIEWS=['inicio','guia','mapa','base','fontes','entrar'].concat(PRIVATE);
+const VIEWS=['inicio','guia','mapa','base','fontes','contato','entrar'].concat(PRIVATE);
 const AREA={
   painel:['Área da família','Olá{NOME}','Acompanhe seus documentos, o checklist e o próximo passo.'],
   documentos:['Área da família','Meus documentos','Tudo o que você preencheu fica guardado aqui para continuar, revisar e baixar.'],
@@ -1075,6 +1090,7 @@ function route(){
   if(v==='documentos')renderDocs();
   if(v==='cadastro')renderProfile();
   if(v==='entrar')renderAuth();
+  if(v==='contato')renderContato();
   if(v==='checklist')renderChecklist();
   if(v==='editor')renderEditor();
   window.scrollTo(0,0);
@@ -1109,7 +1125,7 @@ async function onAuthChanged(ev){
     if(it&&it.newType){openEditor(newDoc(it.newType),true);return}
     if(it&&it.view){go(it.view);return}
     const v=(location.hash||'').slice(1);
-    if(!PRIVATE.includes(v))go('painel');else route();
+    if(v==='contato')route();else if(!PRIVATE.includes(v))go('painel');else route();
   }else{
     PROFILE={};CK={};EDIT=null;Store.isAdmin=false;renderAcct();
     const v=(location.hash||'').slice(1);if(PRIVATE.includes(v))go('inicio');
@@ -1170,6 +1186,42 @@ function renderAuth(){
   };
 }
 async function logout(){try{if(EDIT&&typeof edDirty!=='undefined'&&edDirty)await saveEdit(true)}catch(e){}try{await Store.sb.auth.signOut()}catch(e){}Store.user=null;Store.isAdmin=false;PROFILE={};CK={};EDIT=null;renderAcct();go('inicio');toast('Você saiu da sua conta.')}
+
+
+/* ---------- fale conosco ---------- */
+const ASSUNTOS=['Dúvida sobre como usar a plataforma','Problema com cadastro ou acesso','Dúvida sobre os modelos e documentos','Sugestão de melhoria','Correção de informação no conteúdo','Parcerias, imprensa ou eventos','Outro assunto'];
+function renderContato(){
+  const b=$('#contato-body');
+  if(!Store.ready){b.innerHTML='<div class="loading">Carregando…</div>';return}
+  const logged=Store.logged();
+  const nome=logged?(PROFILE.responsavel_nome||Store.user.nome||''):'';
+  const wa=logged?(PROFILE.whatsapp||''):'';
+  b.innerHTML='<div class="card"><form id="ct-f" novalidate>'+
+    (logged?'<div class="sender"><span style="font-size:1.4rem">👤</span><div>Enviando como <b>'+esc(nome||Store.user.email)+'</b><br><span class="src">'+esc(Store.user.email)+(wa?' · '+esc(wa):'')+' · <a href="#cadastro">alterar dados</a></span></div></div>'+
+      (wa?'':'<label class="f"><span>WhatsApp para retorno</span><input class="inp" name="whatsapp" type="tel" inputmode="tel" placeholder="(00) 00000-0000" data-phone><small>Opcional. Se preferir, respondemos só por e-mail.</small></label>')
+    :'<div class="fgrid"><label class="f full"><span>Seu nome</span><input class="inp" name="nome" autocomplete="name"></label><label class="f"><span>E-mail</span><input class="inp" name="email" type="email" autocomplete="email"></label><label class="f"><span>WhatsApp</span><input class="inp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(00) 00000-0000" data-phone></label></div>')+
+    '<label class="f"><span>Assunto</span><select class="inp" name="assunto"><option value="">Escolha um assunto</option>'+ASSUNTOS.map(a=>'<option>'+esc(a)+'</option>').join('')+'</select></label>'+
+    '<label class="f"><span>Mensagem</span><textarea class="inp" name="mensagem" style="min-height:150px" maxlength="4000" placeholder="Conte como podemos ajudar."></textarea><small>Não inclua diagnóstico, laudos ou outros dados de saúde. A equipe não presta orientação jurídica individual por este canal.</small></label>'+
+    '<input class="hp" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">'+
+    (logged?'':'<label class="toggle"><input type="checkbox" name="ok"><span>Concordo que a equipe do Rota TEA use estes dados apenas para responder à minha mensagem.</span></label>')+
+    '<div class="err" id="ct-err"></div><button class="btn btn-coral">Enviar mensagem</button></form></div>'+
+    (logged?'':'<p class="src" style="margin-top:14px">Já tem cadastro? <a href="#entrar" data-tab="entrar">Entre na sua conta</a> e seus dados entram automaticamente.</p>');
+  $('#ct-f').onsubmit=async e=>{e.preventDefault();const fd=Object.fromEntries(new FormData(e.target));const err=$('#ct-err');err.textContent='';
+    if(fd.site)return;
+    const row={assunto:(fd.assunto||'').trim(),mensagem:(fd.mensagem||'').trim()};
+    if(logged){row.user_id=Store.user.id;row.nome=nome||Store.user.email;row.email=Store.user.email;row.whatsapp=wa||fmtPhone(fd.whatsapp||'')}
+    else{row.nome=(fd.nome||'').trim();row.email=(fd.email||'').trim().toLowerCase();row.whatsapp=fmtPhone(fd.whatsapp||'');
+      if(row.nome.length<2){err.textContent='Informe seu nome.';return}
+      if(!/^\S+@\S+\.\S+$/.test(row.email)){err.textContent='Informe um e-mail válido.';return}
+      const d=(fd.whatsapp||'').replace(/\D/g,'');if(d.length<10||d.length>11){err.textContent='Informe o WhatsApp com DDD.';return}
+      if(!fd.ok){err.textContent='Marque a concordância para enviar.';return}}
+    if(!row.assunto){err.textContent='Escolha um assunto.';return}
+    if(row.mensagem.length<5){err.textContent='Escreva sua mensagem.';return}
+    const btn=e.target.querySelector('button');btn.disabled=true;btn.textContent='Enviando…';
+    try{const {error}=await Store.sb.from('contact_messages').insert(row);if(error)throw error;
+      b.innerHTML='<div class="card ok-box"><img class="empty-img" src="img/area-familia.webp" alt=""><h2>Mensagem enviada!</h2><p>Obrigado por escrever. A equipe do Rota TEA vai responder pelo e-mail <b>'+esc(row.email)+'</b>'+(row.whatsapp?' ou pelo WhatsApp <b>'+esc(row.whatsapp)+'</b>':'')+'.</p><a class="btn btn-ghost" href="#inicio">Voltar ao início</a></div>'}
+    catch(ex){err.textContent=errMsg(ex);btn.disabled=false;btn.textContent='Enviar mensagem'}};
+}
 
 /* ---------- cadastro ---------- */
 function renderProfile(){
@@ -1249,7 +1301,7 @@ async function docActions(e){
 $('#docs-body').addEventListener('click',docActions);
 
 /* ---------- administração ---------- */
-let ADM={tab:'geral',users:[],docs:[],admins:[],log:[],profiles:{},q:'',dtype:'todos',dstatus:'todos'};
+let ADM={newMsgs:0,msgs:[],mfilter:'nova',tab:'geral',users:[],docs:[],admins:[],log:[],profiles:{},q:'',dtype:'todos',dstatus:'todos'};
 const AdminAPI={
   async check(){try{const {data,error}=await Store.sb.rpc('is_admin');return !error&&data===true}catch(e){return false}},
   async users(){const {data,error}=await Store.sb.rpc('admin_list_users');if(error)throw error;return data||[]},
@@ -1259,6 +1311,10 @@ const AdminAPI={
   async block(id,b){const {error}=await Store.sb.rpc('admin_set_blocked',{target:id,blocked:b});if(error)throw error},
   async del(id){const {error}=await Store.sb.rpc('admin_delete_user',{target:id});if(error)throw error},
   async setAdmin(email,on){const {error}=await Store.sb.rpc('admin_set_admin',{target_email:email,make_admin:on});if(error)throw error},
+  async msgs(){const {data,error}=await Store.sb.from('contact_messages').select('*').order('created_at',{ascending:false}).limit(500);if(error)throw error;return data||[]},
+  async newCount(){const {count,error}=await Store.sb.from('contact_messages').select('id',{count:'exact',head:true}).eq('status','nova');return error?0:(count||0)},
+  async updMsg(id,patch){patch.updated_at=new Date().toISOString();const {error}=await Store.sb.from('contact_messages').update(patch).eq('id',id);if(error)throw error},
+  async delMsg(id){const {error}=await Store.sb.from('contact_messages').delete().eq('id',id);if(error)throw error},
   async logView(doc){try{await Store.sb.from('admin_log').insert({action:'visualizou documento',target_user:doc.user_id,target_doc:doc.id,target_email:(userById(doc.user_id)||{}).email||null,detail:doc.title||''})}catch(e){}},
   async invite(email,nome){
     const {data:s}=await Store.sb.auth.getSession();const tk=s.session&&s.session.access_token;
@@ -1269,25 +1325,47 @@ function userById(id){return ADM.users.find(u=>u.id===id)}
 function admErr(e){const m=(e&&e.message)||'';if(/acesso negado/i.test(m))return 'Sua conta não tem acesso de administrador.';if(/propria/i.test(m))return 'Essa ação não pode ser feita na sua própria conta.';if(/already been registered|already registered/i.test(m))return 'Já existe cadastro com esse e-mail.';if(/rate limit/i.test(m))return 'Limite de envio de e-mails atingido. Tente mais tarde.';return errMsg(e)}
 const fmtD=s=>s?new Date(s).toLocaleDateString('pt-BR'):'—';
 async function renderAdmin(){
+  $('#admin-body').innerHTML='<div class="loading">Carregando…</div>';
   const top=$('#v-admin .area-top');
-  const tabs=[['geral','Visão geral'],['usuarios','Usuários'],['documentos','Documentos'],['admins','Administradores'],['registro','Registro de acessos']];
+  ADM.newMsgs=await AdminAPI.newCount();
+  const tabs=[['geral','Visão geral'],['mensagens','Mensagens'+(ADM.newMsgs?'<span class="badge">'+ADM.newMsgs+'</span>':'')],['usuarios','Usuários'],['documentos','Documentos'],['admins','Administradores'],['registro','Registro de acessos']];
   top.innerHTML='<div class="wrap"><div class="kicker">Administração da plataforma</div><h1>Painel administrador</h1><p>Gerencie quem usa a plataforma e acompanhe os documentos emitidos. Cada visualização de documento fica registrada.</p><nav class="atabs">'+tabs.map(([k,l])=>'<a href="#admin" data-atab="'+k+'" class="'+(ADM.tab===k?'on':'')+'">'+l+'</a>').join('')+'<a href="#inicio" data-logout class="atab-out">Sair ↗</a></nav></div>';
   const b=$('#admin-body');b.innerHTML='<div class="loading">Carregando…</div>';
   try{
     if(ADM.tab==='geral'||ADM.tab==='usuarios'||ADM.tab==='documentos'){[ADM.users,ADM.docs]=await Promise.all([AdminAPI.users(),AdminAPI.docs()])}
     if(ADM.tab==='admins'){[ADM.admins,ADM.users]=await Promise.all([AdminAPI.admins(),AdminAPI.users()])}
     if(ADM.tab==='registro')ADM.log=await AdminAPI.log();
+    if(ADM.tab==='mensagens')ADM.msgs=await AdminAPI.msgs();
   }catch(e){b.innerHTML='<div class="empty"><h3>Não foi possível carregar</h3><p class="src">'+esc(admErr(e))+'</p></div>';return}
-  ({geral:admGeral,usuarios:admUsers,documentos:admDocs,admins:admAdmins,registro:admLog})[ADM.tab](b);
+  ({mensagens:admMsgs,geral:admGeral,usuarios:admUsers,documentos:admDocs,admins:admAdmins,registro:admLog})[ADM.tab](b);
 }
+
+const MSG_ST={nova:'Nova',respondida:'Respondida',arquivada:'Arquivada'};
+function admMsgs(b){
+  const chips=[['nova','Novas'],['respondida','Respondidas'],['arquivada','Arquivadas'],['todas','Todas']];
+  const list=ADM.msgs.filter(m=>ADM.mfilter==='todas'||m.status===ADM.mfilter);
+  b.innerHTML='<div class="toolbar"><div class="chips">'+chips.map(([k,l])=>'<button class="chip'+(ADM.mfilter===k?' on':'')+'" data-mf="'+k+'">'+l+' ('+(k==='todas'?ADM.msgs.length:ADM.msgs.filter(m=>m.status===k).length)+')</button>').join('')+'</div></div>'+
+    (list.length?list.map(m=>{const wa=(m.whatsapp||'').replace(/\D/g,'');const subj=encodeURIComponent('Re: '+m.assunto+' · Rota TEA');
+      return '<div class="msg '+m.status+'"><div class="msg-top"><div><b style="color:var(--navy)">'+esc(m.assunto)+'</b> '+(m.user_id?'<span class="st st-respondido">Cadastrado</span>':'<span class="st st-rascunho">Sem cadastro</span>')+'</div><span class="src">'+fmtStamp(Date.parse(m.created_at))+'</span></div>'+
+      '<div class="src" style="margin-top:4px"><b>'+esc(m.nome)+'</b> · <a href="mailto:'+esc(m.email)+'?subject='+subj+'">'+esc(m.email)+'</a>'+(wa?' · <a href="https://wa.me/55'+wa+'" target="_blank" rel="noopener">'+esc(m.whatsapp)+'</a>':'')+'</div>'+
+      '<div class="body">'+esc(m.mensagem)+'</div>'+
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><a class="btn btn-teal btn-sm" href="mailto:'+esc(m.email)+'?subject='+subj+'">Responder por e-mail</a>'+(wa?'<a class="btn btn-ghost btn-sm" href="https://wa.me/55'+wa+'" target="_blank" rel="noopener">Responder no WhatsApp</a>':'')+
+      '<select class="ed-status" data-mst="'+m.id+'">'+Object.keys(MSG_ST).map(k=>'<option value="'+k+'"'+(m.status===k?' selected':'')+'>'+MSG_ST[k]+'</option>').join('')+'</select>'+
+      '<button class="btn btn-danger btn-sm" data-mdel="'+m.id+'">Excluir</button></div>'+
+      '<label class="f" style="margin:12px 0 0"><span>Anotações internas</span><textarea class="inp" style="min-height:60px" data-mnote="'+m.id+'" placeholder="Ex.: respondido por WhatsApp em 07/11">'+esc(m.notas||'')+'</textarea></label></div>'}).join('')
+    :'<div class="empty"><h3>Nenhuma mensagem aqui</h3><p class="src">As mensagens enviadas pelo formulário Fale conosco aparecem nesta aba.</p></div>');
+}
+document.addEventListener('change',async e=>{const s=e.target.closest('[data-mst]');if(!s)return;try{await AdminAPI.updMsg(s.dataset.mst,{status:s.value});const m=ADM.msgs.find(x=>x.id===s.dataset.mst);if(m)m.status=s.value;toast('Situação atualizada.');renderAdmin()}catch(err){toast(admErr(err))}});
+let noteT={};document.addEventListener('input',e=>{const t=e.target.closest('[data-mnote]');if(!t)return;const id=t.dataset.mnote;clearTimeout(noteT[id]);noteT[id]=setTimeout(async()=>{try{await AdminAPI.updMsg(id,{notas:t.value});const m=ADM.msgs.find(x=>x.id===id);if(m)m.notas=t.value;toast('Anotação salva.')}catch(err){toast(admErr(err))}},1200)});
+
 function admGeral(b){
   const U=ADM.users,D=ADM.docs,now=Date.now(),wk=7*864e5;
   const novos=U.filter(u=>now-Date.parse(u.created_at)<wk).length;
   const ativos=U.filter(u=>u.last_sign_in_at&&now-Date.parse(u.last_sign_in_at)<30*864e5).length;
   const byType=Object.keys(TYPES).map(k=>[TYPES[k].name,D.filter(d=>d.type===k).length]);
   const byStatus=Object.keys(STATUS).map(k=>[STATUS[k],D.filter(d=>d.type!=='ficha'&&(d.status||'rascunho')===k).length]);
-  b.innerHTML='<div class="stats" style="grid-template-columns:repeat(4,1fr)">'+
-    [['Usuários',U.length,'cadastrados'],['Novos',novos,'nos últimos 7 dias'],['Ativos',ativos,'entraram nos últimos 30 dias'],['Documentos',D.length,'criados no total']].map(x=>'<div class="stat"><div class="lbl">'+x[0]+'</div><div class="big">'+x[1]+'</div><div class="src">'+x[2]+'</div></div>').join('')+'</div>'+
+  b.innerHTML='<div class="stats" style="grid-template-columns:repeat(5,1fr)">'+
+    [['Mensagens novas',ADM.newMsgs,'no Fale conosco'],['Usuários',U.length,'cadastrados'],['Novos',novos,'nos últimos 7 dias'],['Ativos',ativos,'entraram nos últimos 30 dias'],['Documentos',D.length,'criados no total']].map(x=>'<div class="stat"><div class="lbl">'+x[0]+'</div><div class="big">'+x[1]+'</div><div class="src">'+x[2]+'</div></div>').join('')+'</div>'+
     '<div class="grid g2"><div class="card"><h3>Documentos por tipo</h3><table class="t">'+byType.map(r=>'<tr><td>'+esc(r[0])+'</td><td style="text-align:right;font-weight:700">'+r[1]+'</td></tr>').join('')+'</table></div>'+
     '<div class="card"><h3>Situação dos documentos</h3><table class="t">'+byStatus.map(r=>'<tr><td>'+esc(r[0])+'</td><td style="text-align:right;font-weight:700">'+r[1]+'</td></tr>').join('')+'</table><p class="src" style="margin:10px 0 0">Fichas de acompanhamento não entram nesta contagem.</p></div></div>'+
     '<div class="sec-title">Últimos cadastros</div>'+userTable(U.slice(0,5));
@@ -1351,6 +1429,8 @@ $('#admin-body').addEventListener('click',async e=>{
   if(el=g('udel')){const u=userById(el.dataset.udel);
     modal('<h3>Excluir '+esc(u.email)+'?</h3><p>O cadastro, o checklist e os '+u.docs+' documento(s) dessa pessoa serão apagados definitivamente.</p><label class="f"><span>Para confirmar, digite EXCLUIR</span><input class="inp" id="del-c2"></label><div class="row"><button class="btn btn-ghost" data-x>Cancelar</button><button class="btn btn-coral" data-y>Excluir definitivamente</button></div>',
       bx=>{bx.querySelector('[data-x]').onclick=closeModal;bx.querySelector('[data-y]').onclick=async()=>{if($('#del-c2').value.trim().toUpperCase()!=='EXCLUIR'){toast('Digite EXCLUIR para confirmar.');return}closeModal();try{await AdminAPI.del(u.id);toast('Usuário excluído.');renderAdmin()}catch(err){toast(admErr(err))}}});return}
+  if(el=g('mf')){ADM.mfilter=el.dataset.mf;admMsgs($('#admin-body'));return}
+  if(el=g('mdel')){const id=el.dataset.mdel;modal('<h3>Excluir esta mensagem?</h3><p>Ela será apagada definitivamente.</p><div class="row"><button class="btn btn-ghost" data-x>Cancelar</button><button class="btn btn-coral" data-y>Excluir</button></div>',bx=>{bx.querySelector('[data-x]').onclick=closeModal;bx.querySelector('[data-y]').onclick=async()=>{closeModal();try{await AdminAPI.delMsg(id);toast('Mensagem excluída.');renderAdmin()}catch(err){toast(admErr(err))}}});return}
   if(el=g('arem')){const em=el.dataset.arem;try{await AdminAPI.setAdmin(em,false);toast('Acesso de administrador removido.');renderAdmin()}catch(err){toast(admErr(err))}return}
 });
 document.addEventListener('click',e=>{const t=e.target.closest('[data-atab]');if(t){e.preventDefault();ADM.tab=t.dataset.atab;ADM.q='';if(t.dataset.atab!=='documentos')ADM.uid=null;renderAdmin()}});
