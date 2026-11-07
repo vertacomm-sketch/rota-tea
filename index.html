@@ -25,14 +25,14 @@
 :root{
   --navy:#17324d; --navy-2:#21456a; --teal:#13786b; --teal-l:#e5f2ef; --mint:#8cc5ae;
   --coral:#e8735a; --coral-l:#fdefe9; --gold:#e9b949; --cream:#fbf6ee; --paper:#fffdf9;
-  --ink:#1d2733; --muted:#5a6572; --line:#e2e5e9; --bg:#f6f4ef;
+  --ink:#1d2733; --muted:#4a5562; --coral-ink:#c44d33; --coral-ink-2:#a93f28; --line:#e2e5e9; --bg:#f6f4ef;
   --r:14px; --shadow:0 1px 2px rgba(23,50,77,.06),0 6px 24px rgba(23,50,77,.07);
   --serif:Montserrat,system-ui,-apple-system,"Segoe UI",sans-serif; --sans:Montserrat,system-ui,-apple-system,"Segoe UI",sans-serif;
   --ease:cubic-bezier(.22,.61,.36,1);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);font-size:1rem;line-height:1.65;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 a{color:var(--teal)}
 h1,h2,h3{font-family:var(--serif);color:var(--navy);line-height:1.18;margin:0 0 .5em;font-weight:800;letter-spacing:-.02em}
 h3{font-weight:700;letter-spacing:-.01em}
@@ -330,8 +330,46 @@ table.adm td{vertical-align:middle}
 .acct .hi{color:#fff;font-size:.86rem;font-weight:600;margin-right:4px;white-space:nowrap}
 .support-band{background:linear-gradient(135deg,var(--teal) 0%,#0f5f55 100%);color:#fff;margin-top:40px}
 .support-band .wrap{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding-top:28px;padding-bottom:28px}
-.support-band h3{color:#fff;margin:0 0 4px;font-size:1.25rem}
+.support-band h2{color:#fff;margin:0 0 4px;font-size:1.25rem}
 .support-band p{margin:0;color:#d7efe9;max-width:640px}
+
+/* ---------- acessibilidade ---------- */
+.btn-coral{background:var(--coral-ink)}.btn-coral:hover{background:var(--coral-ink-2)}
+.callout.att b.tag,.lock,.pill.coral,.st-ficha{color:#a63f2a}
+.next .lbl{color:var(--coral-ink)!important}
+h2.sec-title{line-height:1.3}
+.skip{position:absolute;left:12px;top:-60px;z-index:200;background:var(--gold);color:var(--navy);font-weight:700;padding:10px 16px;border-radius:10px;text-decoration:none;transition:top .2s}
+.skip:focus{top:12px}
+main:focus{outline:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+.toggle input,.ck input{width:22px;height:22px}
+@media (pointer:coarse){.btn,.btn-sm{min-height:44px}.nav a{min-height:44px;display:flex;align-items:center}.chip{min-height:40px}.atabs a{padding:13px 16px}footer a{display:inline-block;padding:8px 0}}
+.a11y-fab{position:fixed;right:18px;bottom:18px;z-index:90;width:54px;height:54px;border-radius:50%;border:0;background:var(--navy);color:#fff;display:grid;place-items:center;box-shadow:0 8px 24px rgba(23,50,77,.35);transition:transform .2s var(--ease)}
+.a11y-fab:hover{transform:scale(1.06)}
+.a11y-panel{position:fixed;right:18px;bottom:84px;z-index:91;width:270px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px rgba(23,50,77,.25);padding:16px}
+.a11y-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;color:var(--navy)}
+.a11y-x{border:0;background:none;font-size:1.1rem;color:var(--muted);width:36px;height:36px;border-radius:8px}
+.a11y-l{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.a11y-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.a11y-row button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 0;font-weight:700;color:var(--navy);min-height:44px}
+.a11y-row button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.a11y-t{display:flex;gap:10px;align-items:center;padding:9px 4px;font-weight:600;color:var(--ink);cursor:pointer;border-top:1px solid var(--line)}
+.a11y-t input{width:20px;height:20px;accent-color:var(--teal)}
+html[data-fs="1"]{font-size:112.5%}html[data-fs="2"]{font-size:125%}
+html.ul main a:not(.btn):not(.tool):not(.chip),html.ul footer a{text-decoration:underline!important;text-underline-offset:3px;font-weight:600}
+html.rm *,html.rm *:before,html.rm *:after{animation:none!important;transition:none!important}
+html.hc{--muted:#1f2933;--line:#5b6673;--bg:#ffffff;--cream:#ffffff;--teal-l:#e6f2ef;--coral-l:#fff1ec;--ink:#000}
+html.hc body{color:#000}
+html.hc .card,html.hc .tool,html.hc .idea,html.hc .stat,html.hc .dcard,html.hc .step,html.hc .inp,html.hc .ck,html.hc .chip{border-width:2px;border-color:#5b6673}
+html.hc .src,html.hc .page-head p,html.hc .area-top p{color:inherit}
+html.hc .page-head p,html.hc .area-top p,html.hc .band p,html.hc footer{color:#fff}
+html.hc .btn-ghost{border:2px solid var(--navy)}
+html.hc .hero{background:#fff}
+html.hc a{text-decoration:underline}
+html.hc .btn,html.hc .tool,html.hc .nav a,html.hc .atabs a{text-decoration:none}
+@media (max-width:600px){.a11y-fab{right:12px;bottom:12px;width:50px;height:50px}.a11y-panel{right:12px;bottom:72px;width:calc(100vw - 24px);max-width:320px}}
+@media print{.a11y-fab,.a11y-panel{display:none}}
+
 footer{margin-top:0!important;background:var(--navy);color:#c9d6e2;padding:34px 0;margin-top:40px;font-size:.88rem}
 footer b{color:#fff;font-family:var(--serif)}
 footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;margin-bottom:10px}
@@ -342,6 +380,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
 </head>
 <body>
 <header class="top">
+  <a class="skip" href="#" data-skip>Pular para o conteúdo</a>
   <div class="top-in">
     <a class="brand" href="#inicio" aria-label="Rota TEA · início"><img src="img/logo-light.webp" alt="Rota TEA · Saúde suplementar" width="118" height="40"></a>
     <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false">
@@ -358,7 +397,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
   </div>
 </header>
 
-<main id="main">
+<main id="main" tabindex="-1">
 
 <!-- INÍCIO -->
 <section class="view" id="v-inicio">
@@ -380,7 +419,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
   </div>
 
   <div class="wrap section">
-    <div class="sec-title">Três ideias para levar com você</div>
+    <h2 class="sec-title">Três ideias para levar com você</h2>
     <div class="ideas">
       <div class="idea"><div class="n">1</div><p style="margin:0">Peça sempre um <b>número de protocolo</b> e registre a data, o canal e o nome do atendente, quando disponível.</p></div>
       <div class="idea"><div class="n">2</div><p style="margin:0">A operadora deve apresentar uma <b>resposta clara e conclusiva</b> dentro do prazo aplicável. Uma mensagem genérica pode informar o andamento, mas não substitui a conclusão no fim do prazo.</p></div>
@@ -388,7 +427,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
     </div>
     <div class="callout att"><b class="tag">ATENÇÃO</b>A ausência de limite de sessões não significa aprovação automática de qualquer quantidade, carga horária, local ou profissional escolhido. A necessidade deve ser individualizada e documentada pela equipe assistente, respeitando o contrato, a regulamentação e as circunstâncias do caso.</div>
 
-    <div class="sec-title">O que você encontra aqui</div>
+    <h2 class="sec-title">O que você encontra aqui</h2>
     <div class="tools">
       <a class="tool" href="#guia"><div class="ic"><img src="img/ic-guia.webp" alt="" width="44" height="44" loading="lazy"></div><h3>Guia Cidadão</h3><p>Entender direitos básicos e agir diante de demora, falta de rede ou negativa.</p></a>
       <a class="tool" href="#mapa"><div class="ic"><img src="img/ic-mapa.webp" alt="" width="44" height="44" loading="lazy"></div><h3>Mapa da Rota</h3><p>O caminho recomendado em sete passos, com atalho para cada documento.</p></a>
@@ -412,18 +451,18 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
 <section class="view" id="v-guia">
   <div class="page-head"><div class="wrap"><div class="kicker">Entenda seus direitos</div><h1>Guia Cidadão</h1><p>Cobertura, indicação, prazos, falta de rede, negativa e reembolso.</p></div></div>
   <div class="wrap narrow section">
-    <div class="sec-title">O que costuma ter cobertura obrigatória</div>
+    <h2 class="sec-title">O que costuma ter cobertura obrigatória</h2>
     <p>Nos planos sujeitos à Lei nº 9.656/1998 e conforme a segmentação contratada, o Rol da ANS prevê atendimento multidisciplinar. Para TEA, as regras da ANS asseguram sessões sem limite numérico com psicologia, fonoaudiologia, terapia ocupacional e fisioterapia, além da cobertura de método ou técnica indicado para o tratamento dentro das condições regulatórias.</p>
     <ul class="clean">
       <li>Confira a segmentação, a área de abrangência, as carências e eventual coparticipação do seu contrato.</li>
       <li>Tratamento fora do Rol depende dos critérios legais da Lei nº 14.454/2022; a prescrição, o plano terapêutico e a evidência aplicável importam.</li>
     </ul>
 
-    <div class="sec-title">Quem participa da definição do tratamento</div>
+    <h2 class="sec-title">Quem participa da definição do tratamento</h2>
     <p>A indicação clínica deve partir do profissional ou da equipe assistente. Quando o médico especifica um método ou técnica, a regulação da ANS protege essa indicação. Se a prescrição médica não definir a técnica, o terapeuta habilitado pode escolhê-la dentro de suas competências profissionais e do plano terapêutico. A família deve participar das decisões de cuidado.</p>
     <div class="callout att"><b class="tag">ATENÇÃO</b>Não use a expressão “somente o médico decide” como regra absoluta. A indicação médica, a avaliação dos terapeutas e as competências de cada profissão precisam ser consideradas em conjunto.</div>
 
-    <div class="sec-title">Prazos que ajudam a acompanhar o pedido</div>
+    <h2 class="sec-title">Prazos que ajudam a acompanhar o pedido</h2>
     <table class="t">
       <thead><tr><th>Situação</th><th>Prazo de referência</th></tr></thead>
       <tbody>
@@ -452,7 +491,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
     </div>
     <div class="callout tip"><b class="tag">DICA</b>Anote o prazo no mesmo dia em que fizer o pedido e programe uma conferência antes do vencimento.</div>
 
-    <div class="sec-title">Se não houver profissional ou vaga na rede</div>
+    <h2 class="sec-title">Se não houver profissional ou vaga na rede</h2>
     <ol>
       <li>Peça à operadora que garanta o atendimento dentro do prazo e anote o protocolo.</li>
       <li>A operadora pode indicar outro prestador habilitado, inclusive fora da rede, e deve custear a solução quando não conseguir garantir a rede contratada nas condições regulatórias.</li>
@@ -460,7 +499,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
       <li>Se a operadora não garantir o atendimento e a família precisar pagar, pode haver reembolso integral, inclusive de transporte, desde que os requisitos sejam comprovados.</li>
     </ol>
 
-    <div class="sec-title">Se o plano negar ou demorar</div>
+    <h2 class="sec-title">Se o plano negar ou demorar</h2>
     <ul class="clean">
       <li>Peça a negativa por escrito, com motivo, fundamento contratual ou normativo e instrução para reanálise.</li>
       <li>Guarde prescrição, relatório, pedido, protocolo, resposta e prova de indisponibilidade da rede.</li>
@@ -469,7 +508,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
     </ul>
     <p><button class="btn btn-teal btn-sm" data-new="revisao">Preencher pedido de justificativa e revisão</button></p>
 
-    <div class="sec-title">Sobre reembolso</div>
+    <h2 class="sec-title">Sobre reembolso</h2>
     <p>Há situações diferentes. O reembolso contratual segue a tabela do plano. Na urgência ou emergência sem acesso à rede, a Lei nº 9.656/1998 prevê reembolso nas condições legais. Quando a operadora descumpre a garantia de atendimento e a pessoa paga pelo serviço, a RN nº 566/2022 prevê reembolso integral em até 30 dias da solicitação, inclusive das despesas de transporte cabíveis. A documentação do contato prévio com a operadora é especialmente importante.</p>
     <div class="callout att"><b class="tag">ATENÇÃO</b>Preferir um profissional particular, por si só, não gera reembolso integral quando a operadora oferece alternativa adequada no prazo. Cada caso depende do contrato, da rede disponível e das provas guardadas.</div>
     <p class="src">Fontes oficiais: <a href="https://www.gov.br/ans/pt-br/assuntos/consumidor/prazos-maximos-de-atendimento" target="_blank" rel="noopener">prazos e falta de rede</a> • <a href="https://www.gov.br/ans/pt-br/assuntos/consumidor/o-que-o-seu-plano-de-saude-deve-cobrir-1/reembolso" target="_blank" rel="noopener">reembolso</a></p>
@@ -480,6 +519,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
 <section class="view" id="v-mapa">
   <div class="page-head"><div class="wrap"><div class="kicker">Veja o caminho</div><h1>Mapa da Rota</h1><p>Uma página para decidir o próximo passo. Cada etapa leva à ferramenta certa.</p></div></div>
   <div class="wrap narrow section">
+    <h2 class="sr">Etapas do caminho</h2>
     <div class="steps">
       <div class="step"><div class="num">1</div><div><h3>Faça o pedido</h3><p>Envie prescrição e relatório. Peça protocolo.</p></div><div class="act"><button class="btn btn-teal btn-sm" data-new="pedido">Preencher pedido</button></div></div>
       <div class="step"><div class="num">2</div><div><h3>Acompanhe o prazo</h3><p>Registre datas. “Em análise” não substitui a resposta final.</p></div><div class="act"><button class="btn btn-ghost btn-sm" data-new="ficha">Abrir ficha</button></div></div>
@@ -526,7 +566,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
 <section class="view" id="v-base">
   <div class="page-head"><div class="wrap"><div class="kicker">Consulte as regras</div><h1>Base Jurídica</h1><p>Regras principais e entendimentos consolidados, com o que depende de cada caso.</p></div></div>
   <div class="wrap section">
-    <div class="sec-title">Normas principais</div>
+    <h2 class="sec-title">Normas principais</h2>
     <div style="overflow-x:auto">
     <table class="t">
       <thead><tr><th style="width:26%">Fonte</th><th>O que regula</th><th style="width:110px">Acesso</th></tr></thead>
@@ -547,7 +587,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
     </table></div>
     <div class="callout att"><b class="tag">ATENÇÃO</b>As normas podem mudar. Links oficiais reconferidos em 6 de novembro de 2026. Consulte sempre a versão vigente antes de utilizar o material em uma situação concreta.</div>
 
-    <div class="sec-title">Precedentes qualificados do STJ</div>
+    <h2 class="sec-title">Precedentes qualificados do STJ</h2>
     <p class="src" style="margin-top:-6px">Teses fixadas em recursos repetitivos devem ser seguidas pelos tribunais em casos iguais.</p>
     <div class="grid g2">
       <div class="card">
@@ -579,14 +619,14 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
       </div>
     </div>
 
-    <div class="sec-title">Entendimentos organizados pelo STJ</div>
+    <h2 class="sec-title">Entendimentos organizados pelo STJ</h2>
     <div class="card">
       <span class="pill">Jurisprudência em Teses · Ed. 259</span>
       <p style="margin-top:10px">Reúne decisões do STJ publicadas até 30 de abril de 2025. Entre os entendimentos listados: abusividade da recusa de terapia multidisciplinar e da limitação de sessões para TEA; cobertura de métodos ou técnicas indicados pelo profissional responsável; cobertura de equoterapia, musicoterapia e hidroterapia; sessões ilimitadas de ABA; e reembolso integral fora da rede quando inexistem profissionais conveniados na localidade, observadas as circunstâncias do caso.</p>
       <a href="https://processo.stj.jus.br/SCON/jt/toc.jsp?livre=@DOCN='9160'" target="_blank" rel="noopener" class="src">Consulta oficial no STJ</a>
     </div>
 
-    <div class="sec-title">Decisões em casos concretos</div>
+    <h2 class="sec-title">Decisões em casos concretos</h2>
     <p class="src" style="margin-top:-6px">Não têm efeito vinculante, mas mostram como os tribunais têm decidido. O resultado depende das provas e do contrato de cada caso.</p>
     <div class="grid g3">
       <div class="card"><h3>Psicopedagogia</h3><p style="margin:0">Há decisões do STJ reconhecendo a cobertura quando integra o tratamento multidisciplinar, realizada por profissional de saúde em ambiente clínico. Quando realizada na escola ou em casa, a Terceira Turma afastou a obrigação do plano, salvo previsão no contrato.</p></div>
@@ -594,7 +634,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
       <div class="card"><h3>Acompanhante terapêutico escolar</h3><p style="margin:0">O STJ tem entendido que o acompanhamento em ambiente escolar está ligado à educação e, em regra, não integra a obrigação típica do plano de saúde.</p></div>
     </div>
 
-<div class="sec-title">O que não deve virar regra automática</div>
+<h2 class="sec-title">O que não deve virar regra automática</h2>
     <div class="grid g2">
       <div class="card"><h3>Carga horária específica</h3><p style="margin:0">Não há uma resposta universal. A necessidade, a evidência, o plano terapêutico, a rede e as provas do caso precisam ser examinados.</p></div>
       <div class="card"><h3>Clínica ou profissional escolhido</h3><p style="margin:0">Decisões favoráveis ao tratamento não significam escolha irrestrita de prestador quando a rede oferece alternativa adequada no prazo.</p></div>
@@ -610,7 +650,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
 <section class="view" id="v-fontes">
   <div class="page-head"><div class="wrap"><div class="kicker">Saiba mais</div><h1>Fontes e orientações de uso</h1><p>Consultas oficiais e cuidados na utilização do material.</p></div></div>
   <div class="wrap narrow section">
-    <div class="sec-title">Fontes oficiais principais</div>
+    <h2 class="sec-title">Fontes oficiais principais</h2>
     <ul class="clean">
       <li><a href="https://www.gov.br/ans/pt-br/assuntos/consumidor/o-que-o-seu-plano-de-saude-deve-cobrir-1" target="_blank" rel="noopener">ANS · cobertura e Rol</a></li>
       <li><a href="https://www.gov.br/ans/pt-br/assuntos/noticias/beneficiario/ans-altera-regras-de-cobertura-para-tratamento-de-transtornos-globais-do-desenvolvimento" target="_blank" rel="noopener">ANS · terapias e métodos para TEA</a></li>
@@ -625,7 +665,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
       <li><a href="https://componentes-portal.ans.gov.br/link/legislacao/14811" target="_blank" rel="noopener">RN nº 424/2017 · junta médica</a></li>
       <li><a href="https://componentes-portal.ans.gov.br/link/legislacao/14185" target="_blank" rel="noopener">RN nº 323/2013 · Ouvidoria</a></li>
     </ul>
-    <div class="sec-title">Como utilizar o material</div>
+    <h2 class="sec-title">Como utilizar o material</h2>
     <ul class="clean">
       <li>Comece pelo Mapa da Rota para identificar o próximo passo.</li>
       <li>Use o Checklist para reunir documentos antes de fazer um pedido ou reclamação.</li>
@@ -633,7 +673,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
       <li>Preencha a Ficha de Acompanhamento a cada contato com a operadora, a Ouvidoria ou a ANS.</li>
       <li>Confira as fontes oficiais sempre que houver dúvida sobre prazo, cobertura ou procedimento.</li>
     </ul>
-    <div class="sec-title">Ressalvas éticas</div>
+    <h2 class="sec-title">Ressalvas éticas</h2>
     <p>Este material oferece informação geral e não substitui orientação jurídica individual, avaliação clínica ou contato com a operadora e a ANS. Não divulgue dados pessoais ou de saúde sem necessidade. Registre apenas as informações indispensáveis e preserve a identidade e a privacidade das famílias.</p>
     <p class="src">Elaboração colaborativa: diagnóstico participativo de Monique; legislação e regulação de Stefany; pesquisa jurisprudencial de Lucas; conteúdo cidadão e soluções extrajudiciais de Mateus; coordenação e integração de Felipe.</p>
   </div>
@@ -667,14 +707,14 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
   <div class="wrap section" id="admin-body"></div>
 </section>
 
-<section class="view" id="v-entrar"><div class="wrap" id="auth-body"></div></section>
+<section class="view" id="v-entrar"><h1 class="sr">Entrar ou criar cadastro na Área da família</h1><div class="wrap" id="auth-body"></div></section>
 
 <!-- EDITOR -->
 <section class="view priv" id="v-editor"><div id="ed-body"></div></section>
 
 </main>
 
-<section class="support-band"><div class="wrap" id="support-msg"></div></section>
+<aside class="support-band" aria-label="Apoio da equipe Rota TEA"><div class="wrap" id="support-msg"></div></aside>
 <footer>
   <div class="wrap">
     <img src="img/logo-light.webp" alt="Rota TEA" width="142" height="48" loading="lazy" style="display:block;margin-bottom:14px">
@@ -683,6 +723,25 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
     <p style="margin:0"><b>Rota TEA</b> · Informação para famílias · Saúde suplementar. Material educativo; não substitui orientação jurídica individual, avaliação clínica ou contato com a operadora e a ANS.</p>
   </div>
 </footer>
+
+<aside aria-label="Acessibilidade">
+<button type="button" class="a11y-fab" id="a11y-btn" aria-expanded="false" aria-controls="a11y-panel" aria-label="Opções de acessibilidade" title="Acessibilidade">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M5 8l7 1.5L19 8M12 9.5V14m0 0l-3.5 7M12 14l3.5 7"/></svg>
+</button>
+<div class="a11y-panel" id="a11y-panel" role="dialog" aria-label="Opções de acessibilidade" hidden>
+  <div class="a11y-h"><b>Acessibilidade</b><button type="button" class="a11y-x" data-a11y-close aria-label="Fechar">✕</button></div>
+  <div class="a11y-l">Tamanho do texto</div>
+  <div class="a11y-row" role="group" aria-label="Tamanho do texto">
+    <button type="button" data-fsz="0" aria-pressed="true">A</button>
+    <button type="button" data-fsz="1" aria-pressed="false" style="font-size:1.12em">A+</button>
+    <button type="button" data-fsz="2" aria-pressed="false" style="font-size:1.25em">A++</button>
+  </div>
+  <label class="a11y-t"><input type="checkbox" data-opt="hc"> Alto contraste</label>
+  <label class="a11y-t"><input type="checkbox" data-opt="ul"> Destacar links</label>
+  <label class="a11y-t"><input type="checkbox" data-opt="rm"> Reduzir animações</label>
+  <button type="button" class="btn btn-ghost btn-sm" data-a11y-reset style="width:100%;margin-top:6px">Restaurar padrão</button>
+</div>
+</aside>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true"><div class="box" id="modal-box"></div></div>
 <div class="toast" id="toast" role="status"></div>
@@ -1041,7 +1100,7 @@ const CHECK=[
 ];
 let CK={};let ckTimer=null;
 function renderChecklist(){
-  $('#ck-list').innerHTML=CHECK.map(g=>'<div class="ck-group"><div class="sec-title">'+esc(g.t)+'</div>'+g.items.map((it,i)=>{const k=g.id+'_'+i;return '<label class="ck'+(CK[k]?' done':'')+'"><input type="checkbox" data-k="'+k+'"'+(CK[k]?' checked':'')+'><span>'+esc(it)+'</span></label>'}).join('')+'</div>').join('');
+  $('#ck-list').innerHTML=CHECK.map(g=>'<div class="ck-group"><h2 class="sec-title">'+esc(g.t)+'</h2>'+g.items.map((it,i)=>{const k=g.id+'_'+i;return '<label class="ck'+(CK[k]?' done':'')+'"><input type="checkbox" data-k="'+k+'"'+(CK[k]?' checked':'')+'><span>'+esc(it)+'</span></label>'}).join('')+'</div>').join('');
   $('#ck-notes').value=CK.notes||'';ckProgress();
   $('#ck-save').textContent='Suas marcações ficam salvas na sua área.';
 }
@@ -1083,8 +1142,8 @@ function renderWelcome(){
   if(h){if(logged){h.hidden=false;h.innerHTML='<b>Olá'+(fn?', '+esc(fn):'')+'! Que bom ter você de volta.</b><p>Vamos juntos nessa rota, um passo de cada vez, em busca do cuidado de que sua família precisa.</p>'}else{h.hidden=true;h.innerHTML=''}}
   const s=$('#support-msg');
   if(s)s.innerHTML=logged
-    ?'<div><h3>'+(fn?esc(fn)+', queremos':'Queremos')+' te apoiar em cada passo dessa rota.</h3><p>Se surgir uma dúvida ou algo não funcionar como esperado, fale com a equipe do Rota TEA.</p></div><a class="btn btn-coral" href="#contato">Fale conosco</a>'
-    :'<div><h3>Queremos te apoiar nessa rota.</h3><p>Informação clara, documentos organizados e um passo de cada vez. Você não precisa percorrer esse caminho sozinho.</p></div><a class="btn btn-coral" href="'+(Store.ready?'#entrar':'#guia')+'" data-tab="novo">'+(Store.ready?'Criar cadastro gratuito':'Conhecer o Guia')+'</a>';
+    ?'<div><h2>'+(fn?esc(fn)+', queremos':'Queremos')+' te apoiar em cada passo dessa rota.</h2><p>Se surgir uma dúvida ou algo não funcionar como esperado, fale com a equipe do Rota TEA.</p></div><a class="btn btn-coral" href="#contato">Fale conosco</a>'
+    :'<div><h2>Queremos te apoiar nessa rota.</h2><p>Informação clara, documentos organizados e um passo de cada vez. Você não precisa percorrer esse caminho sozinho.</p></div><a class="btn btn-coral" href="'+(Store.ready?'#entrar':'#guia')+'" data-tab="novo">'+(Store.ready?'Criar cadastro gratuito':'Conhecer o Guia')+'</a>';
 }
 function renderAcct(){
   renderWelcome();
@@ -1285,7 +1344,7 @@ async function renderPainel(){
     '<div class="stat"><div class="lbl">Checklist</div><div class="big">'+done+'/'+total+'</div><div class="progress"><i style="width:'+(done/total*100)+'%"></i></div><a href="#checklist">Abrir checklist →</a></div>'+
     '<div class="stat"><div class="lbl">Documentos</div><div class="big">'+DOCS.length+'</div><div class="src">'+cnt('rascunho')+' rascunho · '+cnt('pronto')+' pronto · '+cnt('enviado')+' enviado · '+cnt('respondido')+' respondido</div><a href="#documentos">Ver todos →</a></div></div>'+
     '<div class="next"><div class="lbl" style="font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--coral)">Próximo passo</div><h3 style="margin:6px 0">'+esc(next[0])+'</h3><p class="src" style="font-size:.95rem">'+esc(next[1])+'</p>'+next[2]+'</div>'+
-    '<div class="sec-title">Continue de onde parou</div>'+
+    '<h2 class="sec-title">Continue de onde parou</h2>'+
     (DOCS.length?'<div class="dlist">'+DOCS.slice(0,3).map(docCard).join('')+'</div>':'<div class="empty"><img class="empty-img" src="img/area-familia.webp" alt=""><h3>Nenhum documento ainda</h3><p class="src">Os documentos que você salvar aparecem aqui.</p><a class="btn btn-coral" href="#modelos">Novo documento</a></div>');
 }
 $('#painel-body').addEventListener('click',docActions);
@@ -1389,7 +1448,7 @@ function admGeral(b){
     [['Mensagens novas',ADM.newMsgs,'no Fale conosco'],['Usuários',U.length,'cadastrados'],['Novos',novos,'nos últimos 7 dias'],['Ativos',ativos,'entraram nos últimos 30 dias'],['Documentos',D.length,'criados no total']].map(x=>'<div class="stat"><div class="lbl">'+x[0]+'</div><div class="big">'+x[1]+'</div><div class="src">'+x[2]+'</div></div>').join('')+'</div>'+
     '<div class="grid g2"><div class="card"><h3>Documentos por tipo</h3><table class="t">'+byType.map(r=>'<tr><td>'+esc(r[0])+'</td><td style="text-align:right;font-weight:700">'+r[1]+'</td></tr>').join('')+'</table></div>'+
     '<div class="card"><h3>Situação dos documentos</h3><table class="t">'+byStatus.map(r=>'<tr><td>'+esc(r[0])+'</td><td style="text-align:right;font-weight:700">'+r[1]+'</td></tr>').join('')+'</table><p class="src" style="margin:10px 0 0">Fichas de acompanhamento não entram nesta contagem.</p></div></div>'+
-    '<div class="sec-title">Últimos cadastros</div>'+userTable(U.slice(0,5));
+    '<h2 class="sec-title">Últimos cadastros</h2>'+userTable(U.slice(0,5));
 }
 function userTable(list){
   if(!list.length)return '<p class="src">Nenhum usuário encontrado.</p>';
@@ -1538,6 +1597,26 @@ async function saveEdit(auto){
   const run=()=>{const dt=parseISO(d.value);if(!dt){o.textContent='';return}const r=addBusinessDays(dt,+t.value);o.textContent='Data de referência: '+r.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})+'.'};
   d.addEventListener('input',run);t.addEventListener('change',run);run();})();
 
+
+
+/* ---------- acessibilidade: preferências ---------- */
+(function(){
+  const H=document.documentElement,btn=$('#a11y-btn'),pan=$('#a11y-panel');
+  let P=LS.get('rt_a11y')||{fs:0,hc:false,ul:false,rm:false};
+  function apply(){H.setAttribute('data-fs',String(P.fs||0));['hc','ul','rm'].forEach(k=>H.classList.toggle(k,!!P[k]));
+    $$('[data-fsz]',pan).forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.fsz===(P.fs||0))));
+    $$('[data-opt]',pan).forEach(i=>i.checked=!!P[i.dataset.opt]);LS.set('rt_a11y',P)}
+  function open(o){pan.hidden=!o;btn.setAttribute('aria-expanded',String(o));if(o){const f=pan.querySelector('[aria-pressed="true"]');if(f)f.focus()}}
+  btn.addEventListener('click',()=>open(pan.hidden));
+  pan.addEventListener('click',e=>{const f=e.target.closest('[data-fsz]');if(f){P.fs=+f.dataset.fsz;apply()}
+    if(e.target.closest('[data-a11y-close]')){open(false);btn.focus()}
+    if(e.target.closest('[data-a11y-reset]')){P={fs:0,hc:false,ul:false,rm:false};apply()}});
+  pan.addEventListener('change',e=>{const i=e.target.closest('[data-opt]');if(i){P[i.dataset.opt]=i.checked;apply()}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!pan.hidden){open(false);btn.focus()}});
+  document.addEventListener('click',e=>{if(!pan.hidden&&!e.target.closest('#a11y-panel')&&!e.target.closest('#a11y-btn'))open(false)});
+  document.addEventListener('click',e=>{if(e.target.closest('[data-skip]')){e.preventDefault();const m=$('#main');m.focus();m.scrollIntoView()}});
+  apply();
+})();
 
 /* ---------- início ---------- */
 renderModelos();renderAcct();route();
