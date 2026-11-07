@@ -369,6 +369,22 @@ html.hc a{text-decoration:underline}
 html.hc .btn,html.hc .tool,html.hc .nav a,html.hc .atabs a{text-decoration:none}
 @media (max-width:600px){.a11y-fab{right:12px;bottom:12px;width:50px;height:50px}.a11y-panel{right:12px;bottom:72px;width:calc(100vw - 24px);max-width:320px}}
 @media print{.a11y-fab,.a11y-panel{display:none}}
+.a11y-listen{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border:0;border-radius:12px;background:var(--teal);color:#fff;font-weight:700;font-size:1rem;margin-bottom:8px;transition:transform .2s var(--ease),background .2s}
+.a11y-listen:hover{background:#0f6358;transform:translateY(-1px)}
+.a11y-note{font-size:.82rem;color:var(--muted);line-height:1.4;margin:0 0 12px}
+.tts-bar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:92;display:flex;align-items:center;gap:10px;background:var(--navy);color:#fff;padding:8px 8px 8px 16px;border-radius:999px;box-shadow:0 12px 32px rgba(23,50,77,.35);max-width:calc(100vw - 100px)}
+.tts-bar[hidden]{display:none}
+.tts-dot{width:10px;height:10px;border-radius:50%;background:#4fd1b5;flex:none;animation:ttsPulse 1.2s ease-in-out infinite}
+.tts-bar.paused .tts-dot{animation:none;background:#f2b8a8}
+@keyframes ttsPulse{50%{transform:scale(1.5);opacity:.5}}
+.tts-txt{font-weight:600;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tts-b{border:0;border-radius:999px;min-height:40px;padding:0 16px;font-weight:700;background:#fff;color:var(--navy)}
+.tts-stop{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5)}
+.tts-on{outline:3px solid #4fd1b5;outline-offset:4px;border-radius:6px;background:rgba(79,209,181,.12)}
+html.rm .tts-dot{animation:none}
+@media (max-width:600px){.tts-bar{left:12px;right:74px;transform:none;max-width:none;bottom:12px}.tts-txt{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.tts-bar{justify-content:flex-end}.tts-dot{margin-right:auto}}
+@media print{.tts-bar,[vw]{display:none!important}}
+
 
 footer{margin-top:0!important;background:var(--navy);color:#c9d6e2;padding:34px 0;margin-top:40px;font-size:.88rem}
 footer b{color:#fff;font-family:var(--serif)}
@@ -730,6 +746,8 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
 </button>
 <div class="a11y-panel" id="a11y-panel" role="dialog" aria-label="Opções de acessibilidade" hidden>
   <div class="a11y-h"><b>Acessibilidade</b><button type="button" class="a11y-x" data-a11y-close aria-label="Fechar">✕</button></div>
+  <button type="button" class="a11y-listen" id="tts-start" hidden><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7M19 5a10 10 0 010 14"/></svg> Ouvir esta página</button>
+  <p class="a11y-note">Para Libras, use o botão azul do <b>VLibras</b> na lateral direita da tela.</p>
   <div class="a11y-l">Tamanho do texto</div>
   <div class="a11y-row" role="group" aria-label="Tamanho do texto">
     <button type="button" data-fsz="0" aria-pressed="true">A</button>
@@ -742,6 +760,17 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
   <button type="button" class="btn btn-ghost btn-sm" data-a11y-reset style="width:100%;margin-top:6px">Restaurar padrão</button>
 </div>
 </aside>
+
+<div class="tts-bar" id="tts-bar" role="region" aria-label="Leitura em voz alta" hidden>
+  <span class="tts-dot" aria-hidden="true"></span><span class="tts-txt" id="tts-status" aria-live="polite">Lendo…</span>
+  <button type="button" id="tts-toggle" class="tts-b">Pausar</button>
+  <button type="button" id="tts-stop" class="tts-b tts-stop" aria-label="Parar leitura">Parar</button>
+</div>
+
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
+</div>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true"><div class="box" id="modal-box"></div></div>
 <div class="toast" id="toast" role="status"></div>
@@ -1618,6 +1647,49 @@ async function saveEdit(auto){
   apply();
 })();
 
+
+/* ---------- ouvir esta página ---------- */
+(function(){
+  const S=window.speechSynthesis,start=$('#tts-start'),bar=$('#tts-bar'),tog=$('#tts-toggle'),stat=$('#tts-status');
+  if(!S||!window.SpeechSynthesisUtterance)return;
+  start.hidden=false;
+  let blocks=[],bi=0,parts=[],pi=0,playing=false,voice=null,cur=null;
+  function pickVoice(){const v=S.getVoices();voice=v.find(x=>/pt[-_]BR/i.test(x.lang)&&/google|luciana|francisca|natural/i.test(x.name))||v.find(x=>/pt[-_]BR/i.test(x.lang))||v.find(x=>/^pt/i.test(x.lang))||null}
+  pickVoice();S.onvoiceschanged=pickVoice;
+  function collect(){
+    const root=$('.view.on');if(!root)return[];
+    const els=$$('h1,h2,h3,h4,p,li,dt,dd,th,td,blockquote,figcaption,label,.lead',root).filter(el=>{
+      if(el.closest('[aria-hidden="true"],button,select,textarea,.sr,.tts-bar,nav'))return false;
+      if(!el.offsetParent&&getComputedStyle(el).position!=='fixed')return false;
+      const p=el.parentElement&&el.parentElement.closest('h1,h2,h3,h4,p,li,dt,dd,th,td,blockquote,figcaption,label');
+      return !(p&&root.contains(p));
+    });
+    return els.map(el=>({el,t:(el.innerText||'').replace(/\s+/g,' ').trim()})).filter(b=>b.t.length>1);
+  }
+  function split(t){const out=[];t.split(/(?<=[.!?;:])\s+/).forEach(s=>{s=s.trim();if(!s)return;
+    while(s.length>220){let k=s.lastIndexOf(' ',220);if(k<80)k=220;out.push(s.slice(0,k));s=s.slice(k).trim()}if(s)out.push(s)});return out}
+  function mark(el){if(cur)cur.classList.remove('tts-on');cur=el;if(el){el.classList.add('tts-on');const r=el.getBoundingClientRect();if(r.top<80||r.bottom>innerHeight-90)el.scrollIntoView({block:'center',behavior:document.documentElement.classList.contains('rm')?'auto':'smooth'})}}
+  function speak(){
+    if(!playing)return;
+    if(bi>=blocks.length){stop();toast('Leitura concluída.');return}
+    if(pi===0){parts=split(blocks[bi].t);mark(blocks[bi].el)}
+    if(pi>=parts.length){bi++;pi=0;speak();return}
+    const u=new SpeechSynthesisUtterance(parts[pi]);u.lang='pt-BR';if(voice)try{u.voice=voice}catch(e){}u.rate=1;
+    u.onend=()=>{if(!playing)return;pi++;speak()};
+    u.onerror=e=>{if(e.error==='interrupted'||e.error==='canceled')return;pi++;speak()};
+    S.speak(u);
+  }
+  function play(){playing=true;bar.classList.remove('paused');tog.textContent='Pausar';stat.textContent='Lendo…';S.cancel();speak()}
+  function pause(){playing=false;S.cancel();bar.classList.add('paused');tog.textContent='Continuar';stat.textContent='Pausado'}
+  function stop(){playing=false;S.cancel();bar.hidden=true;mark(null);blocks=[]}
+  start.addEventListener('click',()=>{blocks=collect();bi=0;pi=0;if(!blocks.length){toast('Não há texto para ler nesta tela.');return}
+    $('#a11y-panel').hidden=true;$('#a11y-btn').setAttribute('aria-expanded','false');bar.hidden=false;play();tog.focus()});
+  tog.addEventListener('click',()=>{if(playing)pause();else{pi=0;play()}});
+  $('#tts-stop').addEventListener('click',()=>{stop();$('#a11y-btn').focus()});
+  window.addEventListener('hashchange',()=>{if(!bar.hidden)stop()});
+  window.addEventListener('beforeunload',()=>S.cancel());
+})();
+
 /* ---------- início ---------- */
 renderModelos();renderAcct();route();
 fetch('img/logo-light.png').then(r=>r.blob()).then(b=>new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.readAsDataURL(b)})).then(d=>{window.__LOGO=d}).catch(()=>{});
@@ -1634,5 +1706,6 @@ fetch('img/logo-light.png').then(r=>r.blob()).then(b=>new Promise(res=>{const fr
   if(qs.get('error_description')){toast(/expired/i.test(qs.get('error_description'))?'O link expirou. Peça um novo.':'Não foi possível validar o link. Tente de novo.');history.replaceState(null,'',location.pathname+location.hash)}
 })();
 </script>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js" defer onload="try{new window.VLibras.Widget('https://vlibras.gov.br/app')}catch(e){}"></script>
 </body>
 </html>
