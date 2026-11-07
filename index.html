@@ -324,7 +324,15 @@ table.adm td{vertical-align:middle}
 .msg .msg-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
 .msg .body{white-space:pre-wrap;background:#fbfaf6;border-radius:10px;padding:12px 14px;margin:10px 0;font-size:.94rem}
 .badge{display:inline-block;min-width:20px;padding:1px 7px;border-radius:99px;background:var(--coral);color:#fff;font-size:.72rem;font-weight:700;margin-left:6px;text-align:center}
-footer{background:var(--navy);color:#c9d6e2;padding:34px 0;margin-top:40px;font-size:.88rem}
+.hello{background:#fff;border:1px solid #efe3cf;border-left:5px solid var(--coral);border-radius:14px;padding:14px 18px;margin-bottom:18px;box-shadow:var(--shadow)}
+.hello b{color:var(--navy);font-size:1.05rem}
+.hello p{margin:4px 0 0;color:var(--muted);font-size:.95rem}
+.acct .hi{color:#fff;font-size:.86rem;font-weight:600;margin-right:4px;white-space:nowrap}
+.support-band{background:linear-gradient(135deg,var(--teal) 0%,#0f5f55 100%);color:#fff;margin-top:40px}
+.support-band .wrap{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding-top:28px;padding-bottom:28px}
+.support-band h3{color:#fff;margin:0 0 4px;font-size:1.25rem}
+.support-band p{margin:0;color:#d7efe9;max-width:640px}
+footer{margin-top:0!important;background:var(--navy);color:#c9d6e2;padding:34px 0;margin-top:40px;font-size:.88rem}
 footer b{color:#fff;font-family:var(--serif)}
 footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;margin-bottom:10px}
 .calc{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
@@ -357,6 +365,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
   <div class="hero">
     <div class="wrap hero-in">
       <div>
+        <div class="hello" id="hero-hello" hidden></div>
         <div class="kicker">Rota TEA <em>• Saúde suplementar</em></div>
         <h1>Um guia para organizar pedidos, respostas e próximos passos com o plano de saúde</h1>
         <div class="lead">Informação clara para agir com mais segurança.</div>
@@ -665,6 +674,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
 
 </main>
 
+<section class="support-band"><div class="wrap" id="support-msg"></div></section>
 <footer>
   <div class="wrap">
     <img src="img/logo-light.webp" alt="Rota TEA" width="142" height="48" loading="lazy" style="display:block;margin-bottom:14px">
@@ -1053,7 +1063,7 @@ function renderModelos(){
 const PRIVATE=['painel','documentos','modelos','checklist','cadastro','editor','admin'];
 const VIEWS=['inicio','guia','mapa','base','fontes','contato','entrar'].concat(PRIVATE);
 const AREA={
-  painel:['Área da família','Olá{NOME}','Acompanhe seus documentos, o checklist e o próximo passo.'],
+  painel:['Área da família','Olá{NOME}','Vamos juntos nessa rota. Cada passo registrado aqui aproxima sua família do cuidado de que ela precisa.'],
   documentos:['Área da família','Meus documentos','Tudo o que você preencheu fica guardado aqui para continuar, revisar e baixar.'],
   modelos:['Área da família','Novo documento','Escolha o modelo. Seus dados do cadastro já entram preenchidos.'],
   checklist:['Área da família','Checklist da Família','Separe o que existe e marque o que falta. Suas marcações ficam salvas.'],
@@ -1066,11 +1076,22 @@ function renderAreaTop(v){
   top.innerHTML='<div class="wrap"><div class="kicker">'+a[0]+'</div><h1>'+esc(h)+'</h1><p>'+esc(a[2])+'</p><nav class="atabs">'+
     [['painel','Painel'],['documentos','Meus documentos'],['modelos','Novo documento'],['checklist','Checklist'],['cadastro','Meu cadastro']].map(([k,l])=>'<a href="#'+k+'" class="'+(k===v?'on':'')+'">'+l+'</a>').join('')+'<a href="#inicio" data-logout class="atab-out">Sair ↗</a></nav></div>';
 }
+function firstName(){const nm=(PROFILE.responsavel_nome||(Store.user&&Store.user.nome)||'').trim();return nm?nm.split(/\s+/)[0]:''}
+function renderWelcome(){
+  const fn=firstName(),logged=Store.logged();
+  const h=$('#hero-hello');
+  if(h){if(logged){h.hidden=false;h.innerHTML='<b>Olá'+(fn?', '+esc(fn):'')+'! Que bom ter você de volta.</b><p>Vamos juntos nessa rota, um passo de cada vez, em busca do cuidado de que sua família precisa.</p>'}else{h.hidden=true;h.innerHTML=''}}
+  const s=$('#support-msg');
+  if(s)s.innerHTML=logged
+    ?'<div><h3>'+(fn?esc(fn)+', queremos':'Queremos')+' te apoiar em cada passo dessa rota.</h3><p>Se surgir uma dúvida ou algo não funcionar como esperado, fale com a equipe do Rota TEA.</p></div><a class="btn btn-coral" href="#contato">Fale conosco</a>'
+    :'<div><h3>Queremos te apoiar nessa rota.</h3><p>Informação clara, documentos organizados e um passo de cada vez. Você não precisa percorrer esse caminho sozinho.</p></div><a class="btn btn-coral" href="'+(Store.ready?'#entrar':'#guia')+'" data-tab="novo">'+(Store.ready?'Criar cadastro gratuito':'Conhecer o Guia')+'</a>';
+}
 function renderAcct(){
+  renderWelcome();
   const a=$('#acct');document.body.classList.toggle('logged',Store.logged());
   $$('[data-cta]').forEach(b=>{b.textContent=Store.logged()?'Ir para minha área':(b.id==='x'?'':b.dataset.ctaText||(b.dataset.ctaText=b.textContent));b.setAttribute('href',Store.logged()?'#painel':'#entrar')});
   if(!Store.ready){a.innerHTML='';return}
-  if(Store.logged())a.innerHTML=(Store.isAdmin?'<a class="btn btn-line-w btn-sm" href="#admin" style="color:#fff">Administração</a>':'')+'<a class="btn btn-coral btn-sm" href="#painel" style="color:#fff">Área da família</a><button type="button" class="btn btn-line-w btn-sm" data-logout title="Sair da conta" style="color:#fff">Sair</button>';
+  if(Store.logged())a.innerHTML=(firstName()?'<span class="hi">Olá, '+esc(firstName())+'</span>':'')+(Store.isAdmin?'<a class="btn btn-line-w btn-sm" href="#admin" style="color:#fff">Administração</a>':'')+'<a class="btn btn-coral btn-sm" href="#painel" style="color:#fff">Área da família</a><button type="button" class="btn btn-line-w btn-sm" data-logout title="Sair da conta" style="color:#fff">Sair</button>';
   else a.innerHTML='<a class="btn btn-line-w btn-sm" href="#entrar" data-tab="entrar" style="color:#fff">Entrar</a><a class="btn btn-coral btn-sm" href="#entrar" data-tab="novo" style="color:#fff">Criar cadastro</a>';
 }
 let EDIT=null;let AUTH_TAB='novo';
@@ -1233,7 +1254,7 @@ function renderProfile(){
    '<form id="pw-f" class="fgrid" novalidate><label class="f"><span>Nova senha</span><input class="inp" type="password" name="s1" autocomplete="new-password"></label><label class="f"><span>Repita a nova senha</span><input class="inp" type="password" name="s2" autocomplete="new-password"></label><div class="err full" id="pw-err"></div><div class="full"><button class="btn btn-ghost btn-sm">Alterar senha</button></div></form>'+
    '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)"><button class="btn btn-ghost" id="logout">Sair da conta</button><button class="btn btn-danger" id="del-acc">Excluir minha conta e meus dados</button></div></div>';
   $('#prof-f').onsubmit=async e=>{e.preventDefault();const fd=Object.fromEntries(new FormData(e.target));Object.keys(fd).forEach(k=>fd[k]=fd[k].trim());
-    try{await Store.saveProfile(fd);PROFILE=fd;renderAreaTop('cadastro');toast('Cadastro salvo. Os próximos documentos já virão preenchidos.')}catch(err){toast(errMsg(err))}};
+    try{await Store.saveProfile(fd);PROFILE=fd;renderAreaTop('cadastro');renderAcct();toast('Cadastro salvo. Os próximos documentos já virão preenchidos.')}catch(err){toast(errMsg(err))}};
   $('#pw-f').onsubmit=async e=>{e.preventDefault();const fd=Object.fromEntries(new FormData(e.target));const er=$('#pw-err');er.textContent='';
     if((fd.s1||'').length<8){er.textContent='A senha precisa ter pelo menos 8 caracteres.';return}
     if(fd.s1!==fd.s2){er.textContent='As senhas não são iguais.';return}
