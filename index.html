@@ -313,6 +313,9 @@ table.adm td{vertical-align:middle}
 
 .brand img{height:40px;width:auto;display:block;transition:transform .25s var(--ease)}.brand:hover img{transform:scale(1.03)}
 @media(max-width:420px){.brand img{height:34px}}
+.atabs .atab-out{margin-left:auto;color:#f4b4a5}
+.atabs .atab-out:hover{color:#fff;background:rgba(232,115,90,.18)}
+.acct .btn{white-space:nowrap}
 footer{background:var(--navy);color:#c9d6e2;padding:34px 0;margin-top:40px;font-size:.88rem}
 footer b{color:#fff;font-family:var(--serif)}
 footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;margin-bottom:10px}
@@ -1046,13 +1049,13 @@ function renderAreaTop(v){
   const a=AREA[v];const nome=Store.user&&(PROFILE.responsavel_nome||Store.user.nome);
   const h=a[1].replace('{NOME}',nome?', '+nome.split(' ')[0]:'');
   top.innerHTML='<div class="wrap"><div class="kicker">'+a[0]+'</div><h1>'+esc(h)+'</h1><p>'+esc(a[2])+'</p><nav class="atabs">'+
-    [['painel','Painel'],['documentos','Meus documentos'],['modelos','Novo documento'],['checklist','Checklist'],['cadastro','Meu cadastro']].map(([k,l])=>'<a href="#'+k+'" class="'+(k===v?'on':'')+'">'+l+'</a>').join('')+'</nav></div>';
+    [['painel','Painel'],['documentos','Meus documentos'],['modelos','Novo documento'],['checklist','Checklist'],['cadastro','Meu cadastro']].map(([k,l])=>'<a href="#'+k+'" class="'+(k===v?'on':'')+'">'+l+'</a>').join('')+'<a href="#inicio" data-logout class="atab-out">Sair ↗</a></nav></div>';
 }
 function renderAcct(){
   const a=$('#acct');document.body.classList.toggle('logged',Store.logged());
   $$('[data-cta]').forEach(b=>{b.textContent=Store.logged()?'Ir para minha área':(b.id==='x'?'':b.dataset.ctaText||(b.dataset.ctaText=b.textContent));b.setAttribute('href',Store.logged()?'#painel':'#entrar')});
   if(!Store.ready){a.innerHTML='';return}
-  if(Store.logged())a.innerHTML=(Store.isAdmin?'<a class="btn btn-line-w btn-sm" href="#admin" style="color:#fff">Administração</a>':'')+'<a class="btn btn-coral btn-sm" href="#painel" style="color:#fff">Área da família</a>';
+  if(Store.logged())a.innerHTML=(Store.isAdmin?'<a class="btn btn-line-w btn-sm" href="#admin" style="color:#fff">Administração</a>':'')+'<a class="btn btn-coral btn-sm" href="#painel" style="color:#fff">Área da família</a><button type="button" class="btn btn-line-w btn-sm" data-logout title="Sair da conta" style="color:#fff">Sair</button>';
   else a.innerHTML='<a class="btn btn-line-w btn-sm" href="#entrar" data-tab="entrar" style="color:#fff">Entrar</a><a class="btn btn-coral btn-sm" href="#entrar" data-tab="novo" style="color:#fff">Criar cadastro</a>';
 }
 let EDIT=null;let AUTH_TAB='novo';
@@ -1086,6 +1089,7 @@ function go(v){if(location.hash==='#'+v)route();else location.hash=v}
 window.addEventListener('hashchange',route);
 $('#burger').addEventListener('click',()=>{const o=$('#nav').classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)});
 document.addEventListener('click',e=>{
+  if(e.target.closest('[data-logout]')){e.preventDefault();logout();return}
   const t=e.target.closest('[data-tab]');if(t){AUTH_TAB=t.dataset.tab}
   const b=e.target.closest('[data-new]');
   if(b){e.preventDefault();const type=b.dataset.new;
@@ -1165,7 +1169,7 @@ function renderAuth(){
     finally{if(btn.isConnected)btn.disabled=false}
   };
 }
-async function logout(){try{await Store.sb.auth.signOut()}catch(e){}Store.user=null;PROFILE={};CK={};EDIT=null;renderAcct();go('inicio');toast('Você saiu da sua conta.')}
+async function logout(){try{if(EDIT&&typeof edDirty!=='undefined'&&edDirty)await saveEdit(true)}catch(e){}try{await Store.sb.auth.signOut()}catch(e){}Store.user=null;Store.isAdmin=false;PROFILE={};CK={};EDIT=null;renderAcct();go('inicio');toast('Você saiu da sua conta.')}
 
 /* ---------- cadastro ---------- */
 function renderProfile(){
@@ -1267,7 +1271,7 @@ const fmtD=s=>s?new Date(s).toLocaleDateString('pt-BR'):'—';
 async function renderAdmin(){
   const top=$('#v-admin .area-top');
   const tabs=[['geral','Visão geral'],['usuarios','Usuários'],['documentos','Documentos'],['admins','Administradores'],['registro','Registro de acessos']];
-  top.innerHTML='<div class="wrap"><div class="kicker">Administração da plataforma</div><h1>Painel administrador</h1><p>Gerencie quem usa a plataforma e acompanhe os documentos emitidos. Cada visualização de documento fica registrada.</p><nav class="atabs">'+tabs.map(([k,l])=>'<a href="#admin" data-atab="'+k+'" class="'+(ADM.tab===k?'on':'')+'">'+l+'</a>').join('')+'</nav></div>';
+  top.innerHTML='<div class="wrap"><div class="kicker">Administração da plataforma</div><h1>Painel administrador</h1><p>Gerencie quem usa a plataforma e acompanhe os documentos emitidos. Cada visualização de documento fica registrada.</p><nav class="atabs">'+tabs.map(([k,l])=>'<a href="#admin" data-atab="'+k+'" class="'+(ADM.tab===k?'on':'')+'">'+l+'</a>').join('')+'<a href="#inicio" data-logout class="atab-out">Sair ↗</a></nav></div>';
   const b=$('#admin-body');b.innerHTML='<div class="loading">Carregando…</div>';
   try{
     if(ADM.tab==='geral'||ADM.tab==='usuarios'||ADM.tab==='documentos'){[ADM.users,ADM.docs]=await Promise.all([AdminAPI.users(),AdminAPI.docs()])}
