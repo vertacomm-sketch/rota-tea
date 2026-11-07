@@ -369,6 +369,7 @@ html.hc a{text-decoration:underline}
 html.hc .btn,html.hc .tool,html.hc .nav a,html.hc .atabs a{text-decoration:none}
 @media (max-width:600px){.a11y-fab{right:12px;bottom:12px;width:50px;height:50px}.a11y-panel{right:12px;bottom:72px;width:calc(100vw - 24px);max-width:320px}}
 @media print{.a11y-fab,.a11y-panel{display:none}}
+.rank td{vertical-align:middle}.rk-l{font-weight:600;color:var(--ink);margin-bottom:5px}.rk-bar{height:6px;border-radius:6px;background:#e9eef3;overflow:hidden}.rk-bar i{display:block;height:100%;background:var(--teal);border-radius:6px}.rk-n{text-align:right;font-weight:700;color:var(--navy);width:1%;white-space:nowrap;padding-left:14px}.daychart{width:100%;height:auto;display:block}
 .a11y-listen{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border:0;border-radius:12px;background:var(--teal);color:#fff;font-weight:700;font-size:1rem;margin-bottom:8px;transition:transform .2s var(--ease),background .2s}
 .a11y-listen:hover{background:#0f6358;transform:translateY(-1px)}
 .a11y-note{font-size:.82rem;color:var(--muted);line-height:1.4;margin:0 0 12px}
@@ -737,6 +738,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
     <div class="slogan">Comece pelo pedido. Guarde o protocolo. Avance um passo de cada vez.</div>
     <p style="margin:0 0 10px"><a href="#contato" style="color:#fff;font-weight:600">Fale conosco</a> · <a href="#fontes" style="color:#c9d6e2">Fontes e ressalvas</a></p>
     <p style="margin:0"><b>Rota TEA</b> · Informação para famílias · Saúde suplementar. Material educativo; não substitui orientação jurídica individual, avaliação clínica ou contato com a operadora e a ANS.</p>
+    <p style="margin:10px 0 0;font-size:.85rem;color:#c9d6e2">Para melhorar o site, contamos os acessos de forma anônima: página aberta, cidade aproximada, origem da visita e tipo de aparelho. Não usamos cookies de rastreamento nem guardamos seu endereço de IP.</p>
   </div>
 </footer>
 
@@ -1192,7 +1194,7 @@ function route(){
   if(v==='editor'&&!EDIT)v='documentos';
   if(v==='admin'&&!Store.isAdmin)v='painel';
   if(v!=='editor')leaveEditor();
-  showView(v);
+  showView(v);track(v);
   if(PRIVATE.includes(v)&&v!=='editor'&&v!=='admin')renderAreaTop(v);
   if(v==='admin')renderAdmin();
   if(v==='painel')renderPainel();
@@ -1222,7 +1224,7 @@ document.addEventListener('click',e=>{
     openEditor(newDoc(type),true)}
 });
 async function loadUserData(){
-  Store.isAdmin=await AdminAPI.check();
+  Store.isAdmin=await AdminAPI.check();Store.userLoaded=true;flushHits();
   try{PROFILE=await Store.getProfile()}catch(e){PROFILE={}}
   try{CK=await Store.getChecklist()}catch(e){CK={}}
 }
@@ -1236,7 +1238,7 @@ async function onAuthChanged(ev){
     const v=(location.hash||'').slice(1);
     if(v==='contato')route();else if(!PRIVATE.includes(v))go('painel');else route();
   }else{
-    PROFILE={};CK={};EDIT=null;Store.isAdmin=false;renderAcct();
+    PROFILE={};CK={};EDIT=null;Store.isAdmin=false;Store.userLoaded=false;renderAcct();
     const v=(location.hash||'').slice(1);if(PRIVATE.includes(v))go('inicio');
   }
 }
@@ -1437,7 +1439,7 @@ async function renderAdmin(){
   $('#admin-body').innerHTML='<div class="loading">Carregando…</div>';
   const top=$('#v-admin .area-top');
   ADM.newMsgs=await AdminAPI.newCount();
-  const tabs=[['geral','Visão geral'],['mensagens','Mensagens'+(ADM.newMsgs?'<span class="badge">'+ADM.newMsgs+'</span>':'')],['usuarios','Usuários'],['documentos','Documentos'],['admins','Administradores'],['registro','Registro de acessos']];
+  const tabs=[['geral','Visão geral'],['acessos','Acessos ao site'],['mensagens','Mensagens'+(ADM.newMsgs?'<span class="badge">'+ADM.newMsgs+'</span>':'')],['usuarios','Usuários'],['documentos','Documentos'],['admins','Administradores'],['registro','Registro de acessos']];
   top.innerHTML='<div class="wrap"><div class="kicker">Administração da plataforma</div><h1>Painel administrador</h1><p>Gerencie quem usa a plataforma e acompanhe os documentos emitidos. Cada visualização de documento fica registrada.</p><nav class="atabs">'+tabs.map(([k,l])=>'<a href="#admin" data-atab="'+k+'" class="'+(ADM.tab===k?'on':'')+'">'+l+'</a>').join('')+'<a href="#inicio" data-logout class="atab-out">Sair ↗</a></nav></div>';
   const b=$('#admin-body');b.innerHTML='<div class="loading">Carregando…</div>';
   try{
@@ -1446,7 +1448,7 @@ async function renderAdmin(){
     if(ADM.tab==='registro')ADM.log=await AdminAPI.log();
     if(ADM.tab==='mensagens')ADM.msgs=await AdminAPI.msgs();
   }catch(e){b.innerHTML='<div class="empty"><h3>Não foi possível carregar</h3><p class="src">'+esc(admErr(e))+'</p></div>';return}
-  ({mensagens:admMsgs,geral:admGeral,usuarios:admUsers,documentos:admDocs,admins:admAdmins,registro:admLog})[ADM.tab](b);
+  ({acessos:admAcessos,mensagens:admMsgs,geral:admGeral,usuarios:admUsers,documentos:admDocs,admins:admAdmins,registro:admLog})[ADM.tab](b);
 }
 
 const MSG_ST={nova:'Nova',respondida:'Respondida',arquivada:'Arquivada'};
@@ -1543,6 +1545,46 @@ $('#admin-body').addEventListener('click',async e=>{
   if(el=g('arem')){const em=el.dataset.arem;try{await AdminAPI.setAdmin(em,false);toast('Acesso de administrador removido.');renderAdmin()}catch(err){toast(admErr(err))}return}
 });
 document.addEventListener('click',e=>{const t=e.target.closest('[data-atab]');if(t){e.preventDefault();ADM.tab=t.dataset.atab;ADM.q='';if(t.dataset.atab!=='documentos')ADM.uid=null;renderAdmin()}});
+
+/* ---------- acessos ao site ---------- */
+const PAGE_LBL={inicio:'Início',guia:'Guia Cidadão',mapa:'Mapa da Rota',base:'Base jurídica',fontes:'Fontes e ressalvas',contato:'Fale conosco',entrar:'Entrar / criar cadastro',painel:'Área da família',documentos:'Meus documentos',modelos:'Modelos',checklist:'Checklist',cadastro:'Meus dados',editor:'Editor de documento'};
+const UF={AC:'Acre',AL:'Alagoas',AP:'Amapá',AM:'Amazonas',BA:'Bahia',CE:'Ceará',DF:'Distrito Federal',ES:'Espírito Santo',GO:'Goiás',MA:'Maranhão',MT:'Mato Grosso',MS:'Mato Grosso do Sul',MG:'Minas Gerais',PA:'Pará',PB:'Paraíba',PR:'Paraná',PE:'Pernambuco',PI:'Piauí',RJ:'Rio de Janeiro',RN:'Rio Grande do Norte',RS:'Rio Grande do Sul',RO:'Rondônia',RR:'Roraima',SC:'Santa Catarina',SP:'São Paulo',SE:'Sergipe',TO:'Tocantins'};
+function countryName(c){try{return new Intl.DisplayNames(['pt-BR'],{type:'region'}).of(c)}catch(e){return c}}
+const nf=n=>Number(n||0).toLocaleString('pt-BR');
+function rankTable(title,rows,label,unit,note){
+  const max=Math.max(1,...rows.map(r=>r.n));
+  return '<div class="card"><h3>'+title+'</h3>'+(rows.length?'<table class="t rank">'+rows.map(r=>'<tr><td><div class="rk-l">'+esc(label(r))+'</div><div class="rk-bar" aria-hidden="true"><i style="width:'+Math.max(3,Math.round(r.n/max*100))+'%"></i></div></td><td class="rk-n">'+nf(r.n)+'</td></tr>').join('')+'</table>':'<p class="src">Ainda sem dados neste período.</p>')+'<p class="src" style="margin:10px 0 0">'+unit+(note?' '+note:'')+'</p></div>';
+}
+function dayChart(days,list){
+  const map={};list.forEach(x=>map[x.d]=x);const pts=[];
+  for(let i=days-1;i>=0;i--){const d=new Date(Date.now()-i*864e5);const k=d.toLocaleDateString('en-CA',{timeZone:'America/Sao_Paulo'});pts.push({k,v:(map[k]||{}).visits||0,p:(map[k]||{}).views||0})}
+  const W=900,H=200,pad=28,max=Math.max(1,...pts.map(p=>p.v)),bw=(W-pad*2)/pts.length;
+  const lab=k=>{const [y,m,d]=k.split('-');return d+'/'+m};
+  const step=Math.ceil(pts.length/10);
+  return '<div class="card"><h3>Visitas por dia</h3><svg viewBox="0 0 '+W+' '+(H+30)+'" class="daychart" role="img" aria-label="Gráfico de visitas por dia">'+
+    [0,.5,1].map(f=>'<line x1="'+pad+'" x2="'+(W-pad)+'" y1="'+(H-f*(H-20))+'" y2="'+(H-f*(H-20))+'" stroke="#e3e8ee"/><text x="'+(pad-6)+'" y="'+(H-f*(H-20)+4)+'" text-anchor="end" font-size="11" fill="#4a5562">'+Math.round(max*f)+'</text>').join('')+
+    pts.map((p,i)=>{const h=p.v/max*(H-20),x=pad+i*bw+bw*.15;return '<rect x="'+x.toFixed(1)+'" y="'+(H-h).toFixed(1)+'" width="'+(bw*.7).toFixed(1)+'" height="'+Math.max(h,p.v?2:0).toFixed(1)+'" rx="3" fill="#13786b"><title>'+lab(p.k)+': '+p.v+' visitas, '+p.p+' páginas vistas</title></rect>'+((i%step===0||i===pts.length-1)?'<text x="'+(x+bw*.35).toFixed(1)+'" y="'+(H+18)+'" text-anchor="middle" font-size="11" fill="#4a5562">'+lab(p.k)+'</text>':'')}).join('')+
+    '</svg><p class="src" style="margin:6px 0 0">Passe o mouse (ou toque) numa barra para ver o número do dia.</p></div>';
+}
+async function admAcessos(b){
+  b.innerHTML='<div class="loading">Carregando…</div>';
+  let s;try{const {data,error}=await Store.sb.rpc('admin_stats',{p_days:ADM.days||30});if(error)throw error;s=data}catch(e){b.innerHTML='<div class="empty"><h3>Não foi possível carregar</h3><p class="src">'+esc(admErr(e))+'</p></div>';return}
+  const per=[[1,'Hoje'],[7,'7 dias'],[30,'30 dias'],[90,'90 dias']];
+  const conv=s.visits?(s.signups/s.visits*100):0;
+  b.innerHTML='<div class="toolbar"><div class="chips" role="group" aria-label="Período">'+per.map(([d,l])=>'<button class="chip'+((ADM.days||30)===d?' on':'')+'" data-adays="'+d+'">'+l+'</button>').join('')+'</div></div>'+
+    '<div class="stats" style="grid-template-columns:repeat(4,1fr)">'+
+    [['Visitas',nf(s.visits),'pessoas que abriram o site (cada visita conta uma vez)'],['Páginas vistas',nf(s.views),'total de telas abertas'],['Novos cadastros',nf(s.signups),'no mesmo período'],['Conversão',conv.toLocaleString('pt-BR',{maximumFractionDigits:1})+'%','das visitas viraram cadastro']].map(x=>'<div class="stat"><div class="lbl">'+x[0]+'</div><div class="big">'+x[1]+'</div><div class="src">'+x[2]+'</div></div>').join('')+'</div>'+
+    ((ADM.days||30)>1?dayChart(ADM.days||30,s.by_day):'')+
+    '<div class="grid g2" style="margin-top:18px">'+
+      rankTable('Estados',s.states,r=>UF[r.k]?UF[r.k]+' ('+r.k+')':r.k,'Visitas do Brasil por estado.')+
+      rankTable('Cidades',s.cities,r=>r.k+(r.r?' – '+r.r:'')+(r.c&&r.c!=='BR'?' · '+countryName(r.c):''),'Visitas por cidade.','A localização é aproximada, pela conexão de internet.')+
+      rankTable('Páginas mais vistas',s.pages,r=>PAGE_LBL[r.k]||r.k,'Número de vezes que cada tela foi aberta.')+
+      rankTable('De onde vieram',s.sources,r=>r.k==='direto'?'Acesso direto / link compartilhado':r.k,'Como a pessoa chegou ao site na visita.','Links abertos pelo WhatsApp costumam aparecer como acesso direto.')+
+      rankTable('Aparelho',s.devices,r=>({celular:'Celular',tablet:'Tablet',computador:'Computador'})[r.k]||r.k,'Visitas por tipo de aparelho.')+
+      rankTable('Países',s.countries,r=>countryName(r.k),'Visitas por país.')+
+    '</div><p class="src" style="margin-top:16px">Os acessos de administradores não entram na contagem. Nenhum dado pessoal é guardado: só página, cidade aproximada, origem e tipo de aparelho.</p>';
+}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-adays]');if(t){ADM.days=+t.dataset.adays;admAcessos($('#admin-body'))}});
 
 /* ---------- editor ---------- */
 let edDirty=false,edTimer=null,edSaving=false;
@@ -1647,6 +1689,33 @@ async function saveEdit(auto){
   apply();
 })();
 
+
+
+/* ---------- estatísticas anônimas de acesso ---------- */
+const HITQ=[];let lastHit={v:'',t:0};
+function hitSid(){let s=null;try{s=sessionStorage.getItem('rt_sid');if(!s){s=Math.random().toString(36).slice(2)+Date.now().toString(36);sessionStorage.setItem('rt_sid',s)}}catch(e){s='x'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}return s}
+function hitSource(){
+  try{const c=sessionStorage.getItem('rt_src');if(c)return c}catch(e){}
+  let s='direto';const q=new URLSearchParams(location.search).get('utm_source');
+  const r=(document.referrer||'').toLowerCase();let h='';try{h=r?new URL(r).hostname.replace(/^(www|m|l|lm)\./,''):''}catch(e){}
+  const map=[[/google\./,'Google'],[/instagram/,'Instagram'],[/facebook|fb\.com/,'Facebook'],[/whatsapp|wa\.me/,'WhatsApp'],[/linkedin|lnkd/,'LinkedIn'],[/bing\./,'Bing'],[/youtube|youtu\.be/,'YouTube'],[/^t\.co$|^x\.com$|twitter/,'X / Twitter'],[/tiktok/,'TikTok'],[/yahoo/,'Yahoo'],[/duckduckgo/,'DuckDuckGo'],[/gov\.br/,'Sites gov.br']];
+  if(q){const m=map.find(([re])=>re.test(q.toLowerCase()));s=m?m[1]:q.slice(0,30)}
+  else if(h&&!/rotatea/.test(h)){const m=map.find(([re])=>re.test(h));s=m?m[1]:h.slice(0,30)}
+  try{sessionStorage.setItem('rt_src',s)}catch(e){}return s}
+function hitDevice(){const u=navigator.userAgent;if(/iPad|Tablet/i.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1))return 'tablet';if(/Mobi|Android|iPhone/i.test(u))return 'celular';return 'computador'}
+function track(v){
+  if(location.protocol!=='https:'||/localhost|127\.0\.0\.1/.test(location.hostname))return;
+  if(v==='admin')return;
+  const now=Date.now();if(lastHit.v===v&&now-lastHit.t<4000)return;lastHit={v,t:now};
+  HITQ.push(v);flushHits();
+}
+function flushHits(){
+  if(!Store.ready){setTimeout(flushHits,400);return}
+  if(Store.logged()&&!Store.userLoaded)return;
+  if(Store.isAdmin){HITQ.length=0;return}
+  while(HITQ.length){const page=HITQ.shift();
+    try{fetch('/api/hit',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({sid:hitSid(),page,source:hitSource(),device:hitDevice(),logged:Store.logged()})}).catch(()=>{})}catch(e){}}
+}
 
 /* ---------- ouvir esta página ---------- */
 (function(){
