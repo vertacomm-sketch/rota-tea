@@ -1577,7 +1577,7 @@ async function admAcessos(b){
     ((ADM.days||30)>1?dayChart(ADM.days||30,s.by_day):'')+
     '<div class="grid g2" style="margin-top:18px">'+
       rankTable('Estados',s.states,r=>UF[r.k]?UF[r.k]+' ('+r.k+')':r.k,'Visitas do Brasil por estado.')+
-      rankTable('Cidades',s.cities,r=>r.k+(r.r?' – '+r.r:'')+(r.c&&r.c!=='BR'?' · '+countryName(r.c):''),'Visitas por cidade.','A localização é aproximada, pela conexão de internet.')+
+      rankTable('Cidades',s.cities,r=>r.k+(r.r&&r.c==='BR'?' – '+r.r:'')+(r.c&&r.c!=='BR'?' · '+countryName(r.c):''),'Visitas por cidade.','A localização é aproximada, pela conexão de internet.')+
       rankTable('Páginas mais vistas',s.pages,r=>PAGE_LBL[r.k]||r.k,'Número de vezes que cada tela foi aberta.')+
       rankTable('De onde vieram',s.sources,r=>r.k==='direto'?'Acesso direto / link compartilhado':r.k,'Como a pessoa chegou ao site na visita.','Links abertos pelo WhatsApp costumam aparecer como acesso direto.')+
       rankTable('Aparelho',s.devices,r=>({celular:'Celular',tablet:'Tablet',computador:'Computador'})[r.k]||r.k,'Visitas por tipo de aparelho.')+
