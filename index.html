@@ -215,6 +215,10 @@ textarea.inp{min-height:84px;resize:vertical}
 .tabs button.on{background:#fff;color:var(--navy);box-shadow:inset 0 -3px 0 var(--coral)}
 .auth .bd{padding:26px}
 .err{color:#b4402a;font-size:.88rem;margin:-4px 0 12px;min-height:1em}
+.err-box{background:#fdf0ec;border:1px solid #f2c4b6;border-left:4px solid var(--coral-ink);border-radius:10px;padding:12px 14px;color:#7a2c1c;font-size:.92rem;line-height:1.45}.err-box p{margin:0 0 8px}.err-box .err-sub{color:#5a3a30;font-size:.86rem}
+.linkbtn{background:none;border:0;padding:0;color:var(--teal);text-decoration:underline;cursor:pointer;font:inherit;font-weight:700}
+.auth-help{margin:16px 0 0;padding-top:12px;border-top:1px solid #e3e8ee;text-align:center;font-size:.88rem;color:var(--muted)}
+.msg.is-err{border-left:4px solid var(--coral)}.fixbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:#eef6f4;border-radius:10px;padding:8px 10px;margin:0 0 10px}
 
 /* modal, toast */
 .modal{position:fixed;inset:0;background:rgba(15,30,45,.5);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
@@ -854,14 +858,58 @@ const Store={
 let PROFILE={};
 const STATUS={rascunho:'Rascunho',pronto:'Pronto para enviar',enviado:'Enviado',respondido:'Resposta recebida'};
 function statusPill(d){if(d.type==='ficha')return '<span class="st st-ficha">Em acompanhamento</span>';const s=d.status||'rascunho';return '<span class="st st-'+s+'">'+STATUS[s]+'</span>'}
-function errMsg(e){const m=(e&&(e.message||e.error_description))||'';
-  if(/Invalid login/i.test(m))return 'E-mail ou senha não conferem.';
-  if(/not confirmed/i.test(m))return 'Confirme seu e-mail pelo link que enviamos antes de entrar.';
-  if(/already registered|already been registered/i.test(m))return 'Já existe um cadastro com este e-mail. Use “Entrar”.';
-  if(/rate limit|too many/i.test(m))return 'Muitas tentativas seguidas. Aguarde alguns minutos e tente de novo.';
-  if(/Password should|weak/i.test(m))return 'Escolha uma senha mais forte (pelo menos 8 caracteres).';
-  if(/fetch|network/i.test(m))return 'Sem conexão com o servidor. Verifique sua internet.';
-  return 'Não foi possível concluir agora. Tente novamente.'}
+function errInfo(e){const m=String((e&&(e.message||e.error_description||e.msg))||e||'');const code=String((e&&(e.code||e.error_code||e.status))||'');
+  if(/Invalid login/i.test(m))return {msg:'E-mail ou senha não conferem. Confira os dados ou use “Esqueci minha senha”.',sys:false};
+  if(/not confirmed/i.test(m))return {msg:'Seu e-mail ainda não foi confirmado. Abra o e-mail que enviamos e clique no link de confirmação (veja também a caixa de spam).',sys:false};
+  if(/already registered|already been registered|already exists/i.test(m))return {msg:'Já existe um cadastro com este e-mail. Use “Entrar” ou “Esqueci minha senha”.',sys:false};
+  if(/email rate limit|over_email_send_rate_limit/i.test(m+' '+code))return {msg:'Enviamos muitos e-mails em pouco tempo e o envio foi pausado por alguns minutos. Aguarde um pouco e tente de novo.',sys:true};
+  if(/rate limit|too many|429/i.test(m+' '+code))return {msg:'Muitas tentativas seguidas. Aguarde alguns minutos e tente de novo.',sys:false};
+  if(/sending (confirmation|recovery|magic|invite)|error sending|smtp/i.test(m))return {msg:'Não conseguimos enviar o e-mail agora. O problema é do nosso lado, não dos seus dados.',sys:true};
+  if(/Password should|weak|pwned/i.test(m))return {msg:'Escolha uma senha mais forte: pelo menos 8 caracteres, misturando letras e números.',sys:false};
+  if(/validate email|invalid email|email address.*invalid/i.test(m))return {msg:'Este e-mail não parece válido. Confira se foi digitado corretamente.',sys:false};
+  if(/signups not allowed|signup.*disabled/i.test(m))return {msg:'Os novos cadastros estão temporariamente pausados.',sys:true};
+  if(/fetch|network|Load failed/i.test(m))return {msg:'Não conseguimos falar com o servidor. Verifique sua internet e tente de novo.',sys:true};
+  return {msg:'Algo deu errado do nosso lado e não conseguimos concluir agora.',sys:true}}
+function errMsg(e){return errInfo(e).msg}
+/* ---------- relatar erro ---------- */
+function showErr(box,e,ctx){
+  const i=errInfo(e);ctx=Object.assign({},ctx,{shown:i.msg,raw:String((e&&(e.message||e.error_description))||e||'').slice(0,300),code:String((e&&(e.code||e.status))||'')});
+  box.innerHTML='<div class="err-box" role="alert"><p>'+esc(i.msg)+'</p>'+(i.sys?'<p class="err-sub">Avise a equipe: registramos o problema e avisamos você assim que estiver resolvido.</p><button type="button" class="btn btn-coral btn-sm" data-report>Avisar a equipe sobre este erro</button>':'<button type="button" class="linkbtn" data-report>Continua com problema? Avise a equipe</button>')+'</div>';
+  box.querySelector('[data-report]').onclick=()=>openReport(ctx);
+  try{box.scrollIntoView({block:'center',behavior:document.documentElement.classList.contains('rm')?'auto':'smooth'})}catch(x){}
+}
+function openReport(ctx){
+  ctx=ctx||{};const pre=ctx.pre||{};const logged=!!(Store.logged&&Store.logged());
+  const md=logged?(Store.user.user_metadata||{}):{};
+  const nome=pre.nome||(logged&&(PROFILE.nome||md.nome))||'';
+  const email=pre.email||(logged&&Store.user.email)||'';
+  const wa=pre.whatsapp||(logged&&(PROFILE.whatsapp||md.whatsapp))||'';
+  modal('<h2 style="margin-top:0">Avisar a equipe sobre um erro</h2><p class="src" style="margin-top:0">Registramos o problema para a equipe do Rota TEA corrigir. Deixe seu contato para avisarmos você quando estiver resolvido.</p>'+
+    (ctx.shown?'<div class="callout att" style="margin:0 0 14px"><b class="tag">ERRO</b>'+esc(ctx.shown)+'</div>':'')+
+    '<form id="rep-f" novalidate><label class="f"><span>Seu nome</span><input class="inp" name="nome" autocomplete="name" value="'+esc(nome)+'"></label>'+
+    '<label class="f"><span>E-mail</span><input class="inp" name="email" type="email" autocomplete="email" value="'+esc(email)+'"></label>'+
+    '<label class="f"><span>WhatsApp</span><input class="inp" name="whatsapp" type="tel" inputmode="tel" placeholder="(00) 00000-0000" data-phone value="'+esc(wa?fmtPhone(String(wa).replace(/\D/g,'')):'')+'"><small>Com DDD. Usado só para avisar sobre este problema.</small></label>'+
+    '<label class="f"><span>O que aconteceu? <small style="font-weight:400">(opcional)</small></span><textarea class="inp" name="desc" style="min-height:80px" placeholder="Ex.: cliquei em Criar cadastro e apareceu uma mensagem de erro."></textarea></label>'+
+    '<input class="hp" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">'+
+    '<label class="toggle"><input type="checkbox" name="ok" checked><span>Quero ser avisado(a) quando o problema for corrigido. Autorizo a equipe do Rota TEA a usar estes dados só para isso.</span></label>'+
+    '<div class="err" id="rep-err"></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-coral">Enviar aviso</button><button type="button" class="btn btn-ghost" data-close>Cancelar</button></div></form>',
+  box=>{box.querySelector('[data-close]').onclick=closeModal;
+    box.querySelector('#rep-f').onsubmit=async ev=>{ev.preventDefault();const fd=Object.fromEntries(new FormData(ev.target));const er=box.querySelector('#rep-err');er.textContent='';
+      if(fd.site)return;
+      const row={nome:(fd.nome||'').trim(),email:(fd.email||'').trim().toLowerCase(),whatsapp:fmtPhone(fd.whatsapp||'')};
+      if(row.nome.length<2){er.textContent='Informe seu nome.';return}
+      if(!/^\S+@\S+\.\S+$/.test(row.email)){er.textContent='Informe um e-mail válido.';return}
+      const d=(fd.whatsapp||'').replace(/\D/g,'');if(d.length<10||d.length>11){er.textContent='Informe o WhatsApp com DDD.';return}
+      if(!fd.ok){er.textContent='Marque a autorização para podermos avisar você.';return}
+      row.assunto=('Erro no site · '+(ctx.acao||'Geral')).slice(0,120);
+      row.mensagem=(((fd.desc||'').trim()||'(sem descrição)')+'\n\n— Detalhes técnicos —\nAção: '+(ctx.acao||'—')+'\nMensagem exibida: '+(ctx.shown||'—')+'\nErro: '+([ctx.code,ctx.raw].filter(Boolean).join(' · ')||'—')+'\nPágina: '+(location.hash||'#inicio')+'\nAparelho: '+navigator.userAgent.slice(0,180)+'\nQuando: '+new Date().toLocaleString('pt-BR')+'\nQuer ser avisado(a) da correção: sim').slice(0,4000);
+      if(logged)row.user_id=Store.user.id;
+      const btn=ev.target.querySelector('button');btn.disabled=true;btn.textContent='Enviando…';
+      try{const {error}=await Store.sb.from('contact_messages').insert(row);if(error)throw error;
+        box.innerHTML='<div class="ok-box" style="text-align:center"><h2 style="margin-top:0">Recebemos seu aviso</h2><p>Obrigado! A equipe do Rota TEA vai verificar o problema e avisar você pelo WhatsApp <b>'+esc(row.whatsapp)+'</b> ou pelo e-mail <b>'+esc(row.email)+'</b> assim que estiver resolvido.</p><button class="btn btn-ghost" data-close>Fechar</button></div>';box.querySelector('[data-close]').onclick=closeModal}
+      catch(x){er.textContent='Não conseguimos registrar o aviso agora. Tente de novo em alguns minutos.';btn.disabled=false;btn.textContent='Enviar aviso'}};
+  });
+}
 
 /* ---------- modelos ---------- */
 const PROFILE_FIELDS=[
@@ -1257,7 +1305,7 @@ function renderAuth(){
       if(fd.s1!==fd.s2){err.textContent='As senhas não são iguais.';return}
       const btn=e.target.querySelector('button');btn.disabled=true;
       const {error}=await Store.sb.auth.updateUser({password:fd.s1});btn.disabled=false;
-      if(error){err.textContent=errMsg(error);return}
+      if(error){showErr(err,error,{acao:'Criar nova senha'});return}
       RECOVERY=false;toast(RECOVERY_KIND==='invite'?'Senha criada. Bem-vindo(a)!':'Senha alterada.');go('painel')};
     return}
   if(Store.logged()){go('painel');return}
@@ -1267,8 +1315,9 @@ function renderAuth(){
   if(tab==='novo')form='<form id="auth-f" novalidate><label class="f"><span>Seu nome</span><input class="inp" name="nome" autocomplete="name"></label><label class="f"><span>E-mail</span><input class="inp" name="email" type="email" autocomplete="email"></label><label class="f"><span>WhatsApp</span><input class="inp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(00) 00000-0000" data-phone><small>Com DDD. Usado apenas para contato sobre a plataforma.</small></label><label class="f"><span>Senha</span><input class="inp" name="senha" type="password" autocomplete="new-password"><small>Pelo menos 8 caracteres.</small></label><label class="toggle"><input type="checkbox" name="ok"><span>Concordo com o uso dos meus dados para guardar meus documentos nesta plataforma. Sei que a equipe responsável pelo projeto pode consultá-los para suporte e acompanhamento, com registro de cada acesso. Li as ressalvas: o material é educativo e não substitui orientação jurídica individual.</span></label><div class="err" id="auth-err"></div><button class="btn btn-coral" style="width:100%">Criar cadastro</button></form>';
   else if(tab==='entrar')form='<form id="auth-f" novalidate><label class="f"><span>E-mail</span><input class="inp" name="email" type="email" autocomplete="email"></label><label class="f"><span>Senha</span><input class="inp" name="senha" type="password" autocomplete="current-password"></label><div class="err" id="auth-err"></div><button class="btn btn-coral" style="width:100%">Entrar</button><p style="margin:14px 0 0;text-align:center"><a href="#entrar" data-tab="senha">Esqueci minha senha</a></p></form>';
   else form='<form id="auth-f" novalidate><p class="src" style="margin-top:0">Informe seu e-mail. Enviaremos um link para você criar uma nova senha.</p><label class="f"><span>E-mail</span><input class="inp" name="email" type="email" autocomplete="email"></label><div class="err" id="auth-err"></div><button class="btn btn-coral" style="width:100%">Enviar link</button><p style="margin:14px 0 0;text-align:center"><a href="#entrar" data-tab="entrar">Voltar para entrar</a></p></form>';
-  body.innerHTML='<div class="auth"><div class="tabs"><button data-tab="novo" class="'+(tab==='novo'?'on':'')+'">Criar cadastro</button><button data-tab="entrar" class="'+(tab!=='novo'?'on':'')+'">Entrar</button></div><div class="bd">'+intentMsg+form+'</div></div>';
+  body.innerHTML='<div class="auth"><div class="tabs"><button data-tab="novo" class="'+(tab==='novo'?'on':'')+'">Criar cadastro</button><button data-tab="entrar" class="'+(tab!=='novo'?'on':'')+'">Entrar</button></div><div class="bd">'+intentMsg+form+'<p class="auth-help">Problemas para se cadastrar ou entrar? <button type="button" class="linkbtn" id="auth-rep">Avise a equipe</button></p></div></div>';
   $$('[data-tab]',body).forEach(b=>b.addEventListener('click',e=>{e.preventDefault();AUTH_TAB=b.dataset.tab;renderAuth()}));
+  $('#auth-rep').onclick=()=>{const f=$('#auth-f');const g=k=>f&&f.elements[k]?f.elements[k].value:'';openReport({acao:tab==='novo'?'Criar cadastro':tab==='entrar'?'Entrar na conta':'Recuperar senha',pre:{nome:g('nome'),email:g('email'),whatsapp:g('whatsapp')}})};
   $('#auth-f').onsubmit=async e=>{e.preventDefault();const fd=Object.fromEntries(new FormData(e.target));const err=$('#auth-err');err.textContent='';
     const email=(fd.email||'').trim().toLowerCase();
     if(!/^\S+@\S+\.\S+$/.test(email)){err.textContent='Informe um e-mail válido.';return}
@@ -1280,19 +1329,20 @@ function renderAuth(){
         if(wa.length<10||wa.length>11){err.textContent='Informe o WhatsApp com DDD.';return}
         if((fd.senha||'').length<8){err.textContent='A senha precisa ter pelo menos 8 caracteres.';return}
         if(!fd.ok){err.textContent='Para criar o cadastro, marque a concordância.';return}
+        const pre={nome:(fd.nome||'').trim(),email,whatsapp:fd.whatsapp||''};
         const {data,error}=await Store.sb.auth.signUp({email,password:fd.senha,options:{data:{nome:fd.nome.trim(),whatsapp:fmtPhone(wa)},emailRedirectTo:location.origin+location.pathname}});
-        if(error){err.textContent=errMsg(error);return}
+        if(error){showErr(err,error,{acao:'Criar cadastro',pre});return}
         if(data&&data.user&&Array.isArray(data.user.identities)&&data.user.identities.length===0){err.textContent='Já existe um cadastro com este e-mail. Use “Entrar”.';return}
         if(!data.session){body.innerHTML='<div class="auth"><div class="bd ok-box"><h2>Confirme seu e-mail</h2><p>Enviamos um link de confirmação para <b>'+esc(email)+'</b>. Abra o e-mail e clique no link para ativar sua Área da família.</p><p class="src">Não chegou? Confira a caixa de spam ou lixo eletrônico.</p><button class="btn btn-ghost" data-tab="entrar" id="go-login">Já confirmei, quero entrar</button></div></div>';$('#go-login').onclick=()=>{AUTH_TAB='entrar';renderAuth()}}
       }else if(tab==='entrar'){
         const {error}=await Store.sb.auth.signInWithPassword({email,password:fd.senha||''});
-        if(error){err.textContent=errMsg(error);return}
+        if(error){showErr(err,error,{acao:'Entrar na conta',pre:{email}});return}
       }else{
         const {error}=await Store.sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
-        if(error){err.textContent=errMsg(error);return}
+        if(error){showErr(err,error,{acao:'Recuperar senha',pre:{email}});return}
         body.innerHTML='<div class="auth"><div class="bd ok-box"><h2>Confira seu e-mail</h2><p>Se houver cadastro para <b>'+esc(email)+'</b>, você vai receber um link para criar uma nova senha.</p><button class="btn btn-ghost" id="go-login">Voltar para entrar</button></div></div>';$('#go-login').onclick=()=>{AUTH_TAB='entrar';renderAuth()}
       }
-    }catch(ex){err.textContent=errMsg(ex)}
+    }catch(ex){showErr(err,ex,{acao:tab==='novo'?'Criar cadastro':tab==='entrar'?'Entrar na conta':'Recuperar senha',pre:{nome:(fd.nome||'').trim(),email,whatsapp:fd.whatsapp||''}})}
     finally{if(btn.isConnected)btn.disabled=false}
   };
 }
@@ -1300,7 +1350,7 @@ async function logout(){try{if(EDIT&&typeof edDirty!=='undefined'&&edDirty)await
 
 
 /* ---------- fale conosco ---------- */
-const ASSUNTOS=['Dúvida sobre como usar a plataforma','Problema com cadastro ou acesso','Dúvida sobre os modelos e documentos','Sugestão de melhoria','Correção de informação no conteúdo','Parcerias, imprensa ou eventos','Outro assunto'];
+const ASSUNTOS=['Dúvida sobre como usar a plataforma','Problema com cadastro ou acesso','Relatar um erro no site','Dúvida sobre os modelos e documentos','Sugestão de melhoria','Correção de informação no conteúdo','Parcerias, imprensa ou eventos','Outro assunto'];
 function renderContato(){
   const b=$('#contato-body');
   if(!Store.ready){b.innerHTML='<div class="loading">Carregando…</div>';return}
@@ -1453,14 +1503,16 @@ async function renderAdmin(){
 
 const MSG_ST={nova:'Nova',respondida:'Respondida',arquivada:'Arquivada'};
 function admMsgs(b){
-  const chips=[['nova','Novas'],['respondida','Respondidas'],['arquivada','Arquivadas'],['todas','Todas']];
-  const list=ADM.msgs.filter(m=>ADM.mfilter==='todas'||m.status===ADM.mfilter);
-  b.innerHTML='<div class="toolbar"><div class="chips">'+chips.map(([k,l])=>'<button class="chip'+(ADM.mfilter===k?' on':'')+'" data-mf="'+k+'">'+l+' ('+(k==='todas'?ADM.msgs.length:ADM.msgs.filter(m=>m.status===k).length)+')</button>').join('')+'</div></div>'+
-    (list.length?list.map(m=>{const wa=(m.whatsapp||'').replace(/\D/g,'');const subj=encodeURIComponent('Re: '+m.assunto+' · Rota TEA');
-      return '<div class="msg '+m.status+'"><div class="msg-top"><div><b style="color:var(--navy)">'+esc(m.assunto)+'</b> '+(m.user_id?'<span class="st st-respondido">Cadastrado</span>':'<span class="st st-rascunho">Sem cadastro</span>')+'</div><span class="src">'+fmtStamp(Date.parse(m.created_at))+'</span></div>'+
+  const chips=[['nova','Novas'],['erros','Erros relatados'],['respondida','Respondidas'],['arquivada','Arquivadas'],['todas','Todas']];
+  const isErr=m=>/^Erro no site|^Relatar um erro/.test(m.assunto||'');
+  const flt=(k,m)=>k==='todas'||(k==='erros'?isErr(m)&&m.status!=='arquivada':m.status===k);
+  const list=ADM.msgs.filter(m=>flt(ADM.mfilter,m));
+  b.innerHTML='<div class="toolbar"><div class="chips">'+chips.map(([k,l])=>'<button class="chip'+(ADM.mfilter===k?' on':'')+'" data-mf="'+k+'">'+l+' ('+ADM.msgs.filter(m=>flt(k,m)).length+')</button>').join('')+'</div></div>'+
+    (list.length?list.map(m=>{const wa=(m.whatsapp||'').replace(/\D/g,'');const subj=encodeURIComponent('Re: '+m.assunto+' · Rota TEA');const er=isErr(m);const pn=(m.nome||'').trim().split(/\s+/)[0]||'';const acao=((m.assunto||'').split('·')[1]||'').trim().toLowerCase();const fixTxt='Olá, '+pn+'! Aqui é a equipe do Rota TEA. O problema que você nos avisou no site'+(acao?' (ao '+acao+')':'')+' já foi corrigido. Você já pode tentar novamente em www.rotatea.com.br. Obrigado por nos avisar!';
+      return '<div class="msg '+m.status+(er?' is-err':'')+'"><div class="msg-top"><div><b style="color:var(--navy)">'+esc(m.assunto)+'</b> '+(m.user_id?'<span class="st st-respondido">Cadastrado</span>':'<span class="st st-rascunho">Sem cadastro</span>')+'</div><span class="src">'+fmtStamp(Date.parse(m.created_at))+'</span></div>'+
       '<div class="src" style="margin-top:4px"><b>'+esc(m.nome)+'</b> · <a href="mailto:'+esc(m.email)+'?subject='+subj+'">'+esc(m.email)+'</a>'+(wa?' · <a href="https://wa.me/55'+wa+'" target="_blank" rel="noopener">'+esc(m.whatsapp)+'</a>':'')+'</div>'+
       '<div class="body">'+esc(m.mensagem)+'</div>'+
-      '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><a class="btn btn-teal btn-sm" href="mailto:'+esc(m.email)+'?subject='+subj+'">Responder por e-mail</a>'+(wa?'<a class="btn btn-ghost btn-sm" href="https://wa.me/55'+wa+'" target="_blank" rel="noopener">Responder no WhatsApp</a>':'')+
+      (er?'<div class="fixbar"><b>Problema corrigido?</b> Avise a pessoa:'+(wa?' <a class="btn btn-teal btn-sm" href="https://wa.me/55'+wa+'?text='+encodeURIComponent(fixTxt)+'" target="_blank" rel="noopener">Avisar no WhatsApp</a>':'')+' <a class="btn btn-ghost btn-sm" href="mailto:'+esc(m.email)+'?subject='+encodeURIComponent('Rota TEA: problema corrigido')+'&body='+encodeURIComponent(fixTxt)+'">Avisar por e-mail</a><span class="src">Depois, marque como Respondida.</span></div>':'')+'<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><a class="btn btn-teal btn-sm" href="mailto:'+esc(m.email)+'?subject='+subj+'">Responder por e-mail</a>'+(wa?'<a class="btn btn-ghost btn-sm" href="https://wa.me/55'+wa+'" target="_blank" rel="noopener">Responder no WhatsApp</a>':'')+
       '<select class="ed-status" data-mst="'+m.id+'">'+Object.keys(MSG_ST).map(k=>'<option value="'+k+'"'+(m.status===k?' selected':'')+'>'+MSG_ST[k]+'</option>').join('')+'</select>'+
       '<button class="btn btn-danger btn-sm" data-mdel="'+m.id+'">Excluir</button></div>'+
       '<label class="f" style="margin:12px 0 0"><span>Anotações internas</span><textarea class="inp" style="min-height:60px" data-mnote="'+m.id+'" placeholder="Ex.: respondido por WhatsApp em 07/11">'+esc(m.notas||'')+'</textarea></label></div>'}).join('')
