@@ -75,6 +75,7 @@ input,select,textarea{font:inherit;color:inherit}
 /* layout */
 main{min-height:70vh}
 .view{display:none}.view.on{display:block}
+.contact-card .mail-big{font-size:1.45rem;font-weight:800;margin:4px 0 14px;word-break:break-word}.contact-card .mail-big a{color:var(--teal);text-decoration:none}.local-note{margin-top:0}.backup{margin-top:18px}.backup .row{display:flex;gap:10px;flex-wrap:wrap}
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 .narrow{max-width:860px}
 .page-head{background:var(--navy);color:#fff;padding:44px 0 36px;position:relative;overflow:hidden}
@@ -425,13 +426,12 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
   <div class="hero">
     <div class="wrap hero-in">
       <div>
-        <div class="hello" id="hero-hello" hidden></div>
-        <div class="kicker">Rota TEA <em>• Saúde suplementar</em></div>
+                <div class="kicker">Rota TEA <em>• Saúde suplementar</em></div>
         <h1>Um guia para organizar pedidos, respostas e próximos passos com o plano de saúde</h1>
         <div class="lead">Informação clara para agir com mais segurança.</div>
-        <p class="sub">Entenda seus direitos e siga o caminho recomendado. Com o cadastro gratuito, você preenche aqui mesmo os pedidos, as mensagens e a ficha de acompanhamento, e tudo fica guardado para continuar, revisar e baixar em PDF.</p>
+        <p class="sub">Entenda seus direitos e siga o caminho recomendado. Preencha aqui mesmo os pedidos, as mensagens e a ficha de acompanhamento e baixe em PDF. Sem cadastro: o que você digita fica só no seu aparelho.</p>
         <div class="ctas">
-          <a class="btn btn-coral" href="#entrar" data-cta>Criar cadastro gratuito</a>
+          <a class="btn btn-coral" href="#modelos">Começar meu pedido</a>
           <a class="btn btn-ghost" href="#mapa">Ver o Mapa da Rota</a>
         </div>
       </div>
@@ -450,19 +450,19 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
 
     <h2 class="sec-title">O que você encontra aqui</h2>
     <div class="tools">
-      <a class="tool" href="#guia"><div class="ic"><img src="img/ic-guia.webp" alt="" width="44" height="44" loading="lazy"></div><h3>Guia Cidadão</h3><p>Entender direitos básicos e agir diante de demora, falta de rede ou negativa.</p></a>
-      <a class="tool" href="#mapa"><div class="ic"><img src="img/ic-mapa.webp" alt="" width="44" height="44" loading="lazy"></div><h3>Mapa da Rota</h3><p>O caminho recomendado em sete passos, com atalho para cada documento.</p></a>
-      <a class="tool" href="#checklist"><span class="lock">Área da família</span><div class="ic"><img src="img/ic-checklist.webp" alt="" width="44" height="44" loading="lazy"></div><h3>Checklist da Família</h3><p>Marque o que já tem, veja o que falta e baixe a lista em PDF.</p></a>
-      <a class="tool hl" href="#modelos"><span class="lock">Área da família</span><div class="ic"><img src="img/ic-modelos.webp" alt="" width="44" height="44" loading="lazy"></div><h3>Modelos de Comunicação</h3><p>Preencha os quatro modelos na plataforma, salve, revise e baixe em PDF.</p></a>
-      <a class="tool" href="#base"><div class="ic"><img src="img/ic-base.webp" alt="" width="44" height="44" loading="lazy"></div><h3>Base Jurídica</h3><p>Normas e entendimentos oficiais, sem confundir regra com caso concreto.</p></a>
-      <a class="tool hl" href="#modelos" data-new="ficha"><span class="lock">Área da família</span><div class="ic"><img src="img/ic-ficha.webp" alt="" width="44" height="44" loading="lazy"></div><h3>Ficha de Acompanhamento</h3><p>Registre contatos, protocolos, respostas e próximos passos.</p></a>
+      <a class="tool" href="#guia"><div class="ic"><img src="img/ic-guia.webp" alt="Ícone de livro aberto" width="44" height="44" loading="lazy"></div><h3>Guia Cidadão</h3><p>Entender direitos básicos e agir diante de demora, falta de rede ou negativa.</p></a>
+      <a class="tool" href="#mapa"><div class="ic"><img src="img/ic-mapa.webp" alt="Ícone de mapa com rota" width="44" height="44" loading="lazy"></div><h3>Mapa da Rota</h3><p>O caminho recomendado em sete passos, com atalho para cada documento.</p></a>
+      <a class="tool" href="#checklist"><div class="ic"><img src="img/ic-checklist.webp" alt="Ícone de lista com itens marcados" width="44" height="44" loading="lazy"></div><h3>Checklist da Família</h3><p>Marque o que já tem, veja o que falta e baixe a lista em PDF.</p></a>
+      <a class="tool hl" href="#modelos"><div class="ic"><img src="img/ic-modelos.webp" alt="Ícone de documento sendo escrito" width="44" height="44" loading="lazy"></div><h3>Modelos de Comunicação</h3><p>Preencha os quatro modelos, revise e baixe em PDF. Fica salvo só no seu aparelho.</p></a>
+      <a class="tool" href="#base"><div class="ic"><img src="img/ic-base.webp" alt="Ícone de balança da justiça" width="44" height="44" loading="lazy"></div><h3>Base Jurídica</h3><p>Normas e entendimentos oficiais, sem confundir regra com caso concreto.</p></a>
+      <a class="tool hl" href="#modelos" data-new="ficha"><div class="ic"><img src="img/ic-ficha.webp" alt="Ícone de prancheta de acompanhamento" width="44" height="44" loading="lazy"></div><h3>Ficha de Acompanhamento</h3><p>Registre contatos, protocolos, respostas e próximos passos.</p></a>
     </div>
   </div>
 
   <div class="wrap">
     <div class="band">
-      <div><h3>Crie seu cadastro gratuito para usar as ferramentas</h3><p>Checklist, modelos e ficha de acompanhamento ficam na sua Área da família. Seus dados preenchem os documentos, e tudo fica guardado para continuar, revisar e baixar de novo, de qualquer aparelho.</p></div>
-      <a class="btn btn-coral" href="#entrar" data-cta>Criar meu cadastro</a>
+      <div><h3>Use as ferramentas sem cadastro</h3><p>Checklist, modelos e ficha de acompanhamento ficam na sua área, salvos só neste aparelho. A equipe do Rota TEA não recebe nem guarda o que você preenche. Para continuar em outro aparelho, baixe uma cópia dos seus dados.</p></div>
+      <a class="btn btn-coral" href="#painel">Abrir minha área</a>
     </div>
     <img class="banner-img" src="img/faixa.webp" alt="" loading="lazy" style="margin-top:24px">
   </div>
@@ -481,17 +481,24 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
 
     <h2 class="sec-title">Quem participa da definição do tratamento</h2>
     <p>A indicação clínica deve partir do profissional ou da equipe assistente. Quando o médico especifica um método ou técnica, a regulação da ANS protege essa indicação. Se a prescrição médica não definir a técnica, o terapeuta habilitado pode escolhê-la dentro de suas competências profissionais e do plano terapêutico. A família deve participar das decisões de cuidado.</p>
-    <div class="callout att"><b class="tag">ATENÇÃO</b>Não use a expressão “somente o médico decide” como regra absoluta. A indicação médica, a avaliação dos terapeutas e as competências de cada profissão precisam ser consideradas em conjunto.</div>
+    <div class="callout att"><b class="tag">ATENÇÃO</b>Não use a expressão “somente o médico decide” como regra absoluta. A Lei nº 12.842/2013 (Lei do Ato Médico), no art. 4º, lista as atividades privativas do médico, e as leis e conselhos de psicologia, fonoaudiologia, terapia ocupacional e fisioterapia definem as competências de cada profissão. Por isso, a indicação médica e a avaliação dos terapeutas precisam ser consideradas em conjunto.</div>
+
+    <h2 class="sec-title">Igualdade de tratamento pelo plano</h2>
+    <p>A pessoa com TEA é pessoa com deficiência para todos os efeitos legais (Lei nº 12.764/2012, art. 1º, § 2º). A operadora deve garantir a ela os mesmos serviços oferecidos aos demais clientes e não pode cobrar valores diferentes por causa da deficiência (Lei nº 13.146/2015, arts. 20 e 23; Lei nº 12.764/2012, art. 5º).</p>
+    <ul class="clean">
+      <li>Recusa de contratação, reajuste ou mensalidade diferente motivados pela deficiência podem ser questionados.</li>
+      <li>A deficiência não afeta a capacidade civil: a pessoa autista adulta pode fazer os próprios pedidos (Lei nº 13.146/2015, art. 6º).</li>
+    </ul>
 
     <h2 class="sec-title">Prazos que ajudam a acompanhar o pedido</h2>
     <table class="t">
-      <thead><tr><th>Situação</th><th>Prazo de referência</th></tr></thead>
+      <thead><tr><th>Situação</th><th>Prazo de referência</th><th style="width:150px">Norma</th></tr></thead>
       <tbody>
-        <tr><td>Urgência ou emergência</td><td>Atendimento imediato, conforme a cobertura contratada e a legislação.</td></tr>
-        <tr><td>Resposta a pedido assistencial comum</td><td>Em regra, até 5 dias úteis.</td></tr>
-        <tr><td>Resposta sobre alta complexidade ou internação eletiva</td><td>Até 10 dias úteis.</td></tr>
-        <tr><td>Sessões com psicólogo, fonoaudiólogo, terapeuta ocupacional ou fisioterapeuta</td><td>Atendimento em até 10 dias úteis.</td></tr>
-        <tr><td>NIP assistencial</td><td>Até 5 dias úteis para a operadora analisar a solução; os fluxos de resposta à ANS correm de forma concomitante.</td></tr>
+        <tr><td>Urgência ou emergência</td><td>Atendimento imediato, conforme a cobertura contratada e a legislação.</td><td>Lei nº 9.656/1998 e RN nº 566/2022</td></tr>
+        <tr><td>Resposta a pedido assistencial comum</td><td>Em regra, até 5 dias úteis.</td><td>RN nº 623/2024</td></tr>
+        <tr><td>Resposta sobre alta complexidade ou internação eletiva</td><td>Até 10 dias úteis.</td><td>RN nº 623/2024</td></tr>
+        <tr><td>Sessões com psicólogo, fonoaudiólogo, terapeuta ocupacional ou fisioterapeuta</td><td>Atendimento em até 10 dias úteis.</td><td>RN nº 566/2022</td></tr>
+        <tr><td>NIP assistencial</td><td>Até 5 dias úteis para a operadora analisar a solução; os fluxos de resposta à ANS correm de forma concomitante.</td><td>RN nº 483/2022</td></tr>
       </tbody>
     </table>
     <p class="src" style="margin-top:8px">Consulte os prazos oficiais atualizados: <a href="https://www.gov.br/ans/pt-br/assuntos/consumidor/prazos-maximos-de-atendimento" target="_blank" rel="noopener">ANS · Garantia de atendimento</a></p>
@@ -548,7 +555,7 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
       <div class="step"><div class="num">4</div><div><h3>Se não houver rede</h3><p>Peça alternativa dentro do prazo, mesmo fora da rede, e transporte quando cabível.</p></div><div class="act"><a class="btn btn-ghost btn-sm" href="#guia">Ver orientações</a></div></div>
       <div class="step"><div class="num">5</div><div><h3>Peça revisão</h3><p>Use o atendimento ou a Ouvidoria se a reanálise puder resolver.</p></div><div class="act"><button class="btn btn-ghost btn-sm" data-new="ouvidoria">Escrever à Ouvidoria</button></div></div>
       <div class="step"><div class="num">6</div><div><h3>Registre na ANS</h3><p>A NIP pode intermediar. Informe depois se o problema foi resolvido.</p></div><div class="act"><button class="btn btn-ghost btn-sm" data-new="ans">Montar relato</button></div></div>
-      <div class="step"><div class="num">7</div><div><h3>Avalie outros caminhos</h3><p>Procon, Consumidor.gov.br, mediação ou orientação jurídica podem ser adequados ao caso.</p></div><div class="act"><a class="btn btn-ghost btn-sm" href="#base">Base jurídica</a></div></div>
+      <div class="step"><div class="num">7</div><div><h3>Avalie outros caminhos</h3><p>Procon, Consumidor.gov.br e mediação podem ser adequados ao caso. Para orientação jurídica gratuita, procure a Defensoria Pública, o Núcleo de Prática Jurídica (NPJ) de uma faculdade de Direito ou a assistência judiciária da OAB da sua cidade. O Rota TEA não indica escritórios ou profissionais.</p></div><div class="act"><a class="btn btn-ghost btn-sm" href="#base">Base jurídica</a></div></div>
     </div>
     <div class="callout att"><b class="tag">ATENÇÃO</b>Rota recomendada, não fila obrigatória. Se houver urgência, risco à saúde, interrupção importante ou prazo judicial relevante, pule etapas e busque ajuda adequada.</div>
   </div>
@@ -691,12 +698,19 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
       <li>Comece pelo Mapa da Rota para identificar o próximo passo.</li>
       <li>Use o Checklist para reunir documentos antes de fazer um pedido ou reclamação.</li>
       <li>Adapte os modelos de comunicação aos fatos e evite incluir dados de saúde além do necessário.</li>
+      <li>Anexe prescrição, relatórios e laudos só no envio à operadora. O site não recebe nem guarda arquivos.</li>
       <li>Preencha a Ficha de Acompanhamento a cada contato com a operadora, a Ouvidoria ou a ANS.</li>
       <li>Confira as fontes oficiais sempre que houver dúvida sobre prazo, cobertura ou procedimento.</li>
     </ul>
     <h2 class="sec-title">Ressalvas éticas</h2>
     <p>Este material oferece informação geral e não substitui orientação jurídica individual, avaliação clínica ou contato com a operadora e a ANS. Não divulgue dados pessoais ou de saúde sem necessidade. Registre apenas as informações indispensáveis e preserve a identidade e a privacidade das famílias.</p>
-    <p class="src">Elaboração colaborativa: diagnóstico participativo de Monique; legislação e regulação de Stefany; pesquisa jurisprudencial de Lucas; conteúdo cidadão e soluções extrajudiciais de Mateus; coordenação e integração de Felipe.</p>
+    <h2 class="sec-title">Quem fez o Rota TEA</h2>
+    <p>O Rota TEA é um projeto de extensão de estudantes do curso de Direito da Faculdade Unità, no projeto extensionista “Novas perspectivas sobre a judicialização do autismo”, sob supervisão do Prof. Dr. José Jorge Tannus Neto. O conteúdo é de responsabilidade da equipe de estudantes.</p>
+    <p class="src">Elaboração colaborativa: diagnóstico participativo de Monique Pissolotto; legislação e regulação de Stefany Karen; pesquisa jurisprudencial de Lucas Giroto; conteúdo cidadão e soluções extrajudiciais de Mateus Teixeira; coordenação e integração de Felipe Pissolotto.</p>
+    <h2 class="sec-title">Uso de inteligência artificial</h2>
+    <p>A equipe usou ferramentas de inteligência artificial generativa como apoio na programação do site, na organização do conteúdo e na revisão de texto. Todo o conteúdo jurídico foi conferido pela equipe nas fontes oficiais listadas acima.</p>
+    <h2 class="sec-title">Revisão do conteúdo</h2>
+    <p>Última revisão geral: novembro de 2026. Próxima revisão prevista: fevereiro de 2027.</p>
   </div>
 </section>
 
@@ -717,32 +731,68 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
   <div class="wrap narrow section" id="prof-body"></div>
 </section>
 
-<!-- ENTRAR -->
 <section class="view" id="v-contato">
-  <div class="page-head"><div class="wrap"><div class="kicker">Fale com a equipe</div><h1>Fale conosco</h1><p>Envie sua dúvida, sugestão ou problema pelo formulário. A equipe do Rota TEA responde pelo e-mail ou WhatsApp informado.</p></div></div>
-  <div class="wrap narrow section" id="contato-body"></div>
+  <div class="page-head"><div class="wrap"><div class="kicker">Fale com a equipe</div><h1>Fale conosco</h1><p>Dúvidas, sugestões ou algo que não funcionou? Escreva para a equipe do Rota TEA.</p></div></div>
+  <div class="wrap narrow section">
+    <div class="card contact-card">
+      <h2 class="sec-title" style="margin-top:0">Nosso e-mail</h2>
+      <p class="mail-big"><a href="mailto:contato@rotatea.com.br">contato@rotatea.com.br</a></p>
+      <p><a class="btn btn-coral" href="mailto:contato@rotatea.com.br?subject=Rota%20TEA">Escrever um e-mail</a></p>
+      <ul class="clean">
+        <li>Conte em poucas linhas como podemos ajudar. Se algo não funcionou no site, diga em qual página e o que apareceu na tela.</li>
+        <li><b>Não envie</b> laudos, relatórios, diagnósticos, carteirinha ou outros dados de saúde. Eles não são necessários para responder.</li>
+        <li>A equipe não presta orientação jurídica individual. Para isso, procure a Defensoria Pública, o Núcleo de Prática Jurídica de uma faculdade de Direito ou a assistência judiciária da OAB.</li>
+        <li>O site não tem formulário e não guarda mensagens. Sua mensagem chega apenas à caixa de e-mail da equipe e é apagada depois de respondida.</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
-<section class="view priv" id="v-admin">
-  <div class="area-top"></div>
-  <div class="wrap section" id="admin-body"></div>
+<section class="view" id="v-privacidade">
+  <div class="page-head"><div class="wrap"><div class="kicker">Transparência</div><h1>Privacidade e termos de uso</h1><p>Em resumo: o Rota TEA não coleta, não recebe e não guarda o que você preenche.</p></div></div>
+  <div class="wrap narrow section">
+    <h2 class="sec-title">O que acontece com o que você preenche</h2>
+    <p>Os modelos, a ficha de acompanhamento, o checklist e “Meus dados” funcionam inteiramente no seu navegador. O que você digita fica salvo apenas no armazenamento deste navegador, neste aparelho. Nada é enviado à equipe do Rota TEA nem a qualquer servidor do projeto. Os PDFs também são gerados no seu aparelho.</p>
+    <ul class="clean">
+      <li>Para levar seus dados a outro aparelho, use <b>Baixar cópia</b>: o arquivo fica com você.</li>
+      <li>Para apagar tudo, use <b>Apagar tudo deste aparelho</b>, em Minha área, ou limpe os dados do site no seu navegador.</li>
+      <li>Em aparelho compartilhado, apague seus dados ao terminar.</li>
+      <li>Coloque nos documentos apenas o indispensável. Se o pedido for para uma criança ou adolescente, você pode usar só as iniciais do nome.</li>
+    </ul>
+    <h2 class="sec-title">O que o site não faz</h2>
+    <ul class="clean">
+      <li>Não tem cadastro, login ou senha.</li>
+      <li>Não tem formulário de contato nem guarda mensagens.</li>
+      <li>Não usa cookies de rastreamento, publicidade ou contador de visitas.</li>
+    </ul>
+    <h2 class="sec-title">Serviços de terceiros</h2>
+    <p>Para funcionar, o site é hospedado pela Vercel e carrega fontes do Google Fonts, bibliotecas de geração de PDF do jsDelivr e o tradutor de Libras VLibras, do Governo Federal. Esses serviços recebem dados técnicos da conexão (como o endereço IP), como em qualquer site, segundo as políticas de privacidade de cada um. Eles não recebem o conteúdo dos seus documentos.</p>
+    <h2 class="sec-title">Contato por e-mail</h2>
+    <p>Se você escrever para <a href="mailto:contato@rotatea.com.br">contato@rotatea.com.br</a>, a equipe usa seu e-mail e sua mensagem só para responder, e apaga a conversa depois de respondida. Não envie dados de saúde por e-mail.</p>
+    <h2 class="sec-title">Termos de uso</h2>
+    <ul class="clean">
+      <li>O Rota TEA é material educativo, gratuito, feito por estudantes de Direito em projeto de extensão. Não substitui orientação jurídica individual, avaliação clínica ou o contato com a operadora e a ANS.</li>
+      <li>Os modelos são pontos de partida: adapte-os aos fatos do seu caso antes de enviar. Você é responsável pelo conteúdo que envia.</li>
+      <li>As normas mudam. Confira sempre a versão vigente nas fontes oficiais indicadas no site.</li>
+      <li>O site não indica escritórios, profissionais ou clínicas.</li>
+    </ul>
+    <p class="src">Versão de 21 de novembro de 2026.</p>
+  </div>
 </section>
-
-<section class="view" id="v-entrar"><h1 class="sr">Entrar ou criar cadastro na Área da família</h1><div class="wrap" id="auth-body"></div></section>
 
 <!-- EDITOR -->
 <section class="view priv" id="v-editor"><div id="ed-body"></div></section>
 
 </main>
 
-<aside class="support-band" aria-label="Apoio da equipe Rota TEA"><div class="wrap" id="support-msg"></div></aside>
+<aside class="support-band" aria-label="Apoio da equipe Rota TEA"><div class="wrap" id="support-msg"><div><h2>Queremos te apoiar nessa rota.</h2><p>Informação clara, documentos organizados e um passo de cada vez. Dúvidas ou sugestões? Escreva para <a href="mailto:contato@rotatea.com.br" style="color:#fff;font-weight:700">contato@rotatea.com.br</a>.</p></div><a class="btn btn-coral" href="#painel">Abrir minha área</a></div></aside>
 <footer>
   <div class="wrap">
     <img src="img/logo-light.webp" alt="Rota TEA" width="142" height="48" loading="lazy" style="display:block;margin-bottom:14px">
     <div class="slogan">Comece pelo pedido. Guarde o protocolo. Avance um passo de cada vez.</div>
-    <p style="margin:0 0 10px"><a href="#contato" style="color:#fff;font-weight:600">Fale conosco</a> · <a href="#fontes" style="color:#c9d6e2">Fontes e ressalvas</a></p>
-    <p style="margin:0"><b>Rota TEA</b> · Informação para famílias · Saúde suplementar. Material educativo; não substitui orientação jurídica individual, avaliação clínica ou contato com a operadora e a ANS.</p>
-    <p style="margin:10px 0 0;font-size:.85rem;color:#c9d6e2">Para melhorar o site, contamos os acessos de forma anônima: página aberta, cidade aproximada, origem da visita e tipo de aparelho. Não usamos cookies de rastreamento nem guardamos seu endereço de IP.</p>
+    <p style="margin:0 0 10px"><a href="#contato" style="color:#fff;font-weight:600">Fale conosco</a> · <a href="#privacidade" style="color:#fff;font-weight:600">Privacidade e termos</a> · <a href="#fontes" style="color:#c9d6e2">Fontes e ressalvas</a></p>
+    <p style="margin:0"><b>Rota TEA</b> · Saúde suplementar e TEA. Projeto de extensão de estudantes de Direito da Faculdade Unità, sob supervisão do Prof. Dr. José Jorge Tannus Neto. Material educativo; não substitui orientação jurídica individual, avaliação clínica ou contato com a operadora e a ANS.</p>
+    <p style="margin:10px 0 0;font-size:.85rem;color:#c9d6e2">Sem cadastro e sem coleta de dados: o que você preenche fica só no seu aparelho.</p>
   </div>
 </footer>
 
@@ -781,9 +831,8 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
 <div class="modal" id="modal" role="dialog" aria-modal="true"><div class="box" id="modal-box"></div></div>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" integrity="sha384-en/ztfPSRkGfME4KIm05joYXynqzUgbsG5nMrj/xEFAHXkeZfO3yMK8QQ+mP7p1/" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js" integrity="sha384-Xl/CUCfJbzsngMp0CFxkmF0VW/8C160IsGujqeQlIhaGxKz2+JsIGORFqtCPeldF" crossorigin="anonymous"></script>
 <script>
 "use strict";
 /* ---------- utilidades ---------- */
@@ -808,134 +857,71 @@ function withTimeout(p,ms){return Promise.race([p,new Promise((_,rej)=>setTimeou
 async function _unused_sha(s){try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))|0;return 'x'+h}}
 
 
-/* ---------- armazenamento (Supabase) ---------- */
-const SB_URL='https://totdqszpxqdupwbvvmlo.supabase.co';
-const SB_KEY='sb_publishable_7wiZzpEfYuR9lskjJrPB7g_BAlSuLdr';
-let RECOVERY=false,RECOVERY_KIND='recovery',LINK_ERR=null;
+/* ---------- armazenamento: só neste aparelho ---------- */
+const LSK={perfil:'rt_perfil',check:'rt_checklist',docs:'rt_docs'};
 const Store={
-  ready:false, user:null, isAdmin:false, sb:null, configured:false, intent:null,
-  async init(){
-    this.configured=!!(window.supabase&&SB_URL.startsWith('https://')&&SB_KEY.length>20);
-    if(!this.configured){this.ready=true;return}
-    let pend=null;const hp=new URLSearchParams((location.hash||'').slice(1));
-    if(hp.get('access_token')&&hp.get('refresh_token')){pend={access_token:hp.get('access_token'),refresh_token:hp.get('refresh_token'),type:hp.get('type')};history.replaceState(null,'',location.pathname)}
-    else if(hp.get('error_description')){LINK_ERR=hp.get('error_description');history.replaceState(null,'',location.pathname)}
-    this.sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'pkce'}});
-    if(pend){try{const {data}=await this.sb.auth.setSession({access_token:pend.access_token,refresh_token:pend.refresh_token});this.setUser(data.session);if(pend.type==='invite'||pend.type==='recovery'){RECOVERY=true;RECOVERY_KIND=pend.type}}catch(e){LINK_ERR='invalid'}}
-    try{const {data}=await this.sb.auth.getSession();this.setUser(data.session)}catch(e){}
-    this.sb.auth.onAuthStateChange((ev,session)=>{
-      const was=this.user&&this.user.id;this.setUser(session);
-      if(ev==='PASSWORD_RECOVERY'){RECOVERY=true;setTimeout(()=>go('entrar'),0);return}
-      const now=this.user&&this.user.id;
-      if(this.ready&&was!==now)setTimeout(()=>onAuthChanged(ev),0);
-    });
-    this.ready=true;
-  },
-  setUser(s){this.user=s&&s.user?{id:s.user.id,email:s.user.email,nome:((s.user.user_metadata||{}).nome)||''}:null},
-  logged(){return !!this.user},
-  async _profileRow(){
-    const {data,error}=await this.sb.from('profiles').select('data,checklist').eq('id',this.user.id).maybeSingle();
-    if(error)throw error;return data||{data:{},checklist:{}};
-  },
-  async getProfile(){return (await this._profileRow()).data||{}},
-  async getChecklist(){return (await this._profileRow()).checklist||{}},
-  async saveProfile(p){const {error}=await this.sb.from('profiles').upsert({id:this.user.id,data:p,updated_at:new Date().toISOString()});if(error)throw error},
-  async saveChecklist(c){const {error}=await this.sb.from('profiles').upsert({id:this.user.id,checklist:c,updated_at:new Date().toISOString()});if(error)throw error},
-  _toDoc(r){return{id:r.id,type:r.type,title:r.title,status:r.status,fields:r.fields||{},rows:r.rows||[],createdAt:Date.parse(r.created_at),updatedAt:Date.parse(r.updated_at)}},
-  async listDocs(){
-    const {data,error}=await this.sb.from('documents').select('*').order('updated_at',{ascending:false});
-    if(error)throw error;return data.map(r=>this._toDoc(r));
-  },
+  ready:true, user:{id:'local'},
+  logged(){return true},
+  _get(k,d){const v=LS.get(k);return v==null?d:v},
+  _put(k,v){if(!LS.set(k,v))throw new Error('storage-full')},
+  async getProfile(){return this._get(LSK.perfil,{})},
+  async getChecklist(){return this._get(LSK.check,{})},
+  async saveProfile(p){this._put(LSK.perfil,p)},
+  async saveChecklist(c){this._put(LSK.check,c)},
+  async listDocs(){return this._get(LSK.docs,[]).slice().sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0))},
   async saveDoc(doc){
-    const now=new Date().toISOString();
-    const row={id:doc.id,user_id:this.user.id,type:doc.type,title:doc.title||'',status:doc.status||'rascunho',fields:doc.fields||{},rows:doc.rows||[],updated_at:now};
-    const {data,error}=await this.sb.from('documents').upsert(row).select().single();
-    if(error)throw error;const d=this._toDoc(data);doc.updatedAt=d.updatedAt;doc.createdAt=d.createdAt;return doc;
+    const all=this._get(LSK.docs,[]);const now=Date.now();
+    doc.updatedAt=now;doc.createdAt=doc.createdAt||now;
+    const copy=JSON.parse(JSON.stringify(doc));const i=all.findIndex(x=>x.id===doc.id);
+    if(i>=0)all[i]=copy;else all.push(copy);this._put(LSK.docs,all);return doc;
   },
-  async deleteDoc(id){const {error}=await this.sb.from('documents').delete().eq('id',id);if(error)throw error},
-  async deleteAccount(){const {error}=await this.sb.rpc('delete_my_account');if(error)throw error;await this.sb.auth.signOut()}
+  async deleteDoc(id){this._put(LSK.docs,this._get(LSK.docs,[]).filter(x=>x.id!==id))},
+  hasData(){return this._get(LSK.docs,[]).length>0||Object.keys(this._get(LSK.perfil,{})).some(k=>(this._get(LSK.perfil,{})[k]||'').toString().trim())},
+  exportAll(){return {app:'rota-tea',versao:1,exportadoEm:new Date().toISOString(),perfil:this._get(LSK.perfil,{}),checklist:this._get(LSK.check,{}),documentos:this._get(LSK.docs,[])}},
+  importAll(o){
+    if(!o||o.app!=='rota-tea'||!Array.isArray(o.documentos))throw new Error('arquivo-invalido');
+    const all=this._get(LSK.docs,[]);
+    o.documentos.forEach(d=>{if(!d||!d.id||!d.type)return;const i=all.findIndex(x=>x.id===d.id);if(i<0)all.push(d);else if((d.updatedAt||0)>(all[i].updatedAt||0))all[i]=d});
+    this._put(LSK.docs,all);
+    if(o.perfil&&typeof o.perfil==='object')this._put(LSK.perfil,o.perfil);
+    if(o.checklist&&typeof o.checklist==='object')this._put(LSK.check,o.checklist);
+    return o.documentos.length;
+  },
+  eraseAll(){Object.values(LSK).forEach(k=>LS.del(k))}
 };
 let PROFILE={};
 const STATUS={rascunho:'Rascunho',pronto:'Pronto para enviar',enviado:'Enviado',respondido:'Resposta recebida'};
 function statusPill(d){if(d.type==='ficha')return '<span class="st st-ficha">Em acompanhamento</span>';const s=d.status||'rascunho';return '<span class="st st-'+s+'">'+STATUS[s]+'</span>'}
-function errInfo(e){const m=String((e&&(e.message||e.error_description||e.msg))||e||'');const code=String((e&&(e.code||e.error_code||e.status))||'');
-  if(/Invalid login/i.test(m))return {msg:'E-mail ou senha não conferem. Confira os dados ou use “Esqueci minha senha”.',sys:false};
-  if(/not confirmed/i.test(m))return {msg:'Seu e-mail ainda não foi confirmado. Abra o e-mail que enviamos e clique no link de confirmação (veja também a caixa de spam).',sys:false};
-  if(/already registered|already been registered|already exists/i.test(m))return {msg:'Já existe um cadastro com este e-mail. Use “Entrar” ou “Esqueci minha senha”.',sys:false};
-  if(/email rate limit|over_email_send_rate_limit/i.test(m+' '+code))return {msg:'Enviamos muitos e-mails em pouco tempo e o envio foi pausado por alguns minutos. Aguarde um pouco e tente de novo.',sys:true};
-  if(/rate limit|too many|429/i.test(m+' '+code))return {msg:'Muitas tentativas seguidas. Aguarde alguns minutos e tente de novo.',sys:false};
-  if(/sending (confirmation|recovery|magic|invite)|error sending|smtp/i.test(m))return {msg:'Não conseguimos enviar o e-mail agora. O problema é do nosso lado, não dos seus dados.',sys:true};
-  if(/Password should|weak|pwned/i.test(m))return {msg:'Escolha uma senha mais forte: pelo menos 8 caracteres, misturando letras e números.',sys:false};
-  if(/validate email|invalid email|email address.*invalid/i.test(m))return {msg:'Este e-mail não parece válido. Confira se foi digitado corretamente.',sys:false};
-  if(/signups not allowed|signup.*disabled/i.test(m))return {msg:'Os novos cadastros estão temporariamente pausados.',sys:true};
-  if(/fetch|network|Load failed/i.test(m))return {msg:'Não conseguimos falar com o servidor. Verifique sua internet e tente de novo.',sys:true};
-  return {msg:'Algo deu errado do nosso lado e não conseguimos concluir agora.',sys:true}}
-function errMsg(e){return errInfo(e).msg}
-/* ---------- relatar erro ---------- */
-function showErr(box,e,ctx){
-  const i=errInfo(e);ctx=Object.assign({},ctx,{shown:i.msg,raw:String((e&&(e.message||e.error_description))||e||'').slice(0,300),code:String((e&&(e.code||e.status))||'')});
-  box.innerHTML='<div class="err-box" role="alert"><p>'+esc(i.msg)+'</p>'+(i.sys?'<p class="err-sub">Avise a equipe: registramos o problema e avisamos você assim que estiver resolvido.</p><button type="button" class="btn btn-coral btn-sm" data-report>Avisar a equipe sobre este erro</button>':'<button type="button" class="linkbtn" data-report>Continua com problema? Avise a equipe</button>')+'</div>';
-  box.querySelector('[data-report]').onclick=()=>openReport(ctx);
-  try{box.scrollIntoView({block:'center',behavior:document.documentElement.classList.contains('rm')?'auto':'smooth'})}catch(x){}
-}
-function openReport(ctx){
-  ctx=ctx||{};const pre=ctx.pre||{};const logged=!!(Store.logged&&Store.logged());
-  const md=logged?(Store.user.user_metadata||{}):{};
-  const nome=pre.nome||(logged&&(PROFILE.nome||md.nome))||'';
-  const email=pre.email||(logged&&Store.user.email)||'';
-  const wa=pre.whatsapp||(logged&&(PROFILE.whatsapp||md.whatsapp))||'';
-  modal('<h2 style="margin-top:0">Avisar a equipe sobre um erro</h2><p class="src" style="margin-top:0">Registramos o problema para a equipe do Rota TEA corrigir. Deixe seu contato para avisarmos você quando estiver resolvido.</p>'+
-    (ctx.shown?'<div class="callout att" style="margin:0 0 14px"><b class="tag">ERRO</b>'+esc(ctx.shown)+'</div>':'')+
-    '<form id="rep-f" novalidate><label class="f"><span>Seu nome</span><input class="inp" name="nome" autocomplete="name" value="'+esc(nome)+'"></label>'+
-    '<label class="f"><span>E-mail</span><input class="inp" name="email" type="email" autocomplete="email" value="'+esc(email)+'"></label>'+
-    '<label class="f"><span>WhatsApp</span><input class="inp" name="whatsapp" type="tel" inputmode="tel" placeholder="(00) 00000-0000" data-phone value="'+esc(wa?fmtPhone(String(wa).replace(/\D/g,'')):'')+'"><small>Com DDD. Usado só para avisar sobre este problema.</small></label>'+
-    '<label class="f"><span>O que aconteceu? <small style="font-weight:400">(opcional)</small></span><textarea class="inp" name="desc" style="min-height:80px" placeholder="Ex.: cliquei em Criar cadastro e apareceu uma mensagem de erro."></textarea></label>'+
-    '<input class="hp" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">'+
-    '<label class="toggle"><input type="checkbox" name="ok" checked><span>Quero ser avisado(a) quando o problema for corrigido. Autorizo a equipe do Rota TEA a usar estes dados só para isso.</span></label>'+
-    '<div class="err" id="rep-err"></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-coral">Enviar aviso</button><button type="button" class="btn btn-ghost" data-close>Cancelar</button></div></form>',
-  box=>{box.querySelector('[data-close]').onclick=closeModal;
-    box.querySelector('#rep-f').onsubmit=async ev=>{ev.preventDefault();const fd=Object.fromEntries(new FormData(ev.target));const er=box.querySelector('#rep-err');er.textContent='';
-      if(fd.site)return;
-      const row={nome:(fd.nome||'').trim(),email:(fd.email||'').trim().toLowerCase(),whatsapp:fmtPhone(fd.whatsapp||'')};
-      if(row.nome.length<2){er.textContent='Informe seu nome.';return}
-      if(!/^\S+@\S+\.\S+$/.test(row.email)){er.textContent='Informe um e-mail válido.';return}
-      const d=(fd.whatsapp||'').replace(/\D/g,'');if(d.length<10||d.length>11){er.textContent='Informe o WhatsApp com DDD.';return}
-      if(!fd.ok){er.textContent='Marque a autorização para podermos avisar você.';return}
-      row.assunto=('Erro no site · '+(ctx.acao||'Geral')).slice(0,120);
-      row.mensagem=(((fd.desc||'').trim()||'(sem descrição)')+'\n\n— Detalhes técnicos —\nAção: '+(ctx.acao||'—')+'\nMensagem exibida: '+(ctx.shown||'—')+'\nErro: '+([ctx.code,ctx.raw].filter(Boolean).join(' · ')||'—')+'\nPágina: '+(location.hash||'#inicio')+'\nAparelho: '+navigator.userAgent.slice(0,180)+'\nQuando: '+new Date().toLocaleString('pt-BR')+'\nQuer ser avisado(a) da correção: sim').slice(0,4000);
-      if(logged)row.user_id=Store.user.id;
-      const btn=ev.target.querySelector('button');btn.disabled=true;btn.textContent='Enviando…';
-      try{const {error}=await Store.sb.from('contact_messages').insert(row);if(error)throw error;
-        box.innerHTML='<div class="ok-box" style="text-align:center"><h2 style="margin-top:0">Recebemos seu aviso</h2><p>Obrigado! A equipe do Rota TEA vai verificar o problema e avisar você pelo WhatsApp <b>'+esc(row.whatsapp)+'</b> ou pelo e-mail <b>'+esc(row.email)+'</b> assim que estiver resolvido.</p><button class="btn btn-ghost" data-close>Fechar</button></div>';box.querySelector('[data-close]').onclick=closeModal}
-      catch(x){er.textContent='Não conseguimos registrar o aviso agora. Tente de novo em alguns minutos.';btn.disabled=false;btn.textContent='Enviar aviso'}};
-  });
-}
+function errMsg(e){const m=String((e&&e.message)||e||'');
+  if(/storage-full|quota/i.test(m))return 'O espaço deste navegador está cheio. Baixe uma cópia dos seus dados e exclua documentos antigos.';
+  if(/arquivo-invalido|JSON/i.test(m))return 'Este arquivo não é uma cópia do Rota TEA.';
+  return 'Não foi possível concluir agora. Tente novamente.'}
+const CONTATO='contato@rotatea.com.br';
 
 /* ---------- modelos ---------- */
 const PROFILE_FIELDS=[
-  {k:'responsavel_nome',label:'Nome do responsável',ph:'Nome completo'},
-  {k:'responsavel_contato',label:'Contato do responsável',ph:'E-mail e/ou telefone'},
-  {k:'whatsapp',label:'WhatsApp',ph:'(00) 00000-0000'},
+  {k:'responsavel_nome',label:'Seu nome (quem assina)',ph:'Nome completo'},
+  {k:'responsavel_contato',label:'Seu contato para resposta',ph:'E-mail ou telefone'},
   {k:'cidade',label:'Cidade',ph:'Ex.: Campinas'},
-  {k:'beneficiario',label:'Nome do beneficiário',ph:'Nome de quem usa o plano'},
+  {k:'beneficiario',label:'Nome da pessoa beneficiária',ph:'Nome de quem usa o plano',help:'Se for criança ou adolescente, você pode usar só as iniciais.'},
   {k:'carteirinha',label:'Número da carteirinha',ph:'Número do beneficiário'},
   {k:'operadora',label:'Operadora do plano',ph:'Nome da operadora'}
 ];
 const P=(k,label,ph,extra)=>Object.assign({k,label,ph,profile:true},extra||{});
 const F={
   operadora:P('operadora','Operadora','Nome da operadora'),
-  beneficiario:P('beneficiario','Beneficiário','Nome do beneficiário'),
+  beneficiario:P('beneficiario','Beneficiário','Nome do beneficiário',{help:'Se for criança ou adolescente, você pode usar só as iniciais.'}),
   carteirinha:P('carteirinha','Carteirinha','Número'),
   cidade:P('cidade','Cidade','Cidade'),
-  responsavel_nome:P('responsavel_nome','Nome do responsável','Nome completo'),
-  responsavel_contato:P('responsavel_contato','Contato do responsável','E-mail e/ou telefone'),
+  responsavel_nome:P('responsavel_nome','Seu nome (quem assina)','Nome completo'),
+  responsavel_contato:P('responsavel_contato','Seu contato para resposta','E-mail ou telefone'),
   data:{k:'data',label:'Data da carta',type:'date',today:true}
 };
 const IDENT=[F.operadora,F.beneficiario,F.carteirinha];
 const CLOSE=[F.cidade,F.data,F.responsavel_nome,F.responsavel_contato];
 function v(f,k,ph){const x=(f[k]||'').toString().trim();return x||'['+ph+']'}
 function vd(f,k,ph){return f[k]?fmtBR(f[k]):'['+ph+']'}
-function closingLine(f){return v(f,'cidade','CIDADE')+', '+(f.data?fmtLong(f.data):'[DATA]')+' | '+v(f,'responsavel_nome','NOME DO RESPONSÁVEL')+' · '+v(f,'responsavel_contato','CONTATO')}
+function closingLine(f){return v(f,'cidade','CIDADE')+', '+(f.data?fmtLong(f.data):'[DATA]')+' | '+v(f,'responsavel_nome','SEU NOME')+' · '+v(f,'responsavel_contato','CONTATO')}
 
 const TYPES={
   pedido:{
@@ -1050,7 +1036,7 @@ const TYPES={
           resp+' O impacto atual é '+v(f,'impacto','DESCREVER DE FORMA OBJETIVA, SEM EXAGERO').replace(/\.$/,'')+'.',
           'Peço a intermediação da ANS para que a operadora apresente resposta conclusiva e providencie '+v(f,'solucao','AUTORIZAÇÃO, PRESTADOR, REEMBOLSO OU OUTRA SOLUÇÃO')+'.',
           'Documentos disponíveis: '+docs+'.'],
-        closing:v(f,'responsavel_nome','NOME DO RESPONSÁVEL')+' · '+v(f,'responsavel_contato','CONTATO')}}
+        closing:v(f,'responsavel_nome','SEU NOME')+' · '+v(f,'responsavel_contato','CONTATO')}}
   },
   ficha:{
     name:'Ficha de Acompanhamento',tag:'Ficha',file:'Ficha_Acompanhamento',
@@ -1181,7 +1167,7 @@ let CK={};let ckTimer=null;
 function renderChecklist(){
   $('#ck-list').innerHTML=CHECK.map(g=>'<div class="ck-group"><h2 class="sec-title">'+esc(g.t)+'</h2>'+g.items.map((it,i)=>{const k=g.id+'_'+i;return '<label class="ck'+(CK[k]?' done':'')+'"><input type="checkbox" data-k="'+k+'"'+(CK[k]?' checked':'')+'><span>'+esc(it)+'</span></label>'}).join('')+'</div>').join('');
   $('#ck-notes').value=CK.notes||'';ckProgress();
-  $('#ck-save').textContent='Suas marcações ficam salvas na sua área.';
+  $('#ck-save').textContent='Suas marcações ficam salvas só neste aparelho.';
 }
 function ckProgress(){const total=CHECK.reduce((a,g)=>a+g.items.length,0);const done=Object.keys(CK).filter(k=>k!=='notes'&&CK[k]).length;$('#ck-bar').style.width=(done/total*100)+'%';$('#ck-count').textContent=done+' de '+total+' itens reunidos'}
 function ckPersist(){if(!Store.logged())return;clearTimeout(ckTimer);ckTimer=setTimeout(async()=>{try{await Store.saveChecklist(CK);$('#ck-save').textContent='Salvo às '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}catch(e){$('#ck-save').textContent='Não foi possível salvar agora.'}},900)}
@@ -1197,212 +1183,101 @@ function renderModelos(){
 }
 
 
-/* ---------- conta / navegação ---------- */
-const PRIVATE=['painel','documentos','modelos','checklist','cadastro','editor','admin'];
-const VIEWS=['inicio','guia','mapa','base','fontes','contato','entrar'].concat(PRIVATE);
+/* ---------- navegação ---------- */
+const PRIVATE=['painel','documentos','modelos','checklist','cadastro','editor'];
+const VIEWS=['inicio','guia','mapa','base','fontes','contato','privacidade'].concat(PRIVATE);
 const AREA={
-  painel:['Área da família','Olá{NOME}','Vamos juntos nessa rota. Cada passo registrado aqui aproxima sua família do cuidado de que ela precisa.'],
-  documentos:['Área da família','Meus documentos','Tudo o que você preencheu fica guardado aqui para continuar, revisar e baixar.'],
-  modelos:['Área da família','Novo documento','Escolha o modelo. Seus dados do cadastro já entram preenchidos.'],
-  checklist:['Área da família','Checklist da Família','Separe o que existe e marque o que falta. Suas marcações ficam salvas.'],
-  cadastro:['Área da família','Meu cadastro','Esses dados preenchem os documentos. Registre apenas o indispensável.']
+  painel:['Minha área · salva só neste aparelho','Minha área','Prepare seus documentos aqui. Nada do que você digita é enviado à equipe do Rota TEA: fica só neste aparelho.'],
+  documentos:['Minha área · salva só neste aparelho','Meus documentos','Os documentos que você preencheu neste aparelho. Continue, revise e baixe em PDF.'],
+  modelos:['Minha área · salva só neste aparelho','Novo documento','Escolha o modelo. Os dados de “Meus dados” já entram preenchidos.'],
+  checklist:['Minha área · salva só neste aparelho','Checklist','Separe o que existe e marque o que falta. As marcações ficam neste aparelho.'],
+  cadastro:['Minha área · salva só neste aparelho','Meus dados','Dados que preenchem os documentos. Registre só o indispensável.']
 };
 function renderAreaTop(v){
   const sec=$('#v-'+v);const top=sec&&sec.querySelector('.area-top');if(!top)return;
-  const a=AREA[v];const nome=Store.user&&(PROFILE.responsavel_nome||Store.user.nome);
-  const h=a[1].replace('{NOME}',nome?', '+nome.split(' ')[0]:'');
-  top.innerHTML='<div class="wrap"><div class="kicker">'+a[0]+'</div><h1>'+esc(h)+'</h1><p>'+esc(a[2])+'</p><nav class="atabs">'+
-    [['painel','Painel'],['documentos','Meus documentos'],['modelos','Novo documento'],['checklist','Checklist'],['cadastro','Meu cadastro']].map(([k,l])=>'<a href="#'+k+'" class="'+(k===v?'on':'')+'">'+l+'</a>').join('')+'<a href="#inicio" data-logout class="atab-out">Sair ↗</a></nav></div>';
-}
-function firstName(){const nm=(PROFILE.responsavel_nome||(Store.user&&Store.user.nome)||'').trim();return nm?nm.split(/\s+/)[0]:''}
-function renderWelcome(){
-  const fn=firstName(),logged=Store.logged();
-  const h=$('#hero-hello');
-  if(h){if(logged){h.hidden=false;h.innerHTML='<b>Olá'+(fn?', '+esc(fn):'')+'! Que bom ter você de volta.</b><p>Vamos juntos nessa rota, um passo de cada vez, em busca do cuidado de que sua família precisa.</p>'}else{h.hidden=true;h.innerHTML=''}}
-  const s=$('#support-msg');
-  if(s)s.innerHTML=logged
-    ?'<div><h2>'+(fn?esc(fn)+', queremos':'Queremos')+' te apoiar em cada passo dessa rota.</h2><p>Se surgir uma dúvida ou algo não funcionar como esperado, fale com a equipe do Rota TEA.</p></div><a class="btn btn-coral" href="#contato">Fale conosco</a>'
-    :'<div><h2>Queremos te apoiar nessa rota.</h2><p>Informação clara, documentos organizados e um passo de cada vez. Você não precisa percorrer esse caminho sozinho.</p></div><a class="btn btn-coral" href="'+(Store.ready?'#entrar':'#guia')+'" data-tab="novo">'+(Store.ready?'Criar cadastro gratuito':'Conhecer o Guia')+'</a>';
+  const a=AREA[v];
+  top.innerHTML='<div class="wrap"><div class="kicker">'+esc(a[0])+'</div><h1>'+esc(a[1])+'</h1><p>'+esc(a[2])+'</p><nav class="atabs" aria-label="Minha área">'+
+    [['painel','Início'],['documentos','Meus documentos'],['modelos','Novo documento'],['checklist','Checklist'],['cadastro','Meus dados']].map(([k,l])=>'<a href="#'+k+'" class="'+(k===v?'on':'')+'"'+(k===v?' aria-current="page"':'')+'>'+l+'</a>').join('')+'</nav></div>';
 }
 function renderAcct(){
-  renderWelcome();
-  const a=$('#acct');document.body.classList.toggle('logged',Store.logged());
-  $$('[data-cta]').forEach(b=>{b.textContent=Store.logged()?'Ir para minha área':(b.id==='x'?'':b.dataset.ctaText||(b.dataset.ctaText=b.textContent));b.setAttribute('href',Store.logged()?'#painel':'#entrar')});
-  if(!Store.ready){a.innerHTML='';return}
-  if(Store.logged())a.innerHTML=(firstName()?'<span class="hi">Olá, '+esc(firstName())+'</span>':'')+(Store.isAdmin?'<a class="btn btn-line-w btn-sm" href="#admin" style="color:#fff">Administração</a>':'')+'<a class="btn btn-coral btn-sm" href="#painel" style="color:#fff">Área da família</a><button type="button" class="btn btn-line-w btn-sm" data-logout title="Sair da conta" style="color:#fff">Sair</button>';
-  else a.innerHTML='<a class="btn btn-line-w btn-sm" href="#entrar" data-tab="entrar" style="color:#fff">Entrar</a><a class="btn btn-coral btn-sm" href="#entrar" data-tab="novo" style="color:#fff">Criar cadastro</a>';
+  const a=$('#acct');if(a)a.innerHTML='<a class="btn btn-coral btn-sm" href="#painel" style="color:#fff">Minha área</a>';
 }
-let EDIT=null;let AUTH_TAB='novo';
+let EDIT=null;
 function route(){
-  let v=(location.hash||'#inicio').slice(1);if(!VIEWS.includes(v))v='inicio';
-  if(PRIVATE.includes(v)){
-    if(!Store.ready){showView(v);const s=$('#v-'+v);let l=s.querySelector('.loading');if(!l){s.insertAdjacentHTML('beforeend','<div class="loading">Carregando sua área…</div>')}return}
-    if(!Store.logged()){if(!Store.intent)Store.intent={view:v};go('entrar');return}
-  }
+  let v=(location.hash||'#inicio').slice(1);
+  if(v==='entrar'||v==='admin')v='painel';
+  if(!VIEWS.includes(v))v='inicio';
   if(v==='editor'&&!EDIT)v='documentos';
-  if(v==='admin'&&!Store.isAdmin)v='painel';
   if(v!=='editor')leaveEditor();
-  showView(v);track(v);
-  if(PRIVATE.includes(v)&&v!=='editor'&&v!=='admin')renderAreaTop(v);
-  if(v==='admin')renderAdmin();
+  showView(v);
+  if(PRIVATE.includes(v)&&v!=='editor')renderAreaTop(v);
   if(v==='painel')renderPainel();
   if(v==='documentos')renderDocs();
   if(v==='cadastro')renderProfile();
-  if(v==='entrar')renderAuth();
-  if(v==='contato')renderContato();
   if(v==='checklist')renderChecklist();
   if(v==='editor')renderEditor();
   window.scrollTo(0,0);
 }
 function showView(v){
-  $$('.loading').forEach(x=>x.remove());
-  $$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
-  $$('.nav a[data-v]').forEach(a=>a.classList.toggle('on',a.dataset.v===v));
+  $$('.view').forEach(s=>{const on=s.id==='v-'+v;s.classList.toggle('on',on);s.toggleAttribute('hidden',!on)});
+  $$('.nav a[data-v]').forEach(a=>{const on=a.dataset.v===v;a.classList.toggle('on',on);if(on)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
   $('#nav').classList.remove('open');$('#burger').setAttribute('aria-expanded','false');
 }
 function go(v){if(location.hash==='#'+v)route();else location.hash=v}
 window.addEventListener('hashchange',route);
 $('#burger').addEventListener('click',()=>{const o=$('#nav').classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)});
 document.addEventListener('click',e=>{
-  if(e.target.closest('[data-logout]')){e.preventDefault();logout();return}
-  const t=e.target.closest('[data-tab]');if(t){AUTH_TAB=t.dataset.tab}
   const b=e.target.closest('[data-new]');
-  if(b){e.preventDefault();const type=b.dataset.new;
-    if(!Store.logged()){Store.intent={newType:type};AUTH_TAB='novo';go('entrar');return}
-    openEditor(newDoc(type),true)}
+  if(b){e.preventDefault();openEditor(newDoc(b.dataset.new),true)}
 });
 async function loadUserData(){
-  Store.isAdmin=await AdminAPI.check();Store.userLoaded=true;flushHits();
   try{PROFILE=await Store.getProfile()}catch(e){PROFILE={}}
   try{CK=await Store.getChecklist()}catch(e){CK={}}
 }
-async function onAuthChanged(ev){
-  if(Store.logged()){
-    await loadUserData();renderAcct();
-    const it=Store.intent;Store.intent=null;
-    if(RECOVERY){go('entrar');return}
-    if(it&&it.newType){openEditor(newDoc(it.newType),true);return}
-    if(it&&it.view){go(it.view);return}
-    const v=(location.hash||'').slice(1);
-    if(v==='contato')route();else if(!PRIVATE.includes(v))go('painel');else route();
-  }else{
-    PROFILE={};CK={};EDIT=null;Store.isAdmin=false;Store.userLoaded=false;renderAcct();
-    const v=(location.hash||'').slice(1);if(PRIVATE.includes(v))go('inicio');
-  }
-}
-
-/* ---------- autenticação ---------- */
 function fmtPhone(d){d=(d||'').replace(/\D/g,'').slice(0,11);if(d.length<=2)return d?'('+d:'';if(d.length<=6)return '('+d.slice(0,2)+') '+d.slice(2);if(d.length<=10)return '('+d.slice(0,2)+') '+d.slice(2,6)+'-'+d.slice(6);return '('+d.slice(0,2)+') '+d.slice(2,7)+'-'+d.slice(7)}
-document.addEventListener('input',e=>{const el=e.target;if(el.matches&&(el.matches('[data-phone]')||el.name==='whatsapp')){const pos=el.value.length;el.value=fmtPhone(el.value)}});
-function renderAuth(){
-  const body=$('#auth-body');
-  if(!Store.ready){body.innerHTML='<div class="loading">Carregando…</div>';return}
-  if(!Store.configured){body.innerHTML='<div class="auth"><div class="bd"><h2>Cadastro em configuração</h2><p>A Área da família está sendo ativada. Volte em instantes.</p><a class="btn btn-ghost" href="#inicio">Voltar ao início</a></div></div>';return}
-  if(RECOVERY){
-    body.innerHTML='<div class="auth"><div class="bd"><h2>'+(RECOVERY_KIND==='invite'?'Bem-vindo(a) ao Rota TEA':'Crie uma nova senha')+'</h2>'+(RECOVERY_KIND==='invite'?'<p class="src">Você foi convidado(a) para a Área da família. Crie sua senha para começar.</p>':'')+'<form id="rec-f" novalidate><label class="f"><span>Nova senha</span><input class="inp" name="s1" type="password" autocomplete="new-password"><small>Pelo menos 8 caracteres.</small></label><label class="f"><span>Repita a nova senha</span><input class="inp" name="s2" type="password" autocomplete="new-password"></label><div class="err" id="auth-err"></div><button class="btn btn-coral" style="width:100%">Salvar nova senha</button></form></div></div>';
-    $('#rec-f').onsubmit=async e=>{e.preventDefault();const fd=Object.fromEntries(new FormData(e.target));const err=$('#auth-err');
-      if((fd.s1||'').length<8){err.textContent='A senha precisa ter pelo menos 8 caracteres.';return}
-      if(fd.s1!==fd.s2){err.textContent='As senhas não são iguais.';return}
-      const btn=e.target.querySelector('button');btn.disabled=true;
-      const {error}=await Store.sb.auth.updateUser({password:fd.s1});btn.disabled=false;
-      if(error){showErr(err,error,{acao:'Criar nova senha'});return}
-      RECOVERY=false;toast(RECOVERY_KIND==='invite'?'Senha criada. Bem-vindo(a)!':'Senha alterada.');go('painel')};
-    return}
-  if(Store.logged()){go('painel');return}
-  const tab=AUTH_TAB;
-  const intentMsg=Store.intent?'<div class="callout tip" style="margin-top:0"><b class="tag">ÁREA DA FAMÍLIA</b>Checklist, modelos e ficha de acompanhamento ficam disponíveis depois do cadastro gratuito. Assim seus documentos ficam guardados para continuar e revisar.</div>':'';
-  let form='';
-  if(tab==='novo')form='<form id="auth-f" novalidate><label class="f"><span>Seu nome</span><input class="inp" name="nome" autocomplete="name"></label><label class="f"><span>E-mail</span><input class="inp" name="email" type="email" autocomplete="email"></label><label class="f"><span>WhatsApp</span><input class="inp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(00) 00000-0000" data-phone><small>Com DDD. Usado apenas para contato sobre a plataforma.</small></label><label class="f"><span>Senha</span><input class="inp" name="senha" type="password" autocomplete="new-password"><small>Pelo menos 8 caracteres.</small></label><label class="toggle"><input type="checkbox" name="ok"><span>Concordo com o uso dos meus dados para guardar meus documentos nesta plataforma. Sei que a equipe responsável pelo projeto pode consultá-los para suporte e acompanhamento, com registro de cada acesso. Li as ressalvas: o material é educativo e não substitui orientação jurídica individual.</span></label><div class="err" id="auth-err"></div><button class="btn btn-coral" style="width:100%">Criar cadastro</button></form>';
-  else if(tab==='entrar')form='<form id="auth-f" novalidate><label class="f"><span>E-mail</span><input class="inp" name="email" type="email" autocomplete="email"></label><label class="f"><span>Senha</span><input class="inp" name="senha" type="password" autocomplete="current-password"></label><div class="err" id="auth-err"></div><button class="btn btn-coral" style="width:100%">Entrar</button><p style="margin:14px 0 0;text-align:center"><a href="#entrar" data-tab="senha">Esqueci minha senha</a></p></form>';
-  else form='<form id="auth-f" novalidate><p class="src" style="margin-top:0">Informe seu e-mail. Enviaremos um link para você criar uma nova senha.</p><label class="f"><span>E-mail</span><input class="inp" name="email" type="email" autocomplete="email"></label><div class="err" id="auth-err"></div><button class="btn btn-coral" style="width:100%">Enviar link</button><p style="margin:14px 0 0;text-align:center"><a href="#entrar" data-tab="entrar">Voltar para entrar</a></p></form>';
-  body.innerHTML='<div class="auth"><div class="tabs"><button data-tab="novo" class="'+(tab==='novo'?'on':'')+'">Criar cadastro</button><button data-tab="entrar" class="'+(tab!=='novo'?'on':'')+'">Entrar</button></div><div class="bd">'+intentMsg+form+'<p class="auth-help">Problemas para se cadastrar ou entrar? <button type="button" class="linkbtn" id="auth-rep">Avise a equipe</button></p></div></div>';
-  $$('[data-tab]',body).forEach(b=>b.addEventListener('click',e=>{e.preventDefault();AUTH_TAB=b.dataset.tab;renderAuth()}));
-  $('#auth-rep').onclick=()=>{const f=$('#auth-f');const g=k=>f&&f.elements[k]?f.elements[k].value:'';openReport({acao:tab==='novo'?'Criar cadastro':tab==='entrar'?'Entrar na conta':'Recuperar senha',pre:{nome:g('nome'),email:g('email'),whatsapp:g('whatsapp')}})};
-  $('#auth-f').onsubmit=async e=>{e.preventDefault();const fd=Object.fromEntries(new FormData(e.target));const err=$('#auth-err');err.textContent='';
-    const email=(fd.email||'').trim().toLowerCase();
-    if(!/^\S+@\S+\.\S+$/.test(email)){err.textContent='Informe um e-mail válido.';return}
-    const btn=e.target.querySelector('button');btn.disabled=true;
-    try{
-      if(tab==='novo'){
-        if(!(fd.nome||'').trim()){err.textContent='Informe seu nome.';return}
-        const wa=(fd.whatsapp||'').replace(/\D/g,'');
-        if(wa.length<10||wa.length>11){err.textContent='Informe o WhatsApp com DDD.';return}
-        if((fd.senha||'').length<8){err.textContent='A senha precisa ter pelo menos 8 caracteres.';return}
-        if(!fd.ok){err.textContent='Para criar o cadastro, marque a concordância.';return}
-        const pre={nome:(fd.nome||'').trim(),email,whatsapp:fd.whatsapp||''};
-        const {data,error}=await Store.sb.auth.signUp({email,password:fd.senha,options:{data:{nome:fd.nome.trim(),whatsapp:fmtPhone(wa)},emailRedirectTo:location.origin+location.pathname}});
-        if(error){showErr(err,error,{acao:'Criar cadastro',pre});return}
-        if(data&&data.user&&Array.isArray(data.user.identities)&&data.user.identities.length===0){err.textContent='Já existe um cadastro com este e-mail. Use “Entrar”.';return}
-        if(!data.session){body.innerHTML='<div class="auth"><div class="bd ok-box"><h2>Confirme seu e-mail</h2><p>Enviamos um link de confirmação para <b>'+esc(email)+'</b>. Abra o e-mail e clique no link para ativar sua Área da família.</p><p class="src">Não chegou? Confira a caixa de spam ou lixo eletrônico.</p><button class="btn btn-ghost" data-tab="entrar" id="go-login">Já confirmei, quero entrar</button></div></div>';$('#go-login').onclick=()=>{AUTH_TAB='entrar';renderAuth()}}
-      }else if(tab==='entrar'){
-        const {error}=await Store.sb.auth.signInWithPassword({email,password:fd.senha||''});
-        if(error){showErr(err,error,{acao:'Entrar na conta',pre:{email}});return}
-      }else{
-        const {error}=await Store.sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
-        if(error){showErr(err,error,{acao:'Recuperar senha',pre:{email}});return}
-        body.innerHTML='<div class="auth"><div class="bd ok-box"><h2>Confira seu e-mail</h2><p>Se houver cadastro para <b>'+esc(email)+'</b>, você vai receber um link para criar uma nova senha.</p><button class="btn btn-ghost" id="go-login">Voltar para entrar</button></div></div>';$('#go-login').onclick=()=>{AUTH_TAB='entrar';renderAuth()}
-      }
-    }catch(ex){showErr(err,ex,{acao:tab==='novo'?'Criar cadastro':tab==='entrar'?'Entrar na conta':'Recuperar senha',pre:{nome:(fd.nome||'').trim(),email,whatsapp:fd.whatsapp||''}})}
-    finally{if(btn.isConnected)btn.disabled=false}
-  };
+document.addEventListener('input',e=>{const el=e.target;if(el.matches&&(el.matches('[data-phone]')||el.name==='whatsapp')){el.value=fmtPhone(el.value)}});
+
+/* ---------- meus dados ---------- */
+function deviceNotice(){
+  return '<div class="callout tip local-note"><b class="tag">SEUS DADOS FICAM COM VOCÊ</b>Tudo o que você preenche fica salvo só neste aparelho e neste navegador. A equipe do Rota TEA não recebe, não vê e não guarda nada. Se limpar os dados do navegador ou trocar de aparelho, você perde o que não baixou: use <b>Baixar cópia</b> para guardar e <b>Abrir cópia</b> para continuar em outro lugar.</div>';
 }
-async function logout(){try{if(EDIT&&typeof edDirty!=='undefined'&&edDirty)await saveEdit(true)}catch(e){}try{await Store.sb.auth.signOut()}catch(e){}Store.user=null;Store.isAdmin=false;PROFILE={};CK={};EDIT=null;renderAcct();go('inicio');toast('Você saiu da sua conta.')}
-
-
-/* ---------- fale conosco ---------- */
-const ASSUNTOS=['Dúvida sobre como usar a plataforma','Problema com cadastro ou acesso','Relatar um erro no site','Dúvida sobre os modelos e documentos','Sugestão de melhoria','Correção de informação no conteúdo','Parcerias, imprensa ou eventos','Outro assunto'];
-function renderContato(){
-  const b=$('#contato-body');
-  if(!Store.ready){b.innerHTML='<div class="loading">Carregando…</div>';return}
-  const logged=Store.logged();
-  const nome=logged?(PROFILE.responsavel_nome||Store.user.nome||''):'';
-  const wa=logged?(PROFILE.whatsapp||''):'';
-  b.innerHTML='<div class="card"><form id="ct-f" novalidate>'+
-    (logged?'<div class="sender"><span style="font-size:1.4rem">👤</span><div>Enviando como <b>'+esc(nome||Store.user.email)+'</b><br><span class="src">'+esc(Store.user.email)+(wa?' · '+esc(wa):'')+' · <a href="#cadastro">alterar dados</a></span></div></div>'+
-      (wa?'':'<label class="f"><span>WhatsApp para retorno</span><input class="inp" name="whatsapp" type="tel" inputmode="tel" placeholder="(00) 00000-0000" data-phone><small>Opcional. Se preferir, respondemos só por e-mail.</small></label>')
-    :'<div class="fgrid"><label class="f full"><span>Seu nome</span><input class="inp" name="nome" autocomplete="name"></label><label class="f"><span>E-mail</span><input class="inp" name="email" type="email" autocomplete="email"></label><label class="f"><span>WhatsApp</span><input class="inp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(00) 00000-0000" data-phone></label></div>')+
-    '<label class="f"><span>Assunto</span><select class="inp" name="assunto"><option value="">Escolha um assunto</option>'+ASSUNTOS.map(a=>'<option>'+esc(a)+'</option>').join('')+'</select></label>'+
-    '<label class="f"><span>Mensagem</span><textarea class="inp" name="mensagem" style="min-height:150px" maxlength="4000" placeholder="Conte como podemos ajudar."></textarea><small>Não inclua diagnóstico, laudos ou outros dados de saúde. A equipe não presta orientação jurídica individual por este canal.</small></label>'+
-    '<input class="hp" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">'+
-    (logged?'':'<label class="toggle"><input type="checkbox" name="ok"><span>Concordo que a equipe do Rota TEA use estes dados apenas para responder à minha mensagem.</span></label>')+
-    '<div class="err" id="ct-err"></div><button class="btn btn-coral">Enviar mensagem</button></form></div>'+
-    (logged?'':'<p class="src" style="margin-top:14px">Já tem cadastro? <a href="#entrar" data-tab="entrar">Entre na sua conta</a> e seus dados entram automaticamente.</p>');
-  $('#ct-f').onsubmit=async e=>{e.preventDefault();const fd=Object.fromEntries(new FormData(e.target));const err=$('#ct-err');err.textContent='';
-    if(fd.site)return;
-    const row={assunto:(fd.assunto||'').trim(),mensagem:(fd.mensagem||'').trim()};
-    if(logged){row.user_id=Store.user.id;row.nome=nome||Store.user.email;row.email=Store.user.email;row.whatsapp=wa||fmtPhone(fd.whatsapp||'')}
-    else{row.nome=(fd.nome||'').trim();row.email=(fd.email||'').trim().toLowerCase();row.whatsapp=fmtPhone(fd.whatsapp||'');
-      if(row.nome.length<2){err.textContent='Informe seu nome.';return}
-      if(!/^\S+@\S+\.\S+$/.test(row.email)){err.textContent='Informe um e-mail válido.';return}
-      const d=(fd.whatsapp||'').replace(/\D/g,'');if(d.length<10||d.length>11){err.textContent='Informe o WhatsApp com DDD.';return}
-      if(!fd.ok){err.textContent='Marque a concordância para enviar.';return}}
-    if(!row.assunto){err.textContent='Escolha um assunto.';return}
-    if(row.mensagem.length<5){err.textContent='Escreva sua mensagem.';return}
-    const btn=e.target.querySelector('button');btn.disabled=true;btn.textContent='Enviando…';
-    try{const {error}=await Store.sb.from('contact_messages').insert(row);if(error)throw error;
-      b.innerHTML='<div class="card ok-box"><img class="empty-img" src="img/area-familia.webp" alt=""><h2>Mensagem enviada!</h2><p>Obrigado por escrever. A equipe do Rota TEA vai responder pelo e-mail <b>'+esc(row.email)+'</b>'+(row.whatsapp?' ou pelo WhatsApp <b>'+esc(row.whatsapp)+'</b>':'')+'.</p><a class="btn btn-ghost" href="#inicio">Voltar ao início</a></div>'}
-    catch(ex){err.textContent=errMsg(ex);btn.disabled=false;btn.textContent='Enviar mensagem'}};
+function backupCard(){
+  return '<div class="card backup"><h3>Cópia dos seus dados</h3><p class="src" style="margin-top:0">A cópia é um arquivo com seus documentos, o checklist e “Meus dados”. Guarde em um lugar seguro, como faria com um documento pessoal.</p>'+
+   '<div class="row"><button type="button" class="btn btn-teal btn-sm" data-backup>Baixar cópia</button><label class="btn btn-ghost btn-sm" style="cursor:pointer">Abrir cópia<input type="file" accept=".json,application/json" data-restore hidden></label><button type="button" class="btn btn-danger btn-sm" data-erase>Apagar tudo deste aparelho</button></div></div>';
 }
-
-/* ---------- cadastro ---------- */
+function downloadBackup(){
+  const blob=new Blob([JSON.stringify(Store.exportAll(),null,1)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='RotaTEA_copia_'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast('Cópia baixada. Guarde o arquivo em um lugar seguro.');
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('[data-backup]')){downloadBackup();return}
+  if(e.target.closest('[data-erase]')){
+    modal('<h3>Apagar tudo deste aparelho?</h3><p>Seus documentos, o checklist e “Meus dados” serão apagados deste navegador. Não há como desfazer. Os PDFs e as cópias que você já baixou continuam com você.</p><div class="row"><button class="btn btn-ghost" data-x>Cancelar</button><button class="btn btn-danger" data-y>Apagar tudo</button></div>',
+      bx=>{bx.querySelector('[data-x]').onclick=closeModal;bx.querySelector('[data-y]').onclick=()=>{closeModal();Store.eraseAll();PROFILE={};CK={};EDIT=null;toast('Tudo foi apagado deste aparelho.');go('painel')}});
+  }
+});
+document.addEventListener('change',e=>{
+  const inp=e.target.closest('[data-restore]');if(!inp||!inp.files||!inp.files[0])return;
+  const fr=new FileReader();
+  fr.onload=async()=>{try{const n=Store.importAll(JSON.parse(fr.result));await loadUserData();toast(n+' documento'+(n===1?'':'s')+' recuperado'+(n===1?'':'s')+'.');route()}catch(err){toast(errMsg(err))}inp.value=''};
+  fr.readAsText(inp.files[0]);
+});
+const PARA={mim:'Para mim (eu sou a pessoa beneficiária)',menor:'Para uma criança ou adolescente que represento',adulto:'Para um adulto que represento'};
 function renderProfile(){
-  const b=$('#prof-body');
-  b.innerHTML='<div class="card"><h3>Dados para os documentos</h3><form id="prof-f"><div class="fgrid">'+PROFILE_FIELDS.map(p=>'<label class="f"><span>'+esc(p.label)+'</span><input class="inp" name="'+p.k+'" value="'+esc(PROFILE[p.k]||'')+'" placeholder="'+esc(p.ph)+'"></label>').join('')+
-   '</div><div class="callout tip" style="margin-top:4px"><b class="tag">PRIVACIDADE</b>Não é preciso informar diagnóstico nem dados clínicos aqui. Esses campos servem só para preencher o cabeçalho e a assinatura dos documentos.</div>'+
-   '<button class="btn btn-coral">Salvar cadastro</button></form></div>'+
-   '<div class="card" style="margin-top:18px"><h3>Sua conta</h3><p style="margin-bottom:14px">E-mail de acesso: <b>'+esc(Store.user.email)+'</b></p>'+
-   '<form id="pw-f" class="fgrid" novalidate><label class="f"><span>Nova senha</span><input class="inp" type="password" name="s1" autocomplete="new-password"></label><label class="f"><span>Repita a nova senha</span><input class="inp" type="password" name="s2" autocomplete="new-password"></label><div class="err full" id="pw-err"></div><div class="full"><button class="btn btn-ghost btn-sm">Alterar senha</button></div></form>'+
-   '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)"><button class="btn btn-ghost" id="logout">Sair da conta</button><button class="btn btn-danger" id="del-acc">Excluir minha conta e meus dados</button></div></div>';
-  $('#prof-f').onsubmit=async e=>{e.preventDefault();const fd=Object.fromEntries(new FormData(e.target));Object.keys(fd).forEach(k=>fd[k]=fd[k].trim());
-    try{await Store.saveProfile(fd);PROFILE=fd;renderAreaTop('cadastro');renderAcct();toast('Cadastro salvo. Os próximos documentos já virão preenchidos.')}catch(err){toast(errMsg(err))}};
-  $('#pw-f').onsubmit=async e=>{e.preventDefault();const fd=Object.fromEntries(new FormData(e.target));const er=$('#pw-err');er.textContent='';
-    if((fd.s1||'').length<8){er.textContent='A senha precisa ter pelo menos 8 caracteres.';return}
-    if(fd.s1!==fd.s2){er.textContent='As senhas não são iguais.';return}
-    const {error}=await Store.sb.auth.updateUser({password:fd.s1});if(error){er.textContent=errMsg(error);return}e.target.reset();toast('Senha alterada.')};
-  $('#logout').onclick=logout;
-  $('#del-acc').onclick=()=>modal('<h3>Excluir sua conta?</h3><p>Seu cadastro, o checklist e todos os documentos guardados serão apagados definitivamente. Os PDFs que você já baixou continuam no seu aparelho.</p><label class="f"><span>Para confirmar, digite EXCLUIR</span><input class="inp" id="del-c"></label><div class="row"><button class="btn btn-ghost" data-x>Cancelar</button><button class="btn btn-coral" data-y>Excluir definitivamente</button></div>',
-    bx=>{bx.querySelector('[data-x]').onclick=closeModal;bx.querySelector('[data-y]').onclick=async()=>{if($('#del-c').value.trim().toUpperCase()!=='EXCLUIR'){toast('Digite EXCLUIR para confirmar.');return}
-      closeModal();try{await Store.deleteAccount();Store.user=null;PROFILE={};CK={};renderAcct();go('inicio');toast('Sua conta e seus dados foram excluídos.')}catch(err){toast(errMsg(err))}}});
+  const b=$('#prof-body');const para=PROFILE.para||'';
+  b.innerHTML=deviceNotice()+'<div class="card"><h3>Dados para os documentos</h3><form id="prof-f">'+
+   '<label class="f"><span>Para quem é o pedido?</span><select class="inp" name="para"><option value="">Escolha</option>'+Object.keys(PARA).map(k=>'<option value="'+k+'"'+(para===k?' selected':'')+'>'+esc(PARA[k])+'</option>').join('')+'</select></label>'+
+   '<div class="fgrid">'+PROFILE_FIELDS.map(p=>'<label class="f" data-pf="'+p.k+'"><span>'+esc(p.label)+'</span><input class="inp" name="'+p.k+'" value="'+esc(PROFILE[p.k]||'')+'" placeholder="'+esc(p.ph)+'">'+(p.help?'<small>'+esc(p.help)+'</small>':'')+'</label>').join('')+
+   '</div><div class="callout att" style="margin-top:4px"><b class="tag">DADOS DE SAÚDE</b>Terapias, frequência e relatórios são dados de saúde. Coloque nos documentos só o indispensável para o pedido, e anexe relatórios e laudos apenas na hora de enviar à operadora, nunca aqui.</div>'+
+   '<button class="btn btn-coral">Salvar meus dados</button></form></div>'+backupCard();
+  const f=$('#prof-f');
+  const sync=()=>{const mim=f.elements.para.value==='mim';const box=f.querySelector('[data-pf="beneficiario"]');if(box)box.hidden=mim};
+  f.elements.para.addEventListener('change',sync);sync();
+  f.onsubmit=async e=>{e.preventDefault();const fd=Object.fromEntries(new FormData(e.target));Object.keys(fd).forEach(k=>fd[k]=fd[k].trim());
+    if(fd.para==='mim')fd.beneficiario=fd.responsavel_nome;
+    try{await Store.saveProfile(fd);PROFILE=fd;toast('Dados salvos neste aparelho. Os próximos documentos já virão preenchidos.')}catch(err){toast(errMsg(err))}};
 }
 
 /* ---------- painel ---------- */
@@ -1415,18 +1290,18 @@ async function renderPainel(){
   const ficha=DOCS.find(d=>d.type==='ficha');
   const prox=ficha&&(ficha.fields.proxima||'').trim();
   let next;
-  if(filled<PROFILE_FIELDS.length)next=['Complete seu cadastro','Com nome, operadora e carteirinha preenchidos, todos os documentos já saem prontos para revisar.','<a class="btn btn-coral btn-sm" href="#cadastro">Completar cadastro</a>'];
+  if(filled<PROFILE_FIELDS.length)next=['Preencha “Meus dados”','Com seu nome, a operadora e a carteirinha preenchidos, os documentos já saem prontos para revisar. Tudo fica só neste aparelho.','<a class="btn btn-coral btn-sm" href="#cadastro">Preencher meus dados</a>'];
   else if(!DOCS.some(d=>d.type==='pedido'))next=['Faça o pedido ao plano','Comece pela solicitação inicial, com prescrição e relatório anexos. Depois peça o protocolo.','<button class="btn btn-coral btn-sm" data-new="pedido">Preencher solicitação inicial</button>'];
   else if(!ficha)next=['Acompanhe o prazo','Crie a ficha de acompanhamento e registre cada contato, protocolo e resposta.','<button class="btn btn-coral btn-sm" data-new="ficha">Criar ficha de acompanhamento</button>'];
   else if(prox)next=['Próxima providência (da sua ficha)',prox,'<button class="btn btn-coral btn-sm" data-open="'+ficha.id+'">Abrir ficha</button>'];
   else next=['Mantenha a ficha em dia','Registre na ficha cada novo contato e a próxima providência.','<button class="btn btn-coral btn-sm" data-open="'+ficha.id+'">Abrir ficha</button>'];
-  b.innerHTML='<div class="stats">'+
-    '<div class="stat"><div class="lbl">Cadastro</div><div class="big">'+filled+'/'+PROFILE_FIELDS.length+'</div><div class="src">campos preenchidos</div><a href="#cadastro">Revisar cadastro →</a></div>'+
+  b.innerHTML=deviceNotice()+'<div class="stats">'+
+    '<div class="stat"><div class="lbl">Meus dados</div><div class="big">'+filled+'/'+PROFILE_FIELDS.length+'</div><div class="src">campos preenchidos</div><a href="#cadastro">Revisar →</a></div>'+
     '<div class="stat"><div class="lbl">Checklist</div><div class="big">'+done+'/'+total+'</div><div class="progress"><i style="width:'+(done/total*100)+'%"></i></div><a href="#checklist">Abrir checklist →</a></div>'+
     '<div class="stat"><div class="lbl">Documentos</div><div class="big">'+DOCS.length+'</div><div class="src">'+cnt('rascunho')+' rascunho · '+cnt('pronto')+' pronto · '+cnt('enviado')+' enviado · '+cnt('respondido')+' respondido</div><a href="#documentos">Ver todos →</a></div></div>'+
     '<div class="next"><div class="lbl" style="font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--coral)">Próximo passo</div><h3 style="margin:6px 0">'+esc(next[0])+'</h3><p class="src" style="font-size:.95rem">'+esc(next[1])+'</p>'+next[2]+'</div>'+
     '<h2 class="sec-title">Continue de onde parou</h2>'+
-    (DOCS.length?'<div class="dlist">'+DOCS.slice(0,3).map(docCard).join('')+'</div>':'<div class="empty"><img class="empty-img" src="img/area-familia.webp" alt=""><h3>Nenhum documento ainda</h3><p class="src">Os documentos que você salvar aparecem aqui.</p><a class="btn btn-coral" href="#modelos">Novo documento</a></div>');
+    (DOCS.length?'<div class="dlist">'+DOCS.slice(0,3).map(docCard).join('')+'</div>':'<div class="empty"><img class="empty-img" src="img/area-familia.webp" alt=""><h3>Nenhum documento ainda</h3><p class="src">Os documentos que você preencher neste aparelho aparecem aqui.</p><a class="btn btn-coral" href="#modelos">Novo documento</a></div>')+backupCard();
 }
 $('#painel-body').addEventListener('click',docActions);
 
@@ -1437,9 +1312,10 @@ function docCard(d){const t=TYPES[d.type]||{tag:'',name:''};const miss=missingCo
 async function renderDocs(){
   const b=$('#docs-body');b.innerHTML='<div class="loading">Carregando seus documentos…</div>';
   try{DOCS=await Store.listDocs()}catch(e){b.innerHTML='<div class="empty"><h3>Não foi possível carregar agora</h3><p class="src">'+esc(errMsg(e))+'</p></div>';return}
-  if(!DOCS.length){b.innerHTML='<div class="empty"><img class="empty-img" src="img/area-familia.webp" alt=""><h3>Nenhum documento ainda</h3><p class="src">Comece pelo pedido ao plano. Tudo que você salvar aparece aqui.</p><button class="btn btn-coral" data-new="pedido">Preencher solicitação inicial</button> <a class="btn btn-ghost" href="#modelos">Ver todos os modelos</a></div>';return}
+  if(!DOCS.length){b.innerHTML='<div class="empty"><img class="empty-img" src="img/area-familia.webp" alt=""><h3>Nenhum documento ainda</h3><p class="src">Comece pelo pedido ao plano. O que você preencher fica salvo neste aparelho e aparece aqui.</p><p class="src">Tem uma cópia salva? <label class="linkbtn" style="cursor:pointer">Abrir cópia<input type="file" accept=".json,application/json" data-restore hidden></label></p><button class="btn btn-coral" data-new="pedido">Preencher solicitação inicial</button> <a class="btn btn-ghost" href="#modelos">Ver todos os modelos</a></div>';return}
   const chips=[['todos','Todos'],['pedido','Solicitação'],['revisao','Revisão'],['ouvidoria','Ouvidoria'],['ans','ANS'],['ficha','Ficha']];
   b.innerHTML='<div class="toolbar"><input class="inp" id="dq" placeholder="Buscar pelo nome" value="'+esc(DQUERY)+'"><div class="chips">'+chips.map(([k,l])=>'<button class="chip'+(DFILTER===k?' on':'')+'" data-chip="'+k+'">'+l+'</button>').join('')+'</div><a class="btn btn-coral btn-sm" href="#modelos" style="margin-left:auto">+ Novo documento</a></div><div id="dl"></div>';
+  b.insertAdjacentHTML('beforeend',backupCard());
   drawDocList();
   $('#dq').addEventListener('input',e=>{DQUERY=e.target.value;drawDocList()});
 }
@@ -1456,187 +1332,10 @@ async function docActions(e){
   if(el=g('open')){const d=find(el.dataset.open);if(d)openEditor(JSON.parse(JSON.stringify(d)),false)}
   else if(el=g('pdf'))downloadDoc(find(el.dataset.pdf));
   else if(el=g('dup')){const d=JSON.parse(JSON.stringify(find(el.dataset.dup)));d.id=uid();d.title=(d.title||'')+' (cópia)';d.status='rascunho';try{await Store.saveDoc(d);toast('Cópia criada.');route()}catch(err){toast(errMsg(err))}}
-  else if(el=g('del')){const d=find(el.dataset.del);modal('<h3>Excluir este documento?</h3><p>“'+esc(d.title)+'” será removido da sua área. Os PDFs que você já baixou continuam no seu aparelho.</p><div class="row"><button class="btn btn-ghost" data-x>Cancelar</button><button class="btn btn-coral" data-y>Excluir</button></div>',
+  else if(el=g('del')){const d=find(el.dataset.del);modal('<h3>Excluir este documento?</h3><p>“'+esc(d.title)+'” será apagado deste aparelho. Os PDFs que você já baixou continuam no seu aparelho.</p><div class="row"><button class="btn btn-ghost" data-x>Cancelar</button><button class="btn btn-coral" data-y>Excluir</button></div>',
     bx=>{bx.querySelector('[data-x]').onclick=closeModal;bx.querySelector('[data-y]').onclick=async()=>{closeModal();try{await Store.deleteDoc(d.id);toast('Documento excluído.');route()}catch(err){toast(errMsg(err))}}})}
 }
 $('#docs-body').addEventListener('click',docActions);
-
-/* ---------- administração ---------- */
-let ADM={newMsgs:0,msgs:[],mfilter:'nova',tab:'geral',users:[],docs:[],admins:[],log:[],profiles:{},q:'',dtype:'todos',dstatus:'todos'};
-const AdminAPI={
-  async check(){try{const {data,error}=await Store.sb.rpc('is_admin');return !error&&data===true}catch(e){return false}},
-  async users(){const {data,error}=await Store.sb.rpc('admin_list_users');if(error)throw error;return data||[]},
-  async docs(){const {data,error}=await Store.sb.from('documents').select('*').order('updated_at',{ascending:false}).limit(1000);if(error)throw error;return data.map(r=>Object.assign(Store._toDoc(r),{user_id:r.user_id}))},
-  async admins(){const {data,error}=await Store.sb.from('admins').select('*').order('added_at');if(error)throw error;return data||[]},
-  async log(){const {data,error}=await Store.sb.from('admin_log').select('*').order('at',{ascending:false}).limit(300);if(error)throw error;return data||[]},
-  async block(id,b){const {error}=await Store.sb.rpc('admin_set_blocked',{target:id,blocked:b});if(error)throw error},
-  async del(id){const {error}=await Store.sb.rpc('admin_delete_user',{target:id});if(error)throw error},
-  async setAdmin(email,on){const {error}=await Store.sb.rpc('admin_set_admin',{target_email:email,make_admin:on});if(error)throw error},
-  async msgs(){const {data,error}=await Store.sb.from('contact_messages').select('*').order('created_at',{ascending:false}).limit(500);if(error)throw error;return data||[]},
-  async newCount(){const {count,error}=await Store.sb.from('contact_messages').select('id',{count:'exact',head:true}).eq('status','nova');return error?0:(count||0)},
-  async updMsg(id,patch){patch.updated_at=new Date().toISOString();const {error}=await Store.sb.from('contact_messages').update(patch).eq('id',id);if(error)throw error},
-  async delMsg(id){const {error}=await Store.sb.from('contact_messages').delete().eq('id',id);if(error)throw error},
-  async logView(doc){try{await Store.sb.from('admin_log').insert({action:'visualizou documento',target_user:doc.user_id,target_doc:doc.id,target_email:(userById(doc.user_id)||{}).email||null,detail:doc.title||''})}catch(e){}},
-  async invite(email,nome){
-    const {data:s}=await Store.sb.auth.getSession();const tk=s.session&&s.session.access_token;
-    const r=await fetch(SB_URL+'/functions/v1/admin-invite',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+tk,'Content-Type':'application/json'},body:JSON.stringify({email,nome,redirectTo:location.origin+location.pathname})});
-    const j=await r.json().catch(()=>({}));if(!r.ok)throw {message:j.error||('erro '+r.status)};return j}
-};
-function userById(id){return ADM.users.find(u=>u.id===id)}
-function admErr(e){const m=(e&&e.message)||'';if(/acesso negado/i.test(m))return 'Sua conta não tem acesso de administrador.';if(/propria/i.test(m))return 'Essa ação não pode ser feita na sua própria conta.';if(/already been registered|already registered/i.test(m))return 'Já existe cadastro com esse e-mail.';if(/rate limit/i.test(m))return 'Limite de envio de e-mails atingido. Tente mais tarde.';return errMsg(e)}
-const fmtD=s=>s?new Date(s).toLocaleDateString('pt-BR'):'—';
-async function renderAdmin(){
-  $('#admin-body').innerHTML='<div class="loading">Carregando…</div>';
-  const top=$('#v-admin .area-top');
-  ADM.newMsgs=await AdminAPI.newCount();
-  const tabs=[['geral','Visão geral'],['acessos','Acessos ao site'],['mensagens','Mensagens'+(ADM.newMsgs?'<span class="badge">'+ADM.newMsgs+'</span>':'')],['usuarios','Usuários'],['documentos','Documentos'],['admins','Administradores'],['registro','Registro de acessos']];
-  top.innerHTML='<div class="wrap"><div class="kicker">Administração da plataforma</div><h1>Painel administrador</h1><p>Gerencie quem usa a plataforma e acompanhe os documentos emitidos. Cada visualização de documento fica registrada.</p><nav class="atabs">'+tabs.map(([k,l])=>'<a href="#admin" data-atab="'+k+'" class="'+(ADM.tab===k?'on':'')+'">'+l+'</a>').join('')+'<a href="#inicio" data-logout class="atab-out">Sair ↗</a></nav></div>';
-  const b=$('#admin-body');b.innerHTML='<div class="loading">Carregando…</div>';
-  try{
-    if(ADM.tab==='geral'||ADM.tab==='usuarios'||ADM.tab==='documentos'){[ADM.users,ADM.docs]=await Promise.all([AdminAPI.users(),AdminAPI.docs()])}
-    if(ADM.tab==='admins'){[ADM.admins,ADM.users]=await Promise.all([AdminAPI.admins(),AdminAPI.users()])}
-    if(ADM.tab==='registro')ADM.log=await AdminAPI.log();
-    if(ADM.tab==='mensagens')ADM.msgs=await AdminAPI.msgs();
-  }catch(e){b.innerHTML='<div class="empty"><h3>Não foi possível carregar</h3><p class="src">'+esc(admErr(e))+'</p></div>';return}
-  ({acessos:admAcessos,mensagens:admMsgs,geral:admGeral,usuarios:admUsers,documentos:admDocs,admins:admAdmins,registro:admLog})[ADM.tab](b);
-}
-
-const MSG_ST={nova:'Nova',respondida:'Respondida',arquivada:'Arquivada'};
-function admMsgs(b){
-  const chips=[['nova','Novas'],['erros','Erros relatados'],['respondida','Respondidas'],['arquivada','Arquivadas'],['todas','Todas']];
-  const isErr=m=>/^Erro no site|^Relatar um erro/.test(m.assunto||'');
-  const flt=(k,m)=>k==='todas'||(k==='erros'?isErr(m)&&m.status!=='arquivada':m.status===k);
-  const list=ADM.msgs.filter(m=>flt(ADM.mfilter,m));
-  b.innerHTML='<div class="toolbar"><div class="chips">'+chips.map(([k,l])=>'<button class="chip'+(ADM.mfilter===k?' on':'')+'" data-mf="'+k+'">'+l+' ('+ADM.msgs.filter(m=>flt(k,m)).length+')</button>').join('')+'</div></div>'+
-    (list.length?list.map(m=>{const wa=(m.whatsapp||'').replace(/\D/g,'');const subj=encodeURIComponent('Re: '+m.assunto+' · Rota TEA');const er=isErr(m);const pn=(m.nome||'').trim().split(/\s+/)[0]||'';const acao=((m.assunto||'').split('·')[1]||'').trim().toLowerCase();const fixTxt='Olá, '+pn+'! Aqui é a equipe do Rota TEA. O problema que você nos avisou no site'+(acao?' (ao '+acao+')':'')+' já foi corrigido. Você já pode tentar novamente em www.rotatea.com.br. Obrigado por nos avisar!';
-      return '<div class="msg '+m.status+(er?' is-err':'')+'"><div class="msg-top"><div><b style="color:var(--navy)">'+esc(m.assunto)+'</b> '+(m.user_id?'<span class="st st-respondido">Cadastrado</span>':'<span class="st st-rascunho">Sem cadastro</span>')+'</div><span class="src">'+fmtStamp(Date.parse(m.created_at))+'</span></div>'+
-      '<div class="src" style="margin-top:4px"><b>'+esc(m.nome)+'</b> · <a href="mailto:'+esc(m.email)+'?subject='+subj+'">'+esc(m.email)+'</a>'+(wa?' · <a href="https://wa.me/55'+wa+'" target="_blank" rel="noopener">'+esc(m.whatsapp)+'</a>':'')+'</div>'+
-      '<div class="body">'+esc(m.mensagem)+'</div>'+
-      (er?'<div class="fixbar"><b>Problema corrigido?</b> Avise a pessoa:'+(wa?' <a class="btn btn-teal btn-sm" href="https://wa.me/55'+wa+'?text='+encodeURIComponent(fixTxt)+'" target="_blank" rel="noopener">Avisar no WhatsApp</a>':'')+' <a class="btn btn-ghost btn-sm" href="mailto:'+esc(m.email)+'?subject='+encodeURIComponent('Rota TEA: problema corrigido')+'&body='+encodeURIComponent(fixTxt)+'">Avisar por e-mail</a><span class="src">Depois, marque como Respondida.</span></div>':'')+'<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><a class="btn btn-teal btn-sm" href="mailto:'+esc(m.email)+'?subject='+subj+'">Responder por e-mail</a>'+(wa?'<a class="btn btn-ghost btn-sm" href="https://wa.me/55'+wa+'" target="_blank" rel="noopener">Responder no WhatsApp</a>':'')+
-      '<select class="ed-status" data-mst="'+m.id+'">'+Object.keys(MSG_ST).map(k=>'<option value="'+k+'"'+(m.status===k?' selected':'')+'>'+MSG_ST[k]+'</option>').join('')+'</select>'+
-      '<button class="btn btn-danger btn-sm" data-mdel="'+m.id+'">Excluir</button></div>'+
-      '<label class="f" style="margin:12px 0 0"><span>Anotações internas</span><textarea class="inp" style="min-height:60px" data-mnote="'+m.id+'" placeholder="Ex.: respondido por WhatsApp em 07/11">'+esc(m.notas||'')+'</textarea></label></div>'}).join('')
-    :'<div class="empty"><h3>Nenhuma mensagem aqui</h3><p class="src">As mensagens enviadas pelo formulário Fale conosco aparecem nesta aba.</p></div>');
-}
-document.addEventListener('change',async e=>{const s=e.target.closest('[data-mst]');if(!s)return;try{await AdminAPI.updMsg(s.dataset.mst,{status:s.value});const m=ADM.msgs.find(x=>x.id===s.dataset.mst);if(m)m.status=s.value;toast('Situação atualizada.');renderAdmin()}catch(err){toast(admErr(err))}});
-let noteT={};document.addEventListener('input',e=>{const t=e.target.closest('[data-mnote]');if(!t)return;const id=t.dataset.mnote;clearTimeout(noteT[id]);noteT[id]=setTimeout(async()=>{try{await AdminAPI.updMsg(id,{notas:t.value});const m=ADM.msgs.find(x=>x.id===id);if(m)m.notas=t.value;toast('Anotação salva.')}catch(err){toast(admErr(err))}},1200)});
-
-function admGeral(b){
-  const U=ADM.users,D=ADM.docs,now=Date.now(),wk=7*864e5;
-  const novos=U.filter(u=>now-Date.parse(u.created_at)<wk).length;
-  const ativos=U.filter(u=>u.last_sign_in_at&&now-Date.parse(u.last_sign_in_at)<30*864e5).length;
-  const byType=Object.keys(TYPES).map(k=>[TYPES[k].name,D.filter(d=>d.type===k).length]);
-  const byStatus=Object.keys(STATUS).map(k=>[STATUS[k],D.filter(d=>d.type!=='ficha'&&(d.status||'rascunho')===k).length]);
-  b.innerHTML='<div class="stats" style="grid-template-columns:repeat(5,1fr)">'+
-    [['Mensagens novas',ADM.newMsgs,'no Fale conosco'],['Usuários',U.length,'cadastrados'],['Novos',novos,'nos últimos 7 dias'],['Ativos',ativos,'entraram nos últimos 30 dias'],['Documentos',D.length,'criados no total']].map(x=>'<div class="stat"><div class="lbl">'+x[0]+'</div><div class="big">'+x[1]+'</div><div class="src">'+x[2]+'</div></div>').join('')+'</div>'+
-    '<div class="grid g2"><div class="card"><h3>Documentos por tipo</h3><table class="t">'+byType.map(r=>'<tr><td>'+esc(r[0])+'</td><td style="text-align:right;font-weight:700">'+r[1]+'</td></tr>').join('')+'</table></div>'+
-    '<div class="card"><h3>Situação dos documentos</h3><table class="t">'+byStatus.map(r=>'<tr><td>'+esc(r[0])+'</td><td style="text-align:right;font-weight:700">'+r[1]+'</td></tr>').join('')+'</table><p class="src" style="margin:10px 0 0">Fichas de acompanhamento não entram nesta contagem.</p></div></div>'+
-    '<h2 class="sec-title">Últimos cadastros</h2>'+userTable(U.slice(0,5));
-}
-function userTable(list){
-  if(!list.length)return '<p class="src">Nenhum usuário encontrado.</p>';
-  return '<div style="overflow-x:auto"><table class="t adm"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Cadastro</th><th>Último acesso</th><th>Situação</th><th>Docs</th><th style="width:1%">Ações</th></tr></thead><tbody>'+
-    list.map(u=>'<tr><td>'+esc(u.nome||'—')+(u.is_admin?' <span class="st st-enviado">Admin</span>':'')+'</td><td>'+esc(u.email)+'</td><td>'+(u.whatsapp?'<a href="https://wa.me/55'+String(u.whatsapp).replace(/\D/g,'')+'" target="_blank" rel="noopener">'+esc(u.whatsapp)+'</a>':'—')+'</td><td>'+fmtD(u.created_at)+'</td><td>'+fmtD(u.last_sign_in_at)+'</td><td>'+
-      (u.blocked?'<span class="st st-ficha">Bloqueado</span>':u.email_confirmed_at?'<span class="st st-respondido">Ativo</span>':'<span class="st st-pronto">Aguardando confirmação</span>')+'</td><td>'+u.docs+'</td><td><div style="display:flex;gap:6px">'+
-      '<button class="btn btn-ghost btn-sm" data-udocs="'+u.id+'">Documentos</button>'+
-      (u.id===Store.user.id?'':'<button class="btn btn-ghost btn-sm" data-ublock="'+u.id+'" data-v="'+(u.blocked?0:1)+'">'+(u.blocked?'Desbloquear':'Bloquear')+'</button><button class="btn btn-danger btn-sm" data-udel="'+u.id+'">Excluir</button>')+'</div></td></tr>').join('')+'</tbody></table></div>';
-}
-function admUsers(b){
-  b.innerHTML='<div class="toolbar"><input class="inp" id="uq" placeholder="Buscar por nome ou e-mail" value="'+esc(ADM.q)+'"><button class="btn btn-coral btn-sm" id="uadd" style="margin-left:auto">+ Adicionar usuário</button></div><div id="ul"></div>';
-  const draw=()=>{const q=ADM.q.trim().toLowerCase();$('#ul').innerHTML=userTable(ADM.users.filter(u=>!q||(u.email||'').toLowerCase().includes(q)||(u.nome||'').toLowerCase().includes(q)||(u.whatsapp||'').replace(/\D/g,'').includes(q.replace(/\D/g,'')||'§')))};
-  draw();$('#uq').addEventListener('input',e=>{ADM.q=e.target.value;draw()});
-  $('#uadd').onclick=()=>modal('<h3>Adicionar usuário</h3><p class="src">A pessoa recebe um e-mail de convite para criar a própria senha e acessar a Área da família.</p><label class="f"><span>Nome</span><input class="inp" id="inv-n"></label><label class="f"><span>E-mail</span><input class="inp" id="inv-e" type="email"></label><div class="err" id="inv-err"></div><div class="row"><button class="btn btn-ghost" data-x>Cancelar</button><button class="btn btn-coral" data-y>Enviar convite</button></div>',
-    bx=>{bx.querySelector('[data-x]').onclick=closeModal;bx.querySelector('[data-y]').onclick=async e=>{const em=$('#inv-e').value.trim(),nm=$('#inv-n').value.trim();if(!/^\S+@\S+\.\S+$/.test(em)){$('#inv-err').textContent='Informe um e-mail válido.';return}
-      e.target.disabled=true;try{await AdminAPI.invite(em,nm);closeModal();toast('Convite enviado para '+em+'.');renderAdmin()}catch(err){$('#inv-err').textContent=admErr(err);e.target.disabled=false}}});
-}
-function docRowTable(list){
-  if(!list.length)return '<p class="src">Nenhum documento encontrado.</p>';
-  return '<div style="overflow-x:auto"><table class="t adm"><thead><tr><th>Documento</th><th>Tipo</th><th>Situação</th><th>Usuário</th><th>Atualizado</th><th style="width:1%">Ações</th></tr></thead><tbody>'+
-    list.map(d=>{const u=userById(d.user_id)||{};return '<tr><td>'+esc(d.title||TYPES[d.type].name)+'</td><td>'+esc(TYPES[d.type].tag)+'</td><td>'+statusPill(d)+'</td><td>'+esc(u.nome||u.email||'—')+'<div class="src" style="font-size:.78rem">'+esc(u.email||'')+'</div></td><td>'+fmtStamp(d.updatedAt)+'</td><td><div style="display:flex;gap:6px"><button class="btn btn-teal btn-sm" data-dview="'+d.id+'">Ver</button><button class="btn btn-ghost btn-sm" data-dpdf="'+d.id+'">PDF</button></div></td></tr>'}).join('')+'</tbody></table></div>';
-}
-function admDocs(b){
-  const tOpts=[['todos','Todos os tipos']].concat(Object.keys(TYPES).map(k=>[k,TYPES[k].name]));
-  const sOpts=[['todos','Todas as situações']].concat(Object.keys(STATUS).map(k=>[k,STATUS[k]]));
-  b.innerHTML='<div class="toolbar"><input class="inp" id="dq2" placeholder="Buscar por documento ou usuário" value="'+esc(ADM.q)+'"><select class="inp" id="dt" style="max-width:220px">'+tOpts.map(o=>'<option value="'+o[0]+'"'+(ADM.dtype===o[0]?' selected':'')+'>'+o[1]+'</option>').join('')+'</select><select class="inp" id="ds" style="max-width:220px">'+sOpts.map(o=>'<option value="'+o[0]+'"'+(ADM.dstatus===o[0]?' selected':'')+'>'+o[1]+'</option>').join('')+'</select>'+(ADM.uid?'<button class="chip on" id="uclr">Usuário: '+esc((userById(ADM.uid)||{}).email||'')+' ✕</button>':'')+'</div><div id="dl2"></div>';
-  const draw=()=>{const q=ADM.q.trim().toLowerCase();$('#dl2').innerHTML=docRowTable(ADM.docs.filter(d=>{const u=userById(d.user_id)||{};
-    return (!ADM.uid||d.user_id===ADM.uid)&&(ADM.dtype==='todos'||d.type===ADM.dtype)&&(ADM.dstatus==='todos'||(d.type!=='ficha'&&(d.status||'rascunho')===ADM.dstatus))&&(!q||(d.title||'').toLowerCase().includes(q)||(u.email||'').toLowerCase().includes(q)||(u.nome||'').toLowerCase().includes(q))}))};
-  draw();
-  $('#dq2').addEventListener('input',e=>{ADM.q=e.target.value;draw()});
-  $('#dt').onchange=e=>{ADM.dtype=e.target.value;draw()};$('#ds').onchange=e=>{ADM.dstatus=e.target.value;draw()};
-  const c=$('#uclr');if(c)c.onclick=()=>{ADM.uid=null;admDocs(b)};
-}
-function admAdmins(b){
-  b.innerHTML='<div class="card"><h3>Quem administra a plataforma</h3><p class="src">Administradores veem todos os usuários e documentos. Dê acesso apenas a quem trabalha no projeto.</p><table class="t"><thead><tr><th>E-mail</th><th>Desde</th><th>Adicionado por</th><th style="width:1%"></th></tr></thead><tbody>'+
-    ADM.admins.map(a=>'<tr><td>'+esc(a.email)+(ADM.users.some(u=>(u.email||'').toLowerCase()===a.email)?'':' <span class="st st-pronto">ainda sem cadastro</span>')+'</td><td>'+fmtD(a.added_at)+'</td><td>'+esc(a.added_by||'—')+'</td><td>'+(a.email===(Store.user.email||'').toLowerCase()?'<span class="src">você</span>':'<button class="btn btn-danger btn-sm" data-arem="'+esc(a.email)+'">Remover</button>')+'</td></tr>').join('')+
-    '</tbody></table><form id="aadd" class="toolbar" style="margin:16px 0 0"><input class="inp" name="email" type="email" placeholder="E-mail do novo administrador"><button class="btn btn-coral btn-sm">Dar acesso de administrador</button></form><p class="src" style="margin:8px 0 0">A pessoa precisa entrar com esse mesmo e-mail. Se ainda não tiver cadastro, convide-a na aba Usuários.</p></div>';
-  $('#aadd').onsubmit=async e=>{e.preventDefault();const em=new FormData(e.target).get('email').trim();if(!/^\S+@\S+\.\S+$/.test(em)){toast('Informe um e-mail válido.');return}try{await AdminAPI.setAdmin(em,true);toast('Acesso de administrador concedido.');renderAdmin()}catch(err){toast(admErr(err))}};
-}
-function admLog(b){
-  b.innerHTML='<div class="card"><h3>Registro de acessos e ações</h3><p class="src">Mostra as últimas 300 ações da administração, incluindo cada documento visualizado.</p>'+(ADM.log.length?'<div style="overflow-x:auto"><table class="t"><thead><tr><th>Quando</th><th>Administrador</th><th>Ação</th><th>Usuário</th><th>Detalhe</th></tr></thead><tbody>'+
-    ADM.log.map(l=>'<tr><td>'+fmtStamp(Date.parse(l.at))+'</td><td>'+esc(l.admin_email)+'</td><td>'+esc(l.action)+'</td><td>'+esc(l.target_email||'—')+'</td><td>'+esc(l.detail||'')+'</td></tr>').join('')+'</tbody></table></div>':'<p class="src">Nenhuma ação registrada ainda.</p>')+'</div>';
-}
-function admViewDoc(d){
-  AdminAPI.logView(d);const u=userById(d.user_id)||{};
-  modal('<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap"><div><b>'+esc(d.title||'')+'</b><div class="src">'+esc(u.nome||'')+' · '+esc(u.email||'')+' · '+statusPill(d)+'</div></div><div style="display:flex;gap:8px"><button class="btn btn-coral btn-sm" data-p>Baixar PDF</button><button class="btn btn-ghost btn-sm" data-x>Fechar</button></div></div><div style="max-height:70vh;overflow:auto">'+previewHTML(d)+'</div>',
-    bx=>{bx.querySelector('[data-x]').onclick=closeModal;bx.querySelector('[data-p]').onclick=()=>downloadDoc(d)});
-  $('#modal-box').style.maxWidth='860px';
-}
-$('#admin-body').addEventListener('click',async e=>{
-  const g=k=>e.target.closest('[data-'+k+']');let el;
-  if(el=g('udocs')){ADM.uid=el.dataset.udocs;ADM.q='';ADM.tab='documentos';renderAdmin();return}
-  if(el=g('dview')){const d=ADM.docs.find(x=>x.id===el.dataset.dview);if(d)admViewDoc(d);return}
-  if(el=g('dpdf')){const d=ADM.docs.find(x=>x.id===el.dataset.dpdf);if(d){AdminAPI.logView(d);downloadDoc(d)}return}
-  if(el=g('ublock')){const u=userById(el.dataset.ublock),on=el.dataset.v==='1';
-    modal('<h3>'+(on?'Bloquear':'Desbloquear')+' '+esc(u.email)+'?</h3><p>'+(on?'A pessoa não consegue mais entrar na Área da família, e as sessões abertas são encerradas. Os documentos ficam guardados.':'A pessoa volta a conseguir entrar normalmente.')+'</p><div class="row"><button class="btn btn-ghost" data-x>Cancelar</button><button class="btn btn-coral" data-y>'+(on?'Bloquear':'Desbloquear')+'</button></div>',
-      bx=>{bx.querySelector('[data-x]').onclick=closeModal;bx.querySelector('[data-y]').onclick=async()=>{closeModal();try{await AdminAPI.block(u.id,on);toast(on?'Usuário bloqueado.':'Usuário desbloqueado.');renderAdmin()}catch(err){toast(admErr(err))}}});return}
-  if(el=g('udel')){const u=userById(el.dataset.udel);
-    modal('<h3>Excluir '+esc(u.email)+'?</h3><p>O cadastro, o checklist e os '+u.docs+' documento(s) dessa pessoa serão apagados definitivamente.</p><label class="f"><span>Para confirmar, digite EXCLUIR</span><input class="inp" id="del-c2"></label><div class="row"><button class="btn btn-ghost" data-x>Cancelar</button><button class="btn btn-coral" data-y>Excluir definitivamente</button></div>',
-      bx=>{bx.querySelector('[data-x]').onclick=closeModal;bx.querySelector('[data-y]').onclick=async()=>{if($('#del-c2').value.trim().toUpperCase()!=='EXCLUIR'){toast('Digite EXCLUIR para confirmar.');return}closeModal();try{await AdminAPI.del(u.id);toast('Usuário excluído.');renderAdmin()}catch(err){toast(admErr(err))}}});return}
-  if(el=g('mf')){ADM.mfilter=el.dataset.mf;admMsgs($('#admin-body'));return}
-  if(el=g('mdel')){const id=el.dataset.mdel;modal('<h3>Excluir esta mensagem?</h3><p>Ela será apagada definitivamente.</p><div class="row"><button class="btn btn-ghost" data-x>Cancelar</button><button class="btn btn-coral" data-y>Excluir</button></div>',bx=>{bx.querySelector('[data-x]').onclick=closeModal;bx.querySelector('[data-y]').onclick=async()=>{closeModal();try{await AdminAPI.delMsg(id);toast('Mensagem excluída.');renderAdmin()}catch(err){toast(admErr(err))}}});return}
-  if(el=g('arem')){const em=el.dataset.arem;try{await AdminAPI.setAdmin(em,false);toast('Acesso de administrador removido.');renderAdmin()}catch(err){toast(admErr(err))}return}
-});
-document.addEventListener('click',e=>{const t=e.target.closest('[data-atab]');if(t){e.preventDefault();ADM.tab=t.dataset.atab;ADM.q='';if(t.dataset.atab!=='documentos')ADM.uid=null;renderAdmin()}});
-
-/* ---------- acessos ao site ---------- */
-const PAGE_LBL={inicio:'Início',guia:'Guia Cidadão',mapa:'Mapa da Rota',base:'Base jurídica',fontes:'Fontes e ressalvas',contato:'Fale conosco',entrar:'Entrar / criar cadastro',painel:'Área da família',documentos:'Meus documentos',modelos:'Modelos',checklist:'Checklist',cadastro:'Meus dados',editor:'Editor de documento'};
-const UF={AC:'Acre',AL:'Alagoas',AP:'Amapá',AM:'Amazonas',BA:'Bahia',CE:'Ceará',DF:'Distrito Federal',ES:'Espírito Santo',GO:'Goiás',MA:'Maranhão',MT:'Mato Grosso',MS:'Mato Grosso do Sul',MG:'Minas Gerais',PA:'Pará',PB:'Paraíba',PR:'Paraná',PE:'Pernambuco',PI:'Piauí',RJ:'Rio de Janeiro',RN:'Rio Grande do Norte',RS:'Rio Grande do Sul',RO:'Rondônia',RR:'Roraima',SC:'Santa Catarina',SP:'São Paulo',SE:'Sergipe',TO:'Tocantins'};
-function countryName(c){try{return new Intl.DisplayNames(['pt-BR'],{type:'region'}).of(c)}catch(e){return c}}
-const nf=n=>Number(n||0).toLocaleString('pt-BR');
-function rankTable(title,rows,label,unit,note){
-  const max=Math.max(1,...rows.map(r=>r.n));
-  return '<div class="card"><h3>'+title+'</h3>'+(rows.length?'<table class="t rank">'+rows.map(r=>'<tr><td><div class="rk-l">'+esc(label(r))+'</div><div class="rk-bar" aria-hidden="true"><i style="width:'+Math.max(3,Math.round(r.n/max*100))+'%"></i></div></td><td class="rk-n">'+nf(r.n)+'</td></tr>').join('')+'</table>':'<p class="src">Ainda sem dados neste período.</p>')+'<p class="src" style="margin:10px 0 0">'+unit+(note?' '+note:'')+'</p></div>';
-}
-function dayChart(days,list){
-  const map={};list.forEach(x=>map[x.d]=x);const pts=[];
-  for(let i=days-1;i>=0;i--){const d=new Date(Date.now()-i*864e5);const k=d.toLocaleDateString('en-CA',{timeZone:'America/Sao_Paulo'});pts.push({k,v:(map[k]||{}).visits||0,p:(map[k]||{}).views||0})}
-  const W=900,H=200,pad=28,max=Math.max(1,...pts.map(p=>p.v)),bw=(W-pad*2)/pts.length;
-  const lab=k=>{const [y,m,d]=k.split('-');return d+'/'+m};
-  const step=Math.ceil(pts.length/10);
-  return '<div class="card"><h3>Visitas por dia</h3><svg viewBox="0 0 '+W+' '+(H+30)+'" class="daychart" role="img" aria-label="Gráfico de visitas por dia">'+
-    [0,.5,1].map(f=>'<line x1="'+pad+'" x2="'+(W-pad)+'" y1="'+(H-f*(H-20))+'" y2="'+(H-f*(H-20))+'" stroke="#e3e8ee"/><text x="'+(pad-6)+'" y="'+(H-f*(H-20)+4)+'" text-anchor="end" font-size="11" fill="#4a5562">'+Math.round(max*f)+'</text>').join('')+
-    pts.map((p,i)=>{const h=p.v/max*(H-20),x=pad+i*bw+bw*.15;return '<rect x="'+x.toFixed(1)+'" y="'+(H-h).toFixed(1)+'" width="'+(bw*.7).toFixed(1)+'" height="'+Math.max(h,p.v?2:0).toFixed(1)+'" rx="3" fill="#13786b"><title>'+lab(p.k)+': '+p.v+' visitas, '+p.p+' páginas vistas</title></rect>'+((i%step===0||i===pts.length-1)?'<text x="'+(x+bw*.35).toFixed(1)+'" y="'+(H+18)+'" text-anchor="middle" font-size="11" fill="#4a5562">'+lab(p.k)+'</text>':'')}).join('')+
-    '</svg><p class="src" style="margin:6px 0 0">Passe o mouse (ou toque) numa barra para ver o número do dia.</p></div>';
-}
-async function admAcessos(b){
-  b.innerHTML='<div class="loading">Carregando…</div>';
-  let s;try{const {data,error}=await Store.sb.rpc('admin_stats',{p_days:ADM.days||30});if(error)throw error;s=data}catch(e){b.innerHTML='<div class="empty"><h3>Não foi possível carregar</h3><p class="src">'+esc(admErr(e))+'</p></div>';return}
-  const per=[[1,'Hoje'],[7,'7 dias'],[30,'30 dias'],[90,'90 dias']];
-  const conv=s.visits?(s.signups/s.visits*100):0;
-  b.innerHTML='<div class="toolbar"><div class="chips" role="group" aria-label="Período">'+per.map(([d,l])=>'<button class="chip'+((ADM.days||30)===d?' on':'')+'" data-adays="'+d+'">'+l+'</button>').join('')+'</div></div>'+
-    '<div class="stats" style="grid-template-columns:repeat(4,1fr)">'+
-    [['Visitas',nf(s.visits),'pessoas que abriram o site (cada visita conta uma vez)'],['Páginas vistas',nf(s.views),'total de telas abertas'],['Novos cadastros',nf(s.signups),'no mesmo período'],['Conversão',conv.toLocaleString('pt-BR',{maximumFractionDigits:1})+'%','das visitas viraram cadastro']].map(x=>'<div class="stat"><div class="lbl">'+x[0]+'</div><div class="big">'+x[1]+'</div><div class="src">'+x[2]+'</div></div>').join('')+'</div>'+
-    ((ADM.days||30)>1?dayChart(ADM.days||30,s.by_day):'')+
-    '<div class="grid g2" style="margin-top:18px">'+
-      rankTable('Estados',s.states,r=>UF[r.k]?UF[r.k]+' ('+r.k+')':r.k,'Visitas do Brasil por estado.')+
-      rankTable('Cidades',s.cities,r=>r.k+(r.r&&r.c==='BR'?' – '+r.r:'')+(r.c&&r.c!=='BR'?' · '+countryName(r.c):''),'Visitas por cidade.','A localização é aproximada, pela conexão de internet.')+
-      rankTable('Páginas mais vistas',s.pages,r=>PAGE_LBL[r.k]||r.k,'Número de vezes que cada tela foi aberta.')+
-      rankTable('De onde vieram',s.sources,r=>r.k==='direto'?'Acesso direto / link compartilhado':r.k,'Como a pessoa chegou ao site na visita.','Links abertos pelo WhatsApp costumam aparecer como acesso direto.')+
-      rankTable('Aparelho',s.devices,r=>({celular:'Celular',tablet:'Tablet',computador:'Computador'})[r.k]||r.k,'Visitas por tipo de aparelho.')+
-      rankTable('Países',s.countries,r=>countryName(r.k),'Visitas por país.')+
-    '</div><p class="src" style="margin-top:16px">Os acessos de administradores não entram na contagem. Nenhum dado pessoal é guardado: só página, cidade aproximada, origem e tipo de aparelho.</p>';
-}
-document.addEventListener('click',e=>{const t=e.target.closest('[data-adays]');if(t){ADM.days=+t.dataset.adays;admAcessos($('#admin-body'))}});
 
 /* ---------- editor ---------- */
 let edDirty=false,edTimer=null,edSaving=false;
@@ -1743,32 +1442,6 @@ async function saveEdit(auto){
 
 
 
-/* ---------- estatísticas anônimas de acesso ---------- */
-const HITQ=[];let lastHit={v:'',t:0};
-function hitSid(){let s=null;try{s=sessionStorage.getItem('rt_sid');if(!s){s=Math.random().toString(36).slice(2)+Date.now().toString(36);sessionStorage.setItem('rt_sid',s)}}catch(e){s='x'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}return s}
-function hitSource(){
-  try{const c=sessionStorage.getItem('rt_src');if(c)return c}catch(e){}
-  let s='direto';const q=new URLSearchParams(location.search).get('utm_source');
-  const r=(document.referrer||'').toLowerCase();let h='';try{h=r?new URL(r).hostname.replace(/^(www|m|l|lm)\./,''):''}catch(e){}
-  const map=[[/google\./,'Google'],[/instagram/,'Instagram'],[/facebook|fb\.com/,'Facebook'],[/whatsapp|wa\.me/,'WhatsApp'],[/linkedin|lnkd/,'LinkedIn'],[/bing\./,'Bing'],[/youtube|youtu\.be/,'YouTube'],[/^t\.co$|^x\.com$|twitter/,'X / Twitter'],[/tiktok/,'TikTok'],[/yahoo/,'Yahoo'],[/duckduckgo/,'DuckDuckGo'],[/gov\.br/,'Sites gov.br']];
-  if(q){const m=map.find(([re])=>re.test(q.toLowerCase()));s=m?m[1]:q.slice(0,30)}
-  else if(h&&!/rotatea/.test(h)){const m=map.find(([re])=>re.test(h));s=m?m[1]:h.slice(0,30)}
-  try{sessionStorage.setItem('rt_src',s)}catch(e){}return s}
-function hitDevice(){const u=navigator.userAgent;if(/iPad|Tablet/i.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1))return 'tablet';if(/Mobi|Android|iPhone/i.test(u))return 'celular';return 'computador'}
-function track(v){
-  if(location.protocol!=='https:'||/localhost|127\.0\.0\.1/.test(location.hostname))return;
-  if(v==='admin')return;
-  const now=Date.now();if(lastHit.v===v&&now-lastHit.t<4000)return;lastHit={v,t:now};
-  HITQ.push(v);flushHits();
-}
-function flushHits(){
-  if(!Store.ready){setTimeout(flushHits,400);return}
-  if(Store.logged()&&!Store.userLoaded)return;
-  if(Store.isAdmin){HITQ.length=0;return}
-  while(HITQ.length){const page=HITQ.shift();
-    try{fetch('/api/hit',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({sid:hitSid(),page,source:hitSource(),device:hitDevice(),logged:Store.logged()})}).catch(()=>{})}catch(e){}}
-}
-
 /* ---------- ouvir esta página ---------- */
 (function(){
   const S=window.speechSynthesis,start=$('#tts-start'),bar=$('#tts-bar'),tog=$('#tts-toggle'),stat=$('#tts-status');
@@ -1812,20 +1485,9 @@ function flushHits(){
 })();
 
 /* ---------- início ---------- */
-renderModelos();renderAcct();route();
+renderModelos();renderAcct();
 fetch('img/logo-light.png').then(r=>r.blob()).then(b=>new Promise(res=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.readAsDataURL(b)})).then(d=>{window.__LOGO=d}).catch(()=>{});
-(async()=>{
-  await Store.init();
-  if(Store.logged())await loadUserData();
-  renderAcct();
-  const v=(location.hash||'').slice(1);
-  if(RECOVERY)go('entrar');
-  else if(Store.logged()&&(v===''||v==='entrar'))go('painel');
-  else route();
-  if(LINK_ERR)toast(/expired/i.test(LINK_ERR)?'O link expirou. Peça um novo.':'Não foi possível validar o link. Tente de novo.');
-  const qs=new URLSearchParams(location.search);
-  if(qs.get('error_description')){toast(/expired/i.test(qs.get('error_description'))?'O link expirou. Peça um novo.':'Não foi possível validar o link. Tente de novo.');history.replaceState(null,'',location.pathname+location.hash)}
-})();
+(async()=>{await loadUserData();route()})();
 </script>
 <script src="https://vlibras.gov.br/app/vlibras-plugin.js" defer onload="try{new window.VLibras.Widget('https://vlibras.gov.br/app')}catch(e){}"></script>
 </body>
