@@ -1,16 +1,13 @@
-# Rota TEA
+# Rota TEA · Saúde suplementar
 
-Plataforma da cartilha Rota TEA (saúde suplementar).
+Site educativo do projeto de extensão "Novas perspectivas sobre a judicialização do autismo" (Curso de Direito, Faculdade Unità), publicado em https://www.rotatea.com.br.
 
-- **Parte pública:** Início, Guia Cidadão, Mapa da Rota, Base jurídica e Fontes.
-- **Área da família (com cadastro):** Painel, Meus documentos, Novo documento (4 modelos + Ficha de Acompanhamento), Checklist e Meu cadastro. Documentos com situação (rascunho, pronto, enviado, resposta recebida), salvamento automático e download em PDF.
+## Como funciona
+- Página única e estática (`index.html`), hospedada na Vercel.
+- Sem cadastro, login, banco de dados, formulário de contato ou contador de visitas.
+- Modelos, Ficha de Acompanhamento, Checklist e "Meus dados" ficam só no navegador de quem usa (localStorage). Os PDFs são gerados no próprio aparelho (jsPDF e AutoTable, com versão fixa e hash de integridade).
+- "Baixar cópia" e "Apagar tudo deste aparelho" ficam em Minha área.
+- Contato: contato@rotatea.com.br.
 
-## Tecnologia
-- Site estático (`index.html`), publicado no Vercel.
-- Cadastro, login e dados no Supabase (região São Paulo). Estrutura do banco e regras de segurança em `supabase/schema.sql`: cada pessoa só lê e altera os próprios dados (Row Level Security).
-- A chave usada no site é a chave pública (publishable) do Supabase; a proteção dos dados é feita pelas regras do banco.
-
-## Administração
-- Painel em `#admin`, visível só para e-mails da tabela `admins` (`supabase/admin.sql`).
-- Visão geral, usuários (convidar, bloquear, excluir), documentos (visualizar e baixar PDF), administradores e registro de acessos.
-- O convite usa a Edge Function `admin-invite` (`supabase/functions/admin-invite`), que confere se quem chama é administrador.
+## Segurança
+Cabeçalhos definidos em `vercel.json`: Content-Security-Policy, X-Frame-Options, Permissions-Policy, Strict-Transport-Security, X-Content-Type-Options e Referrer-Policy.
