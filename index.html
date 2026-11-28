@@ -401,6 +401,16 @@ footer .slogan{color:var(--gold);font-family:var(--serif);font-size:1.05rem;marg
 .calc label.f{margin:0;flex:1;min-width:180px}
 .calc-out{margin-top:12px;font-weight:600;color:var(--navy)}
 input,select,textarea,button{scroll-margin-top:96px}html{scroll-padding-top:88px}
+@media (max-width:700px){
+table.t,table.t tbody,table.t tr,table.t td{display:block;width:100%;box-sizing:border-box}
+table.t thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+table.t tr{border-bottom:1px solid var(--line);padding:10px 12px}
+table.t tr:last-child{border-bottom:0}
+table.t td{border:0!important;padding:3px 0!important;overflow-wrap:anywhere}
+.atabs{flex-wrap:wrap;overflow:visible}
+table.t td[data-label]::before{content:attr(data-label);display:block;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+}
+.wrap.section,.wrap.narrow{padding-left:20px;padding-right:20px}
 </style>
 </head>
 <body>
@@ -487,11 +497,13 @@ input,select,textarea,button{scroll-margin-top:96px}html{scroll-padding-top:88px
     <div class="callout att"><b class="tag">ATENÇÃO</b>Não use a expressão “somente o médico decide” como regra absoluta. A <a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/L12842.htm" target="_blank" rel="noopener">Lei nº 12.842/2013</a> (Lei do Ato Médico), no art. 4º, lista as atividades privativas do médico, e as leis e conselhos de psicologia, fonoaudiologia, terapia ocupacional e fisioterapia definem as competências de cada profissão. Por isso, a indicação médica e a avaliação dos terapeutas precisam ser consideradas em conjunto.</div>
 
     <h2 class="sec-title">Igualdade de tratamento pelo plano</h2>
+    <div class="card">
     <p>A pessoa com TEA é pessoa com deficiência para todos os efeitos legais (Lei nº 12.764/2012, art. 1º, § 2º). A operadora deve garantir a ela os mesmos serviços oferecidos aos demais clientes e não pode cobrar valores diferentes por causa da deficiência (Lei nº 13.146/2015, arts. 20 e 23; Lei nº 12.764/2012, art. 5º).</p>
     <ul class="clean">
       <li>Recusa de contratação, reajuste ou mensalidade diferente motivados pela deficiência podem ser questionados.</li>
       <li>A deficiência não afeta a capacidade civil: a pessoa autista adulta pode fazer os próprios pedidos (Lei nº 13.146/2015, art. 6º).</li>
     </ul>
+    </div>
 
     <h2 class="sec-title">Prazos que ajudam a acompanhar o pedido</h2>
     <table class="t">
@@ -820,7 +832,7 @@ input,select,textarea,button{scroll-margin-top:96px}html{scroll-padding-top:88px
     <img src="img/logo-light.webp" alt="Rota TEA" width="142" height="48" loading="lazy" style="display:block;margin-bottom:14px">
     <div class="slogan">Comece pelo pedido. Guarde o protocolo. Avance um passo de cada vez.</div>
     <p style="margin:0 0 10px"><a href="#contato" style="color:#fff;font-weight:600">Fale conosco</a> · <a href="#privacidade" style="color:#fff;font-weight:600">Privacidade e termos</a> · <a href="#fontes" style="color:#c9d6e2">Fontes e ressalvas</a></p>
-    <p style="margin:0"><b>Rota TEA</b> · Saúde suplementar e TEA. Projeto de extensão de estudantes de Direito da Faculdade Unità, sob supervisão do Prof. Dr. José Jorge Tannus Neto. Material educativo; não substitui orientação jurídica individual, avaliação clínica ou contato com a operadora e a ANS.</p>
+    <p style="margin:0"><b>Rota TEA</b> · Saúde suplementar e TEA. Projeto de extensão dos estudantes de Direito da Faculdade Unità Felipe Pissolotto, Monique Pissolotto, Stefany Karen, Lucas Giroto e Mateus Teixeira, sob supervisão do Prof. Dr. José Jorge Tannus Neto. Material educativo; não substitui orientação jurídica individual, avaliação clínica ou contato com a operadora e a ANS.</p>
     <p style="margin:10px 0 0;font-size:.85rem;color:#c9d6e2">Sem cadastro e sem coleta de dados: o que você preenche fica só no seu aparelho.</p>
   </div>
 </footer>
@@ -862,7 +874,7 @@ input,select,textarea,button{scroll-margin-top:96px}html{scroll-padding-top:88px
 
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" integrity="sha384-en/ztfPSRkGfME4KIm05joYXynqzUgbsG5nMrj/xEFAHXkeZfO3yMK8QQ+mP7p1/" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js" integrity="sha384-Xl/CUCfJbzsngMp0CFxkmF0VW/8C160IsGujqeQlIhaGxKz2+JsIGORFqtCPeldF" crossorigin="anonymous"></script>
-<script src="/app.js?v=240a3b7ecb" integrity="sha384-0QVj+FVKgDC/M0ww3CmOmg/XtNq4yVd1XyG02eQ/IpzpCjKU9geum40YCgDBNoby"></script>
+<script src="/app.js?v=1700d3c0ac" integrity="sha384-9MPhFVkN6MlY/C1xFxq7PJdVUkZYlRKYslefD3UqMXjcTcffGBYoE7VXQYGsedc7"></script>
 <script src="https://vlibras.gov.br/app/vlibras-plugin.js" defer></script>
 </body>
 </html>

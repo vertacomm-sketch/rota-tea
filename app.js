@@ -662,3 +662,5 @@ try{Object.keys(localStorage).forEach(k=>{if(/^sb-|supabase/i.test(k))localStora
 /* VLibras: inicia quando o script oficial terminar de carregar */
 (function(){const init=()=>{try{if(window.VLibras&&!window.__vlw){window.__vlw=new window.VLibras.Widget('https://vlibras.gov.br/app')}}catch(e){}};
  const s=document.querySelector('script[src*="vlibras-plugin"]');if(window.VLibras)init();else if(s)s.addEventListener('load',init);})();
+/* tabelas legíveis no celular: cada célula recebe o título da coluna */
+document.querySelectorAll('table.t').forEach(t=>{const h=[...t.querySelectorAll('thead th')].map(x=>x.textContent.trim());t.querySelectorAll('tbody tr').forEach(r=>[...r.children].forEach((c,i)=>{if(h[i])c.setAttribute('data-label',h[i])}))});
